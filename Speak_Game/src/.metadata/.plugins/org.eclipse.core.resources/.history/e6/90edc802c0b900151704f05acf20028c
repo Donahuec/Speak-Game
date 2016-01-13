@@ -1,0 +1,69 @@
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.Scene;
+import javafx.scene.Group;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+//import javafx.scene.image.Image;
+import javafx.animation.Timeline;
+import javafx.animation.KeyFrame;
+import javafx.util.Duration;
+import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
+import javafx.scene.shape.Circle;
+
+
+public class Speak extends Application 
+{
+    public static void main(String[] args) 
+    {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage gameStage) 
+    {
+        gameStage.setTitle( "Speak" );
+        gameStage.setMaximized(true);
+        gameStage.initStyle(StageStyle.UNDECORATED);
+
+
+        Group root = new Group();
+        Scene baseScene = new Scene( root );
+        gameStage.setScene( baseScene );
+        gameStage.show();
+        
+        Canvas canvas = new Canvas( gameStage.getWidth(), gameStage.getHeight() );
+        root.getChildren().add( canvas );
+        
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        
+        Timeline gameLoop = new Timeline();
+        gameLoop.setCycleCount( Timeline.INDEFINITE);
+        
+        final long timeStart = System.currentTimeMillis();
+        
+        Circle circ = new Circle(0,gameStage.getHeight()/2, 50, Color.ALICEBLUE);
+        
+        KeyFrame kf = new KeyFrame(
+        		Duration.seconds(0.17),
+        		new EventHandler<ActionEvent>()
+        		{
+        			public void handle(ActionEvent ae)
+        			{
+        				circ.setCenterX(circ.getCenterX() + 10);
+        				if (circ.getCenterX() > gameStage.getWidth()){
+        					circ.setCenterX(0);
+        				}
+        			}
+        		});
+        
+        gameLoop.getKeyFrames().add(kf);
+        gameLoop.play();
+        
+        gameStage.show();
+    }
+    
+}

@@ -1,0 +1,36 @@
+import javafx.animation.AnimationTimer;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.stage.Stage;
+
+public class GameLoop extends AnimationTimer {
+	protected Speak speak;
+	private GraphicsContext gc;
+	private Stage gameStage;
+    
+	public GameLoop(Speak game, GraphicsContext gc, Stage gameStage){
+        this.speak = speak;
+        this.gc = gc;
+        this.gameStage = gameStage;
+        
+        
+    }
+    @Override
+    public void handle(long now) {
+    	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
+		speak.c.circPosition += 2;
+		if (speak.c.circPosition > gameStage.getWidth()){
+			speak.c.circPosition = -100;
+		}
+		gc.fillOval(speak.c.circPosition,gameStage.getHeight() /2 ,100 , 100);
+		gameStage.show();
+	}
+
+    @Override
+    public void start(){
+        super.start();
+    }
+    @Override
+    public void stop(){
+        super.stop();
+    }
+}
