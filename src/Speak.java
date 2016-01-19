@@ -1,21 +1,16 @@
 /*
 *Main File for Game run. Initializes window and starts game loop
  */
-
-
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.io.File;
 
 
 
@@ -81,27 +76,7 @@ public class Speak extends Application
 }
 
 
-class Variables {
-    //will create getters and setters when setting up the class in a more fleshed out way
-	public double circPosition;
-	public String workingDir;
-    public Image startButton;
-    public Image endButton;
-	
-	public Variables(){
-        //get the directory the files are in
-        workingDir = System.getProperty("user.dir");
-        //make sure src is not included in the path
-        workingDir = workingDir.replace("src" + File.separator, "");
-        workingDir = workingDir.replace(File.separator + "src", "");
-        //add assets, to access images (do this in File manager class)
-		String name = workingDir + File.separator + "assets" + File.separator;
-        //Initialize images
-		startButton = new Image("file:" + name + "startButton.png");
-        endButton = new Image("file:" + name + "endButton.png");
-		circPosition = 0;
-	}
-}
+
 
 
 
