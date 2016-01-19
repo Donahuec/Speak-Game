@@ -1,5 +1,11 @@
+/bin/
 .metadata
 .settings
 .classpath
 .project
 .recommenders
+.idea
+out
+.project
+Speak_Game.iml
+*.class

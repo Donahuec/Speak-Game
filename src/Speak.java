@@ -10,7 +10,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.File;
 
 
@@ -32,7 +31,6 @@ public class Speak extends Application
         gameStage.setTitle( "Speak" );
         gameStage.setMaximized(true);
         gameStage.initStyle(StageStyle.UNDECORATED);
-
 
         Group root = new Group();
         Scene baseScene = new Scene( root );
@@ -58,22 +56,10 @@ public class Speak extends Application
                     public void handle(MouseEvent e)
                     {
                         if ( rec.contains( e.getX(), e.getY() ) ){
-
                             gameLoop.start();
                         }
                     }
                 });
-
-
-        gameStage.show();
-        
-        //gameLoop.start();
-        
-        //final long timeStart = System.currentTimeMillis();
-        
-        
-        
-        
     }
     
 }
@@ -81,13 +67,18 @@ public class Speak extends Application
 
 class Variables {
 	public double circPosition;
-	String workingDir = System.getProperty("user.dir");
-	boolean endPress;
-	Image startButton;
+	String workingDir;
+    Image startButton;
     Image endButton;
 	
 	public Variables(){
+        workingDir = System.getProperty("user.dir");
+        System.out.println(workingDir);
+        workingDir = workingDir.replace("src" + File.separator, "");
+        workingDir = workingDir.replace(File.separator + "src", "");
+        System.out.println(workingDir);
 		String name = workingDir + File.separator + "assets" + File.separator;
+        System.out.print(name);
 		startButton = new Image("file:" + name + "startButton.png");
         endButton = new Image("file:" + name + "endButton.png");
 		circPosition = 0;

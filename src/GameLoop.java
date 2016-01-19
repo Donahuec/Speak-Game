@@ -17,9 +17,8 @@ public class GameLoop extends AnimationTimer {
         this.speak = speak;
         this.gc = gc;
         this.gameStage = gameStage;
-        
-        
     }
+
     @Override
     public void handle(long now) {
     	gameStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -32,13 +31,13 @@ public class GameLoop extends AnimationTimer {
     		}
     	});
     	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
+
 		speak.c.circPosition += 2;
 		if (speak.c.circPosition > gameStage.getWidth()){
 			speak.c.circPosition = -100;
 		}
 
 
-		gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
 		Rectangle end = new Rectangle((gameStage.getWidth() / 2) - (speak.c.endButton.getWidth() / 2) ,(gameStage.getHeight() / 2) + 200, speak.c.endButton.getWidth(), speak.c.endButton.getHeight());
 
 		gc.drawImage(speak.c.endButton, (gameStage.getWidth() / 2) - (speak.c.endButton.getWidth() / 2) ,(gameStage.getHeight() / 2) + 200);
