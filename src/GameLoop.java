@@ -19,60 +19,20 @@ public class GameLoop extends AnimationTimer {
 	private GraphicsContext gc;
 	private Stage gameStage;
     
-	public GameLoop(Speak speak, GraphicsContext gc, Stage gameStage){
+	public GameLoop(Speak speak){
         this.speak = speak;
-        this.gc = gc;
-        this.gameStage = gameStage;
+        this.gc = speak.gc;
+        this.gameStage = speak.gameStage;
     }
 
     @Override
     public void handle(long now) {
 		//make sure canvas is clear
     	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
-
-		//currently the test animation is moving a circle across the screen
-		//update circle position
-		speak.c.circPosition += 2;
-		if (speak.c.circPosition > gameStage.getWidth()){
-			speak.c.circPosition = -100;
-		}
-
-		//draw circle
-		gc.fillOval(speak.c.circPosition,gameStage.getHeight() /2 ,100 , 100);
-
-		//rectangle to handle click event for end button
-		Rectangle end = new Rectangle((gameStage.getWidth() / 2) - (speak.c.endButton.getWidth() / 2) ,
-				(gameStage.getHeight() / 2) + 200, speak.c.endButton.getWidth(), speak.c.endButton.getHeight());
-
-		gc.drawImage(speak.c.endButton, (gameStage.getWidth() / 2) - (speak.c.endButton.getWidth() / 2) ,
-				(gameStage.getHeight() / 2) + 200);
-
-
-		//event handler for clicking end button
-		gameStage.getScene().setOnMouseClicked(
-				new EventHandler<MouseEvent>()
-				{
-					public void handle(MouseEvent e)
-					{
-						if ( end.contains( e.getX(), e.getY() ) ){
-							stop();
-							Platform.exit();
-						}
-					}
-				});
-
-		//event handler for Esc function
-		gameStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (event.getCode() == KeyCode.ESCAPE){
-					stop();
-					Platform.exit();
-				}
-			}
-		});
-
+		checkSceneChange();
+		speak.vars.getCurrentPage().update();
 		gameStage.show();
+
 	}
 
     @Override
@@ -83,4 +43,13 @@ public class GameLoop extends AnimationTimer {
     public void stop(){
         super.stop();
     }
+
+
+	/**
+	 * Checks if the scene has changed since the update, and sets up the new scene
+	 */
+	private void checkSceneChange() {
+		if (speak.vars.getCurrentPage().initialized == false) speak.vars.getCurrentPage().begin();
+	}
+
 }
