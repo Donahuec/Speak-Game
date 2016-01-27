@@ -7,9 +7,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.geometry.Rectangle2D;
 
 
 
@@ -38,8 +39,17 @@ public class Speak extends Application
         //currently is windowed full screen
         //test on Mac?
         gameStage.setTitle( "Speak" );
-        gameStage.setMaximized(true);
+        //gameStage.setMaximized(true);
         gameStage.initStyle(StageStyle.UNDECORATED);
+        //gameStage.setFullScreen(true);
+        System.out.println(gameStage.getMinWidth());
+        System.out.println(gameStage.getMinHeight());
+        
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        gameStage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2); 
+        gameStage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 4);
+        gameStage.setWidth(primScreenBounds.getWidth());
+        gameStage.setHeight(primScreenBounds.getHeight());
 
         //container for scene items
         Group root = new Group();
