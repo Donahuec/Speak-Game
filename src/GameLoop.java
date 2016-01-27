@@ -44,7 +44,7 @@ public class GameLoop extends AnimationTimer {
 	 * Checks if the scene has changed since the update, and sets up the new scene
 	 */
 	private void checkSceneChange() {
-		if (speak.vars.getCurrentPage().initialized == false) speak.vars.getCurrentPage().begin();
+		if (!speak.vars.getCurrentPage().initialized) speak.vars.getCurrentPage().begin();
 	}
 
 }

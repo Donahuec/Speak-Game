@@ -1,14 +1,17 @@
+/**
+ * Created by Caitlin on 1/25/2016.
+ */
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-/**
- * Created by Caitlin on 1/25/2016.
- */
+
 public class pageTemp extends Page{
     public Image endButton;
     public Rectangle end;
@@ -16,13 +19,15 @@ public class pageTemp extends Page{
 
     public pageTemp(Speak speak){
         super(speak);
-        circPosition = 0;
+
     }
     /**
      * initializes the scene
      */
     public void begin(){
+        speak.vars.setReturnPage(speak.vars.TEMP);
         getAssets();
+        circPosition = 0;
         initialized = true;
     }
 
@@ -30,7 +35,7 @@ public class pageTemp extends Page{
      * initializes assets for the scene
      */
     public void getAssets() {
-        endButton = new Image("file:" + speak.vars.getAssetDir() + "endButton.png");
+        endButton = new Image("file:" + speak.vars.getPicDir() + "endButton.png");
     }
 
     /**
@@ -44,6 +49,7 @@ public class pageTemp extends Page{
 			circPosition = -100;
 		}
 
+        speak.gc.setFill( Color.BLACK );
 		//draw circle
 		speak.gc.fillOval(circPosition,speak.gameStage.getHeight() /2 ,100 , 100);
 
@@ -89,7 +95,8 @@ public class pageTemp extends Page{
         @Override
         public void handle(KeyEvent event) {
             if (event.getCode() == KeyCode.ESCAPE){
-                end();
+                initialized = false;
+                speak.vars.setCurrentPage(speak.vars.MENU_BASE);
             }
         }
     }

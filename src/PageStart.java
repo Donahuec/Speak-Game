@@ -19,6 +19,7 @@ public class PageStart extends Page {
      * initializes the scene
      */
     public void begin(){
+        speak.vars.setReturnPage(speak.vars.START);
         getAssets();
         initialized = true;
     }
@@ -27,7 +28,7 @@ public class PageStart extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
-        startButton = new Image("file:" + speak.vars.getAssetDir() + "startButton.png");
+        startButton = new Image("file:" + speak.vars.getPicDir() + "startButton.png");
     }
 
     /**
