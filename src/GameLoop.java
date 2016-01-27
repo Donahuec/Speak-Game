@@ -1,16 +1,11 @@
-/*
-Handles the GameLoop
- */
+/**
+* Handles the GameLoop
+*/
 
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+
 
 public class GameLoop extends AnimationTimer {
 	//make these variables of Speak so they dont have
