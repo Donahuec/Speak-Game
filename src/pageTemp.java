@@ -27,6 +27,12 @@ public class pageTemp extends Page{
     public void begin(){
         speak.vars.setReturnPage(speak.vars.TEMP);
         getAssets();
+        //event handler for clicking end button
+        getStage().getScene().setOnMouseClicked(new PressEnd());
+
+        //event handler for Esc function
+        getStage().getScene().setOnKeyPressed(new PressEsc());
+
         circPosition = 0;
         initialized = true;
     }
@@ -35,7 +41,7 @@ public class pageTemp extends Page{
      * initializes assets for the scene
      */
     public void getAssets() {
-        endButton = new Image("file:" + speak.vars.getPicDir() + "endButton.png");
+        endButton = new Image("file:" + getPicDir() + "endButton.png");
     }
 
     /**
@@ -45,33 +51,29 @@ public class pageTemp extends Page{
         		//currently the test animation is moving a circle across the screen
 		//update circle position
 		circPosition += 4;
-		if (circPosition > speak.gameStage.getWidth()){
+		if (circPosition > getWidth()){
 			circPosition = -100;
 		}
 
-        speak.gc.setFill( Color.BLACK );
+        getGC().setFill( Color.BLACK );
 		//draw circle
-		speak.gc.fillOval(circPosition,speak.gameStage.getHeight() /2 ,100 , 100);
+		getGC().fillOval(circPosition,getHeight() /2 ,100 , 100);
 
 		//rectangle to handle click event for end button
-		end = new Rectangle((speak.gameStage.getWidth() / 2) - (endButton.getWidth() / 2) ,
-				(speak.gameStage.getHeight() / 2) + 200, endButton.getWidth(), endButton.getHeight());
+		end = new Rectangle((getWidth() / 2) - (endButton.getWidth() / 2) ,
+				(getHeight() / 2) + 200, endButton.getWidth(), endButton.getHeight());
 
-		speak.gc.drawImage(endButton, (speak.gameStage.getWidth() / 2) - (endButton.getWidth() / 2) ,
-				(speak.gameStage.getHeight() / 2) + 200);
+		getGC().drawImage(endButton, (getWidth() / 2) - (endButton.getWidth() / 2) ,
+				(getHeight() / 2) + 200);
 
-		//event handler for clicking end button
-		speak.gameStage.getScene().setOnMouseClicked(new PressEnd());
 
-		//event handler for Esc function
-		speak.gameStage.getScene().setOnKeyPressed(new PressEsc());
     }
 
     /**
      * cleans up and ends the page
      */
     public void end(){
-        speak.gameLoop.stop();
+        getLoop().stop();
         Platform.exit();
     }
 

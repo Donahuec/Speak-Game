@@ -21,6 +21,8 @@ public class PageStart extends Page {
     public void begin(){
         speak.vars.setReturnPage(speak.vars.START);
         getAssets();
+        //set up event handler for clicking start button
+        getBaseScene().setOnMouseClicked(new PressStart());
         initialized = true;
     }
 
@@ -28,7 +30,7 @@ public class PageStart extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
-        startButton = new Image("file:" + speak.vars.getPicDir() + "startButton.png");
+        startButton = new Image("file:" + getPicDir() + "startButton.png");
     }
 
     /**
@@ -36,23 +38,22 @@ public class PageStart extends Page {
      */
     public void update(){
         //Rectangle to be able to click start button
-        rec = new Rectangle((speak.gameStage.getWidth() / 2) - (startButton.getWidth() / 2) ,
-                (speak.gameStage.getHeight() / 2) - (startButton.getHeight() / 2), startButton.getWidth(),
+        rec = new Rectangle((getWidth() / 2) - (startButton.getWidth() / 2) ,
+                (getHeight() / 2) - (startButton.getHeight() / 2), startButton.getWidth(),
                 startButton.getHeight());
 
         //Draw the start button
-        speak.gc.drawImage(startButton, (speak.gameStage.getWidth() / 2) - (startButton.getWidth() / 2)
-                ,(speak.gameStage.getHeight() / 2) - (startButton.getHeight() / 2));
+        getGC().drawImage(startButton, (getWidth() / 2) - (startButton.getWidth() / 2)
+                ,(getHeight() / 2) - (startButton.getHeight() / 2));
 
-        //set up event handler for clicking start button
-        speak.baseScene.setOnMouseClicked(new PressStart());
+
     }
 
     /**
      * cleans up and ends the page
      */
     public void end(){
-        speak.vars.setCurrentPage(speak.vars.TEMP);
+        changePage(P.TEMP);
     }
 
     /**

@@ -33,6 +33,11 @@ public class PageMenu extends Page {
      */
     public void begin(){
         getAssets();
+        //set up event handler for clicking buttons
+        getBaseScene().setOnMouseClicked(new PressButton());
+
+        //event handler for Esc function
+        getStage().getScene().setOnKeyPressed(new MenuPressEsc());
         initialized = true;
     }
 
@@ -40,8 +45,8 @@ public class PageMenu extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
-        phoneBackground = new Image("file:" + speak.vars.getPicDir() + "phone_bg.png", speak.gameStage.getWidth() / 3, speak.gameStage.getHeight(), true, true);
-        phoneButton = new Image("file:" + speak.vars.getPicDir() + "phone_button.png", phoneBackground.getRequestedWidth() / 7, phoneBackground.getRequestedWidth() / 7, false, true);
+        phoneBackground = new Image("file:" + getPicDir() + "phone_bg.png", getWidth() / 3, getHeight(), true, true);
+        phoneButton = new Image("file:" + getPicDir() + "phone_button.png", phoneBackground.getRequestedWidth() / 7, phoneBackground.getRequestedWidth() / 7, false, true);
     }
 
     /**
@@ -50,39 +55,35 @@ public class PageMenu extends Page {
     public void update(){
 
         //Draw the phone Background
-        speak.gc.drawImage(phoneBackground, (speak.gameStage.getWidth() / 2) - (phoneBackground.getWidth() / 2), 0);
+        getGC().drawImage(phoneBackground, (getWidth() / 2) - (phoneBackground.getWidth() / 2), 0);
 
         //Draw the buttons
-        speak.gc.drawImage(phoneButton, (speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5);
-        speak.gc.drawImage(phoneButton, (speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5);
-        speak.gc.drawImage(phoneButton, (speak.gameStage.getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 1.5);
+        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5);
+        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5);
+        getGC().drawImage(phoneButton, (getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 1.5);
 
-        speak.gc.drawImage(phoneButton, (speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 3.5);
-        speak.gc.drawImage(phoneButton, (speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 3.5);
-        speak.gc.drawImage(phoneButton, (speak.gameStage.getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 3.5);
+        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 3.5);
+        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 3.5);
+        getGC().drawImage(phoneButton, (getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 3.5);
 
         //rectangles for pressing buttons
-        statusButton = new Rectangle((speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
-        agendaButton = new Rectangle((speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
-        todoButton = new Rectangle((speak.gameStage.getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
+        statusButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
+        agendaButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
+        todoButton = new Rectangle((getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
 
-        tutorialButton = new Rectangle((speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
-        quitButton = new Rectangle((speak.gameStage.getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
-        resumeButton = new Rectangle((speak.gameStage.getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
+        tutorialButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
+        quitButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
+        resumeButton = new Rectangle((getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
 
         //print time
-        speak.gc.setFill( Color.WHITE );
-        speak.gc.setLineWidth(2);
+        getGC().setFill( Color.WHITE );
+        getGC().setLineWidth(2);
         Font timeFont = Font.font(30);
-        speak.gc.setFont(timeFont);
-        speak.gc.fillText( speak.stats.getTimeString(), (speak.gameStage.getWidth() / 2) + (phoneBackground.getWidth() * 0.20), phoneButton.getHeight() * 1 );
+        getGC().setFont(timeFont);
+        getGC().fillText( speak.stats.getTimeString(), (getWidth() / 2) + (phoneBackground.getWidth() * 0.20), phoneButton.getHeight() * 1 );
 
 
-        //set up event handler for clicking buttons
-        speak.baseScene.setOnMouseClicked(new PressButton());
 
-        //event handler for Esc function
-        speak.gameStage.getScene().setOnKeyPressed(new MenuPressEsc());
     }
 
     /**
@@ -101,7 +102,7 @@ public class PageMenu extends Page {
         public void handle(MouseEvent e)
         {
             if ( quitButton.contains( e.getX(), e.getY() )){
-                speak.gameLoop.stop();
+                getLoop().stop();
                 Platform.exit();
             } else if (resumeButton.contains( e.getX(), e.getY() )) {
                 end();
