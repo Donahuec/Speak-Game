@@ -1,7 +1,7 @@
 /**
  * Created by Caitlin on 1/27/2016.
  */
-public class MenuAgenda extends Page {
+public class MenuAgenda extends MenuBase {
     public MenuAgenda(Speak speak) {
         super(speak);
     }
@@ -10,21 +10,20 @@ public class MenuAgenda extends Page {
      * initializes the scene
      */
     public void begin() {
-        //todo
     }
 
     /**
      * initializes assets for the scene
      */
     public void getAssets() {
-        //todo
+        super.getAssets();
     }
 
     /**
      * checks for changes in the page
      */
     public void update() {
-        //todo
+        super.update();
     }
 
     /**

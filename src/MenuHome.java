@@ -11,8 +11,7 @@ import javafx.scene.text.Font;
 /**
  * Created by Caitlin on 1/25/2016.
  */
-public class PageMenu extends Page {
-    public Image phoneBackground;
+public class MenuHome extends MenuBase {
     public Image phoneButton;
     public Rectangle statusButton;
     public Rectangle agendaButton;
@@ -24,7 +23,7 @@ public class PageMenu extends Page {
 
 
 
-    public PageMenu(Speak speak){
+    public MenuHome(Speak speak){
         super(speak);
     }
 
@@ -33,11 +32,6 @@ public class PageMenu extends Page {
      */
     public void begin(){
         getAssets();
-        //set up event handler for clicking buttons
-        getBaseScene().setOnMouseClicked(new PressButton());
-
-        //event handler for Esc function
-        getStage().getScene().setOnKeyPressed(new MenuPressEsc());
         initialized = true;
     }
 
@@ -45,7 +39,7 @@ public class PageMenu extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
-        phoneBackground = new Image("file:" + getPicDir() + "phone_bg.png", getWidth() / 3, getHeight(), true, true);
+        super.getAssets();
         phoneButton = new Image("file:" + getPicDir() + "phone_button.png", phoneBackground.getRequestedWidth() / 7, phoneBackground.getRequestedWidth() / 7, false, true);
     }
 
@@ -53,10 +47,9 @@ public class PageMenu extends Page {
      * checks for changes in the page
      */
     public void update(){
-
-        //Draw the phone Background
-        getGC().drawImage(phoneBackground, (getWidth() / 2) - (phoneBackground.getWidth() / 2), 0);
-
+        super.update();
+        //set up event handler for clicking buttons
+        getBaseScene().setOnMouseClicked(new PressButton());
         //Draw the buttons
         getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5);
         getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5);
@@ -105,18 +98,6 @@ public class PageMenu extends Page {
                 getLoop().stop();
                 Platform.exit();
             } else if (resumeButton.contains( e.getX(), e.getY() )) {
-                end();
-            }
-        }
-    }
-
-    /**
-     * Handler for pressing Esc button
-     */
-    class MenuPressEsc implements EventHandler<KeyEvent>{
-        @Override
-        public void handle(KeyEvent event) {
-            if (event.getCode() == KeyCode.ESCAPE){
                 end();
             }
         }

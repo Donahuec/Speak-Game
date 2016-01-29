@@ -25,6 +25,7 @@ public class Speak extends Application
     public Stage gameStage;
     public Scene baseScene;
     public GameLoop gameLoop;
+    public final long startNanoTime = System.nanoTime();
 
     public static void main(String[] args) 
     {
@@ -41,7 +42,7 @@ public class Speak extends Application
         //test on Mac?
         gameStage.setTitle( "Speak" );
         //gameStage.setMaximized(true);
-        gameStage.initStyle(StageStyle.UNDECORATED);
+        //gameStage.initStyle(StageStyle.UNDECORATED);
         gameStage.setFullScreen(true);
         gameStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         gameStage.setFullScreenExitHint("");
@@ -60,7 +61,6 @@ public class Speak extends Application
 
         //initialize Game Loop
         gameLoop = new GameLoop(this);
-
         gameLoop.start();
     }
 }

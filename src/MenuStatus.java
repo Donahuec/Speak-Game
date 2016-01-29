@@ -1,7 +1,7 @@
 /**
  * Created by Caitlin on 1/27/2016.
  */
-public class MenuStatus extends Page {
+public class MenuStatus extends MenuBase {
     public MenuStatus(Speak speak) {
         super(speak);
     }
@@ -10,21 +10,20 @@ public class MenuStatus extends Page {
      * initializes the scene
      */
     public void begin() {
-        //todo
     }
 
     /**
      * initializes assets for the scene
      */
     public void getAssets() {
-        //todo
+        super.getAssets();
     }
 
     /**
      * checks for changes in the page
      */
     public void update() {
-        //todo
+        super.update();
     }
 
     /**

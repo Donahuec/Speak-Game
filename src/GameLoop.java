@@ -13,6 +13,8 @@ public class GameLoop extends AnimationTimer {
 	protected Speak speak;
 	private GraphicsContext gc;
 	private Stage gameStage;
+	private long startTime;
+	double curTime;
     
 	public GameLoop(Speak speak){
         this.speak = speak;
@@ -22,6 +24,8 @@ public class GameLoop extends AnimationTimer {
 
     @Override
     public void handle(long now) {
+		//current game time
+		curTime= (curTime - startTime) / 1000000000.0;
 		//make sure canvas is clear
     	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
 		checkSceneChange();
@@ -32,7 +36,9 @@ public class GameLoop extends AnimationTimer {
 
     @Override
     public void start(){
-        super.start();
+        startTime = speak.startNanoTime;
+		curTime = startTime;
+		super.start();
     }
     @Override
     public void stop(){

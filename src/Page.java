@@ -16,7 +16,7 @@ public abstract class Page {
 
 
     //functions to pull information from speak and its variables for easier reading
-    //as well as wasier modification
+    //as well as easier modification
     public String getPicDir(){ return speak.vars.getPicDir(); }
 
     public Stage getStage() { return speak.gameStage; }
@@ -58,8 +58,8 @@ public abstract class Page {
             case TEMP:
                 speak.vars.setCurrentPage(speak.vars.TEMP);
                 break;
-            case MENU_BASE:
-                speak.vars.setCurrentPage(speak.vars.MENU_BASE);
+            case MENU_HOME:
+                speak.vars.setCurrentPage(speak.vars.MENU_HOME);
                 break;
             case M_STATUS:
                 speak.vars.setCurrentPage(speak.vars.M_STATUS);

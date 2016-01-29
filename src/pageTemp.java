@@ -98,7 +98,7 @@ public class pageTemp extends Page{
         public void handle(KeyEvent event) {
             if (event.getCode() == KeyCode.ESCAPE){
                 initialized = false;
-                speak.vars.setCurrentPage(speak.vars.MENU_BASE);
+                speak.vars.setCurrentPage(speak.vars.MENU_HOME);
             }
         }
     }

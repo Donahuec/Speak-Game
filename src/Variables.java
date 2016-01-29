@@ -13,7 +13,7 @@ public class Variables {
     public PageEnd END;
     public pageTemp TEMP;
 
-    public PageMenu MENU_BASE;
+    public MenuHome MENU_HOME;
     public MenuStatus M_STATUS;
     public MenuAgenda M_AGENDA;
     public MenuToDo M_TODO;
@@ -51,7 +51,7 @@ public class Variables {
         START = new PageStart(speak);
         TEMP = new pageTemp(speak);
         END = new PageEnd(speak);
-        MENU_BASE = new PageMenu(speak);
+        MENU_HOME = new MenuHome(speak);
         M_STATUS = new MenuStatus(speak);
         M_AGENDA = new MenuAgenda(speak);
         M_TODO = new MenuToDo(speak);
