@@ -3,7 +3,9 @@
 */
 
 import javafx.animation.AnimationTimer;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -24,6 +26,14 @@ public class GameLoop extends AnimationTimer {
 
     @Override
     public void handle(long now) {
+		//clear any text nodes currently on screen
+		for (Node node : speak.root.getChildren()) {
+			if (node instanceof Text) {
+				// clear
+				((Text)node).setText("");
+			}
+		}
+
 		//current game time
 		curTime= (curTime - startTime) / 1000000000.0;
 		//make sure canvas is clear

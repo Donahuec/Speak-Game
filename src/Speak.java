@@ -25,6 +25,7 @@ public class Speak extends Application
     public Stage gameStage;
     public Scene baseScene;
     public GameLoop gameLoop;
+    public Group root;
     public final long startNanoTime = System.nanoTime();
 
     public static void main(String[] args) 
@@ -48,7 +49,7 @@ public class Speak extends Application
         gameStage.setFullScreenExitHint("");
 
         //container for scene items
-        Group root = new Group();
+        root = new Group();
 
         baseScene = new Scene( root );
         gameStage.setScene( baseScene );

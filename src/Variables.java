@@ -6,6 +6,7 @@ public class Variables {
     private String workingDir;
     private String assetDir;
     private String picDir;
+    private  String textDir;
     private Page currentPage;
     public Page returnPage;
 
@@ -46,6 +47,7 @@ public class Variables {
         //add assets, to access images (do this in File manager class)
         assetDir = workingDir + File.separator + "assets" + File.separator;
         picDir = assetDir + "images" + File.separator;
+        textDir = assetDir + "text" + File.separator;
 
         //initialize pages
         START = new PageStart(speak);
@@ -80,6 +82,8 @@ public class Variables {
     public String getAssetDir(){
         return assetDir;
     }
+
+    public String getTextDir() { return  textDir; }
 
     public Page getCurrentPage() {
         return currentPage;

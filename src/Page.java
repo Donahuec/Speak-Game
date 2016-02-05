@@ -1,3 +1,4 @@
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
@@ -18,6 +19,10 @@ public abstract class Page {
     //functions to pull information from speak and its variables for easier reading
     //as well as easier modification
     public String getPicDir(){ return speak.vars.getPicDir(); }
+
+    public String getTextDir(){ return speak.vars.getTextDir(); }
+
+    public Group getRoot(){ return speak.root; }
 
     public Stage getStage() { return speak.gameStage; }
 

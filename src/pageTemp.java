@@ -15,7 +15,7 @@ import javafx.scene.shape.Rectangle;
 public class pageTemp extends Page{
     public Image endButton;
     public Rectangle end;
-    public double circPosition;
+    public double circPosition = 0;
 
     public pageTemp(Speak speak){
         super(speak);
@@ -33,7 +33,6 @@ public class pageTemp extends Page{
         //event handler for Esc function
         getStage().getScene().setOnKeyPressed(new PressEsc());
 
-        circPosition = 0;
         initialized = true;
     }
 
@@ -73,8 +72,10 @@ public class pageTemp extends Page{
      * cleans up and ends the page
      */
     public void end(){
-        getLoop().stop();
-        Platform.exit();
+        endButton = null;
+        end = null;
+        initialized = false;
+
     }
 
     /**
@@ -85,7 +86,8 @@ public class pageTemp extends Page{
         public void handle(MouseEvent e)
         {
             if ( end.contains( e.getX(), e.getY() ) ){
-                end();
+                getLoop().stop();
+                Platform.exit();
             }
         }
     }
@@ -97,8 +99,9 @@ public class pageTemp extends Page{
         @Override
         public void handle(KeyEvent event) {
             if (event.getCode() == KeyCode.ESCAPE){
-                initialized = false;
+
                 speak.vars.setCurrentPage(speak.vars.MENU_HOME);
+                end();
             }
         }
     }

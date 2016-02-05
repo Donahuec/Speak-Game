@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<textObject>
+   <item id="one">
+      <text>Speak</text>
+   </item>
+   <item id="two">
+      <text>
+      A game about Following a day through the life of someone with social anxiety. Also this is totally example text that will not actually be on the title page and the title page will be much prettier I'm entirely testing text wrapping right now.
+      </text>
+   </item>
+   <item id="three">
+      <text>ANDIT IS TIME FOR THE THIRD!!! MUCH WOW!!!!</text>
+   </item>
+</textObject>
