@@ -16,6 +16,11 @@ public class pageTemp extends Page{
     public Image endButton;
     public Rectangle end;
     public double circPosition = 0;
+    public Image[] animationTest = new Image[4];
+    public AnimatedObject timeTest;
+    public AnimatedObject delayTest;
+    public Rectangle delayRec;
+    public  boolean hover = false;
 
     public pageTemp(Speak speak){
         super(speak);
@@ -41,12 +46,28 @@ public class pageTemp extends Page{
      */
     public void getAssets() {
         endButton = new Image("file:" + getPicDir() + "endButton.png");
+
+        animationTest[0] = new Image("file:" + getPicDir() + "lev1.png");
+        animationTest[1] = new Image("file:" + getPicDir() + "lev2.png");
+        animationTest[2] = new Image("file:" + getPicDir() + "lev3.png");
+        animationTest[3] = new Image("file:" + getPicDir() + "lev4.png");
+
+        timeTest = new AnimatedObject(speak,animationTest, 0.15, true);
+        delayTest = new AnimatedObject(speak,animationTest, 8);
+
+        delayRec = new Rectangle(getWidth() - 200 - animationTest[0].getWidth(), 200, animationTest[0].getWidth(), animationTest[0].getHeight());
+
+
+
     }
 
     /**
      * checks for changes in the page
      */
     public void update(){
+        getStage().getScene().setOnMouseMoved(new MouseEnter());
+
+
         		//currently the test animation is moving a circle across the screen
 		//update circle position
 		circPosition += 4;
@@ -65,6 +86,15 @@ public class pageTemp extends Page{
 		getGC().drawImage(endButton, (getWidth() / 2) - (endButton.getWidth() / 2) ,
 				(getHeight() / 2) + 200);
 
+        getGC().drawImage(timeTest.getFrame(), 200, 200);
+
+        if (hover == true) {
+            getGC().drawImage(delayTest.getFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
+        } else {
+            getGC().drawImage(delayTest.getCurFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
+        }
+
+
 
     }
 
@@ -75,7 +105,6 @@ public class pageTemp extends Page{
         endButton = null;
         end = null;
         initialized = false;
-
     }
 
     /**
@@ -91,6 +120,26 @@ public class pageTemp extends Page{
             }
         }
     }
+
+    /**
+     * Handler for the mouse hovering on items
+     *
+     */
+    class MouseEnter implements EventHandler<MouseEvent>{
+        @Override
+        public void handle(MouseEvent e)
+        {
+            if (delayRec.contains(e.getX(), e.getY())){
+                hover = true;
+            } else {
+                hover = false;
+            }
+
+        }
+    }
+
+
+
 
     /**
      * Handler for pressing Esc button

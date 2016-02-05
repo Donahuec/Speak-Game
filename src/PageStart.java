@@ -19,6 +19,7 @@ public class PageStart extends Page {
     public GameText text;
 
 
+
     public PageStart(Speak speak){
         super(speak);
     }

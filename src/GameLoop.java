@@ -35,7 +35,7 @@ public class GameLoop extends AnimationTimer {
 		}
 
 		//current game time
-		curTime= (curTime - startTime) / 1000000000.0;
+		curTime= (now - startTime) / 1000000000.0;
 		//make sure canvas is clear
     	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
 		checkSceneChange();
