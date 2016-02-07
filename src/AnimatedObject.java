@@ -11,10 +11,10 @@ public class AnimatedObject {
     private Speak speak;
     private Image[] frames;
     private double duration;
-    private boolean isTimeBased;
     private int curFrame;
     private int delay;
     private int curDelay;
+    private boolean active;
 
     /**
      * Constructor for Animated Objects whose Animation is time based
@@ -23,12 +23,15 @@ public class AnimatedObject {
      * @param duration
      * @param isTimeBased
      */
-    public AnimatedObject(Speak speak, Image[] frames, double duration, boolean isTimeBased) {
+    public AnimatedObject(Speak speak, Image[] frames, double duration, boolean isTimeBased, boolean active) {
         this.speak = speak;
         this.frames = frames;
         this.duration = duration;
-        this.isTimeBased = isTimeBased;
+        delay = (int)((duration / 4) * 60);
+        System.out.println(delay);
         curFrame = 0;
+        curDelay = 0;
+        this.active = active;
     }
 
     /**
@@ -37,14 +40,14 @@ public class AnimatedObject {
      * @param frames
      * @param delay
      */
-    public AnimatedObject(Speak speak, Image[] frames, int delay) {
+    public AnimatedObject(Speak speak, Image[] frames, int delay, boolean active) {
         this.speak = speak;
         this.frames = frames;
         this.duration = 0;
-        this.isTimeBased = false;
         this.delay = delay;
         curFrame = 0;
         curDelay = 0;
+        this.active = active;
     }
 
 
@@ -53,12 +56,9 @@ public class AnimatedObject {
      */
     public Image getFrame()
     {
-        int index;
-        if (isTimeBased){
-            //calculate the current frame based off of game time
-            index = (int)((getLoop().curTime % (frames.length * duration)) / duration);
-            return frames[index];
-        } else {
+        if(active){
+            int index;
+
             if (curDelay < delay) {
                 //controls the length of animations that are not time based
                 curDelay++;
@@ -71,15 +71,16 @@ public class AnimatedObject {
                 }
                 curDelay = 0;
             }
+
+            return frames[index];
+    } else {
+            return frames[curFrame];
         }
-        return frames[index];
+
     }
 
-    /**
-     * gets the current frame for paused animations
-     */
-    public Image getCurFrame() {
-        return frames[curFrame];
+    public void setActive(boolean set) {
+        active = set;
     }
 
 

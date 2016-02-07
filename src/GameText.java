@@ -4,7 +4,8 @@
  */
 
 import java.io.File;
-import java.util.Hashtable;
+import java.util.HashMap;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
@@ -14,12 +15,12 @@ import org.w3c.dom.Element;
 
 public class GameText {
 
-    private Hashtable<String, String> hash;
+    private HashMap<String, String> hash;
     private File inputFile;
 
     public GameText(String file) {
         inputFile = new File(file);
-        hash = new Hashtable();
+        hash = new HashMap();
         parse();
     }
 

@@ -10,6 +10,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 
 public class pageTemp extends Page{
@@ -20,7 +23,8 @@ public class pageTemp extends Page{
     public AnimatedObject timeTest;
     public AnimatedObject delayTest;
     public Rectangle delayRec;
-    public  boolean hover = false;
+    public GameText text;
+
 
     public pageTemp(Speak speak){
         super(speak);
@@ -52,12 +56,12 @@ public class pageTemp extends Page{
         animationTest[2] = new Image("file:" + getPicDir() + "lev3.png");
         animationTest[3] = new Image("file:" + getPicDir() + "lev4.png");
 
-        timeTest = new AnimatedObject(speak,animationTest, 0.15, true);
-        delayTest = new AnimatedObject(speak,animationTest, 8);
+        timeTest = new AnimatedObject(speak,animationTest, 0.5, true, true);
+        delayTest = new AnimatedObject(speak,animationTest, 8, false);
 
         delayRec = new Rectangle(getWidth() - 200 - animationTest[0].getWidth(), 200, animationTest[0].getWidth(), animationTest[0].getHeight());
 
-
+        text = new GameText(getTextDir() + "Start.txt");
 
     }
 
@@ -67,6 +71,11 @@ public class pageTemp extends Page{
     public void update(){
         getStage().getScene().setOnMouseMoved(new MouseEnter());
 
+        Text text1 = new Text(  getWidth() / 2 - (getWidth() /6), getHeight() / 4,  text.getText("three"));
+        text1.setWrappingWidth(getWidth() / 3);
+        text1.setTextAlignment(TextAlignment.CENTER);
+        text1.setFont(Font.font( "Times New Roman", getHeight() / 40 ));
+        getRoot().getChildren().add(text1);
 
         		//currently the test animation is moving a circle across the screen
 		//update circle position
@@ -88,12 +97,8 @@ public class pageTemp extends Page{
 
         getGC().drawImage(timeTest.getFrame(), 200, 200);
 
-        if (hover == true) {
-            getGC().drawImage(delayTest.getFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
-        } else {
-            getGC().drawImage(delayTest.getCurFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
-        }
 
+        getGC().drawImage(delayTest.getFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
 
 
     }
@@ -130,9 +135,9 @@ public class pageTemp extends Page{
         public void handle(MouseEvent e)
         {
             if (delayRec.contains(e.getX(), e.getY())){
-                hover = true;
+                delayTest.setActive(true);
             } else {
-                hover = false;
+                delayTest.setActive(false);
             }
 
         }
