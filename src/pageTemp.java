@@ -2,6 +2,7 @@
  * Created by Caitlin on 1/25/2016.
  */
 
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -24,6 +25,7 @@ public class pageTemp extends Page{
     public AnimatedObject delayTest;
     public Rectangle delayRec;
     public GameText text;
+    public Text text1;
 
 
     public pageTemp(Speak speak){
@@ -34,7 +36,7 @@ public class pageTemp extends Page{
      * initializes the scene
      */
     public void begin(){
-        speak.vars.setReturnPage(speak.vars.TEMP);
+        speak.getVars().setReturnPage(speak.getVars().TEMP);
         getAssets();
         //event handler for clicking end button
         getStage().getScene().setOnMouseClicked(new PressEnd());
@@ -56,12 +58,15 @@ public class pageTemp extends Page{
         animationTest[2] = new Image("file:" + getPicDir() + "lev3.png");
         animationTest[3] = new Image("file:" + getPicDir() + "lev4.png");
 
-        timeTest = new AnimatedObject(speak,animationTest, 0.5, true, true);
-        delayTest = new AnimatedObject(speak,animationTest, 8, false);
+        timeTest = new AnimatedObject(speak,animationTest, 0.15, true);
+        delayTest = new AnimatedObject(speak,animationTest, 0.15, false);
 
         delayRec = new Rectangle(getWidth() - 200 - animationTest[0].getWidth(), 200, animationTest[0].getWidth(), animationTest[0].getHeight());
 
         text = new GameText(getTextDir() + "Start.txt");
+
+        text1 = new Text(  getWidth() / 2 - (getWidth() /6), getHeight() / 4,  "");
+        getRoot().getChildren().add(text1);
 
     }
 
@@ -71,11 +76,11 @@ public class pageTemp extends Page{
     public void update(){
         getStage().getScene().setOnMouseMoved(new MouseEnter());
 
-        Text text1 = new Text(  getWidth() / 2 - (getWidth() /6), getHeight() / 4,  text.getText("three"));
+        text1.setText(text.getText("three"));
         text1.setWrappingWidth(getWidth() / 3);
         text1.setTextAlignment(TextAlignment.CENTER);
         text1.setFont(Font.font( "Times New Roman", getHeight() / 40 ));
-        getRoot().getChildren().add(text1);
+
 
         		//currently the test animation is moving a circle across the screen
 		//update circle position
@@ -109,6 +114,7 @@ public class pageTemp extends Page{
     public void end(){
         endButton = null;
         end = null;
+        getRoot().getChildren().remove(text1);
         initialized = false;
     }
 
@@ -154,7 +160,7 @@ public class pageTemp extends Page{
         public void handle(KeyEvent event) {
             if (event.getCode() == KeyCode.ESCAPE){
 
-                speak.vars.setCurrentPage(speak.vars.MENU_HOME);
+                speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
                 end();
             }
         }

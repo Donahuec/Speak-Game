@@ -1,6 +1,7 @@
 /*
 *Main File for Game run. Initializes window and starts game loop
  */
+
 import javafx.application.Application;
 
 import javafx.scene.Group;
@@ -8,10 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCombination;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.geometry.Rectangle2D;
+
 
 
 
@@ -19,14 +18,14 @@ import javafx.geometry.Rectangle2D;
 public class Speak extends Application 
 {
     //holds variables for game will change to own file
-	public Variables vars = new Variables(this);
-    public GameStats stats = new GameStats();
-    public GraphicsContext gc;
-    public Stage gameStage;
-    public Scene baseScene;
-    public GameLoop gameLoop;
-    public Group root;
-    public final long startNanoTime = System.nanoTime();
+	private Variables vars = new Variables(this);
+    private GameStats stats = new GameStats();
+    private GraphicsContext gc;
+    private Stage gameStage;
+    private Scene baseScene;
+    private GameLoop gameLoop;
+    private Group root;
+    private final long startNanoTime = System.nanoTime();
 
     public static void main(String[] args) 
     {
@@ -63,6 +62,38 @@ public class Speak extends Application
         //initialize Game Loop
         gameLoop = new GameLoop(this);
         gameLoop.start();
+    }
+
+    public GameLoop getGameLoop() {
+        return gameLoop;
+    }
+
+    public GameStats getStats() {
+        return stats;
+    }
+
+    public Group getRoot() {
+        return root;
+    }
+
+    public GraphicsContext getGc() {
+        return gc;
+    }
+
+    public long getStartNanoTime() {
+        return startNanoTime;
+    }
+
+    public Scene getBaseScene() {
+        return baseScene;
+    }
+
+    public Stage getGameStage() {
+        return gameStage;
+    }
+
+    public Variables getVars() {
+        return vars;
     }
 }
 

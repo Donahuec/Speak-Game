@@ -1,7 +1,9 @@
+
+
+
 import java.io.File;
 
 public class Variables {
-    //will create getters and setters when setting up the class in a more fleshed out way
     private Speak speak;
     private String workingDir;
     private String assetDir;

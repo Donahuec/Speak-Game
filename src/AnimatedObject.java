@@ -1,3 +1,4 @@
+
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,43 +13,27 @@ public class AnimatedObject {
     private Image[] frames;
     private double duration;
     private int curFrame;
-    private int delay;
-    private int curDelay;
     private boolean active;
+    private double lastTime;
 
     /**
-     * Constructor for Animated Objects whose Animation is time based
+     * Constructor for Animated Objects
      * @param speak
      * @param frames
      * @param duration
-     * @param isTimeBased
+
      */
-    public AnimatedObject(Speak speak, Image[] frames, double duration, boolean isTimeBased, boolean active) {
+    public AnimatedObject(Speak speak, Image[] frames, double duration, boolean active) {
         this.speak = speak;
         this.frames = frames;
         this.duration = duration;
-        delay = (int)((duration / 4) * 60);
-        System.out.println(delay);
         curFrame = 0;
-        curDelay = 0;
         this.active = active;
+        lastTime = getLoop().curTime;
     }
 
-    /**
-     * Constructor for animated objects whose animation is delay/interaction based
-     * @param speak
-     * @param frames
-     * @param delay
-     */
-    public AnimatedObject(Speak speak, Image[] frames, int delay, boolean active) {
-        this.speak = speak;
-        this.frames = frames;
-        this.duration = 0;
-        this.delay = delay;
-        curFrame = 0;
-        curDelay = 0;
-        this.active = active;
-    }
+
+
 
 
     /**
@@ -57,26 +42,18 @@ public class AnimatedObject {
     public Image getFrame()
     {
         if(active){
-            int index;
-
-            if (curDelay < delay) {
-                //controls the length of animations that are not time based
-                curDelay++;
-                index = curFrame;
-            } else {
-                index = curFrame;
+            //check if enough time has passed
+            if (getLoop().curTime - lastTime > duration) {
                 curFrame++;
-                if (curFrame >= frames.length){
+                //loop back to beginning of animation if necessary
+                if (curFrame == frames.length){
                     curFrame = 0;
                 }
-                curDelay = 0;
+                //store the time this change occured
+                lastTime = getLoop().curTime;
             }
-
-            return frames[index];
-    } else {
-            return frames[curFrame];
         }
-
+        return frames[curFrame];
     }
 
     public void setActive(boolean set) {
@@ -93,19 +70,19 @@ public class AnimatedObject {
 
     //functions to pull information from speak and its variables for easier reading
     //as well as easier modification
-    public String getPicDir(){ return speak.vars.getPicDir(); }
+    public String getPicDir(){ return speak.getVars().getPicDir(); }
 
-    public Group getRoot(){ return speak.root; }
+    public Group getRoot(){ return speak.getRoot(); }
 
-    public Stage getStage() { return speak.gameStage; }
+    public Stage getStage() { return speak.getGameStage(); }
 
-    public GraphicsContext getGC() { return speak.gc; }
+    public GraphicsContext getGC() { return speak.getGc(); }
 
-    public GameLoop getLoop() { return speak.gameLoop; }
+    public GameLoop getLoop() { return speak.getGameLoop(); }
 
-    public Scene getBaseScene() { return speak.baseScene; }
+    public Scene getBaseScene() { return speak.getBaseScene(); }
 
-    public double getWidth() { return speak.gameStage.getWidth(); }
+    public double getWidth() { return speak.getGameStage().getWidth(); }
 
-    public double getHeight() {return speak.gameStage.getHeight(); }
+    public double getHeight() {return speak.getGameStage().getHeight(); }
 }

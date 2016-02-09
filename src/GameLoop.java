@@ -3,10 +3,9 @@
 */
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 
 public class GameLoop extends AnimationTimer {
@@ -20,33 +19,25 @@ public class GameLoop extends AnimationTimer {
     
 	public GameLoop(Speak speak){
         this.speak = speak;
-        this.gc = speak.gc;
-        this.gameStage = speak.gameStage;
+        this.gc = speak.getGc();
+        this.gameStage = speak.getGameStage();
     }
 
     @Override
     public void handle(long now) {
-		//clear any text nodes currently on screen
-		for (Node node : speak.root.getChildren()) {
-			if (node instanceof Text) {
-				// clear
-				((Text)node).setText("");
-			}
-		}
-
 		//current game time
 		curTime= (now - startTime) / 1000000000.0;
 		//make sure canvas is clear
     	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
 		checkSceneChange();
-		speak.vars.getCurrentPage().update();
+		speak.getVars().getCurrentPage().update();
 		gameStage.show();
 
 	}
 
     @Override
     public void start(){
-        startTime = speak.startNanoTime;
+        startTime = speak.getStartNanoTime();
 		curTime = startTime;
 		super.start();
     }
@@ -60,7 +51,7 @@ public class GameLoop extends AnimationTimer {
 	 * Checks if the scene has changed since the update, and sets up the new scene
 	 */
 	private void checkSceneChange() {
-		if (!speak.vars.getCurrentPage().initialized) speak.vars.getCurrentPage().begin();
+		if (!speak.getVars().getCurrentPage().initialized) speak.getVars().getCurrentPage().begin();
 	}
 
 }

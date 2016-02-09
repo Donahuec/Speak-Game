@@ -1,3 +1,5 @@
+
+
 public class GameStats {
     private int anxiety;
     private int stress;

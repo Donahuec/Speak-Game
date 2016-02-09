@@ -18,104 +18,104 @@ public abstract class Page {
 
     //functions to pull information from speak and its variables for easier reading
     //as well as easier modification
-    public String getPicDir(){ return speak.vars.getPicDir(); }
+    public String getPicDir(){ return speak.getVars().getPicDir(); }
 
-    public String getTextDir(){ return speak.vars.getTextDir(); }
+    public String getTextDir(){ return speak.getVars().getTextDir(); }
 
-    public Group getRoot(){ return speak.root; }
+    public Group getRoot(){ return speak.getRoot(); }
 
-    public Stage getStage() { return speak.gameStage; }
+    public Stage getStage() { return speak.getGameStage(); }
 
-    public GraphicsContext getGC() { return speak.gc; }
+    public GraphicsContext getGC() { return speak.getGc(); }
 
-    public GameLoop getLoop() { return speak.gameLoop; }
+    public GameLoop getLoop() { return speak.getGameLoop(); }
 
-    public Scene getBaseScene() { return speak.baseScene; }
+    public Scene getBaseScene() { return speak.getBaseScene(); }
 
-    public double getWidth() { return speak.gameStage.getWidth(); }
+    public double getWidth() { return speak.getGameStage().getWidth(); }
 
-    public double getHeight() {return speak.gameStage.getHeight(); }
+    public double getHeight() {return speak.getGameStage().getHeight(); }
 
-    public int getAnxiety() { return speak.stats.getAnxiety(); }
+    public int getAnxiety() { return speak.getStats().getAnxiety(); }
 
-    public int getStress() { return speak.stats.getStress(); }
+    public int getStress() { return speak.getStats().getStress(); }
 
-    public int[] getTime() { return speak.stats.getTime(); }
+    public int[] getTime() { return speak.getStats().getTime(); }
 
-    public String getTimeString() { return speak.stats.getTimeString(); }
+    public String getTimeString() { return speak.getStats().getTimeString(); }
 
     public void updateAnxiety(int change){
-        speak.stats.updateAnxiety(change);
+        speak.getStats().updateAnxiety(change);
     }
 
-    public void  updateStress(int change) { speak.stats.updateStress(change); }
+    public void  updateStress(int change) { speak.getStats().updateStress(change); }
 
-    public void updateTime(int hours, int mins) { speak.stats.updateTime(hours, mins); }
+    public void updateTime(int hours, int mins) { speak.getStats().updateTime(hours, mins); }
 
     public void changePage(P page){
         switch (page) {
             case START:
-                speak.vars.setCurrentPage(speak.vars.START);
+                speak.getVars().setCurrentPage(speak.getVars().START);
                 break;
             case END:
-                speak.vars.setCurrentPage(speak.vars.END);
+                speak.getVars().setCurrentPage(speak.getVars().END);
                 break;
             case TEMP:
-                speak.vars.setCurrentPage(speak.vars.TEMP);
+                speak.getVars().setCurrentPage(speak.getVars().TEMP);
                 break;
             case MENU_HOME:
-                speak.vars.setCurrentPage(speak.vars.MENU_HOME);
+                speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
                 break;
             case M_STATUS:
-                speak.vars.setCurrentPage(speak.vars.M_STATUS);
+                speak.getVars().setCurrentPage(speak.getVars().M_STATUS);
                 break;
             case M_AGENDA:
-                speak.vars.setCurrentPage(speak.vars.M_AGENDA);
+                speak.getVars().setCurrentPage(speak.getVars().M_AGENDA);
                 break;
             case M_TODO:
-                speak.vars.setCurrentPage(speak.vars.M_TODO);
+                speak.getVars().setCurrentPage(speak.getVars().M_TODO);
                 break;
             case M_TUTORIAL:
-                speak.vars.setCurrentPage(speak.vars.M_TUTORIAL);
+                speak.getVars().setCurrentPage(speak.getVars().M_TUTORIAL);
                 break;
             case BEDROOM:
-                speak.vars.setCurrentPage(speak.vars.BEDROOM);
+                speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
                 break;
             case KITCHEN:
-                speak.vars.setCurrentPage(speak.vars.KITCHEN);
+                speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
                 break;
             case LIVINGROOM:
-                speak.vars.setCurrentPage(speak.vars.LIVINGROOM);
+                speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);
                 break;
             case STREET:
-                speak.vars.setCurrentPage(speak.vars.STREET);
+                speak.getVars().setCurrentPage(speak.getVars().STREET);
                 break;
             case BUS_ENTRANCE:
-                speak.vars.setCurrentPage(speak.vars.BUS_ENTRANCE);
+                speak.getVars().setCurrentPage(speak.getVars().BUS_ENTRANCE);
                 break;
             case BUS_SEAT:
-                speak.vars.setCurrentPage(speak.vars.BUS_SEAT);
+                speak.getVars().setCurrentPage(speak.getVars().BUS_SEAT);
                 break;
             case OFFICE_DESK:
-                speak.vars.setCurrentPage(speak.vars.OFFICE_DESK);
+                speak.getVars().setCurrentPage(speak.getVars().OFFICE_DESK);
                 break;
             case OFFICE_BREAKROOM:
-                speak.vars.setCurrentPage(speak.vars.OFFICE_BREAKROOM);
+                speak.getVars().setCurrentPage(speak.getVars().OFFICE_BREAKROOM);
                 break;
             case OFFICE_HALLWAY:
-                speak.vars.setCurrentPage(speak.vars.OFFICE_HALLWAY);
+                speak.getVars().setCurrentPage(speak.getVars().OFFICE_HALLWAY);
                 break;
             case OFFICE_MEETING:
-                speak.vars.setCurrentPage(speak.vars.OFFICE_MEETING);
+                speak.getVars().setCurrentPage(speak.getVars().OFFICE_MEETING);
                 break;
             case LUNCH:
-                speak.vars.setCurrentPage(speak.vars.LUNCH);
+                speak.getVars().setCurrentPage(speak.getVars().LUNCH);
                 break;
             case DINNER:
-                speak.vars.setCurrentPage(speak.vars.DINNER);
+                speak.getVars().setCurrentPage(speak.getVars().DINNER);
                 break;
             case CAR:
-                speak.vars.setCurrentPage(speak.vars.CAR);
+                speak.getVars().setCurrentPage(speak.getVars().CAR);
                 break;
 
 

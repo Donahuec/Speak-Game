@@ -1,7 +1,5 @@
 import javafx.application.Platform;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -73,7 +71,7 @@ public class MenuHome extends MenuBase {
         getGC().setLineWidth(2);
         Font timeFont = Font.font(30);
         getGC().setFont(timeFont);
-        getGC().fillText( speak.stats.getTimeString(), (getWidth() / 2) + (phoneBackground.getWidth() * 0.20), phoneButton.getHeight() * 1 );
+        getGC().fillText( getTimeString(), (getWidth() / 2) + (phoneBackground.getWidth() * 0.20), phoneButton.getHeight() * 1 );
 
 
 
@@ -83,7 +81,7 @@ public class MenuHome extends MenuBase {
      * cleans up and ends the page
      */
     public void end(){
-        speak.vars.setCurrentPage(speak.vars.getReturnPage());
+        speak.getVars().setCurrentPage(speak.getVars().getReturnPage());
     }
 
 
