@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 public class Speak extends Application 
 {
     //holds variables for game will change to own file
-	private Variables vars = new Variables(this);
+	private Variables vars;
     private GameStats stats = new GameStats();
     private GraphicsContext gc;
     private Stage gameStage;
@@ -37,6 +37,7 @@ public class Speak extends Application
     {
 
         gameStage = stage;
+
         // set up window
         //currently is windowed full screen
         //test on Mac?
@@ -59,6 +60,7 @@ public class Speak extends Application
         root.getChildren().add( canvas );
         gc = canvas.getGraphicsContext2D();
 
+        vars = new Variables(this);
         //initialize Game Loop
         gameLoop = new GameLoop(this);
         gameLoop.start();

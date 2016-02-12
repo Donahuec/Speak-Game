@@ -101,7 +101,7 @@ public class PageStart extends Page {
         //is loaded
         initialized = false;
         //change the page
-        changePage(P.TEMP);
+        changePage(P.ALARM);
     }
 
     /**

@@ -48,8 +48,8 @@ public class GameStats {
         minutes += mins;
 
         while (minutes >= 60) {
-            hours++;
-            minutes -= 60;
+            hour++;
+            minutes = minutes % 60;
         }
     }
 

@@ -19,17 +19,22 @@ import javafx.scene.text.TextAlignment;
 public class pageTemp extends Page{
     public Image endButton;
     public Rectangle end;
-    public double circPosition = 0;
     public Image[] animationTest = new Image[4];
     public AnimatedObject timeTest;
     public AnimatedObject delayTest;
     public Rectangle delayRec;
     public GameText text;
-    public Text text1;
+    public String desc1;
+    public Image bg;
+    public boolean choiceMade;
+    public TextOption opOne;
+    public TextOption opTwo;
+
 
 
     public pageTemp(Speak speak){
         super(speak);
+        choiceMade = false;
 
     }
     /**
@@ -43,7 +48,6 @@ public class pageTemp extends Page{
 
         //event handler for Esc function
         getStage().getScene().setOnKeyPressed(new PressEsc());
-
         initialized = true;
     }
 
@@ -63,10 +67,12 @@ public class pageTemp extends Page{
 
         delayRec = new Rectangle(getWidth() - 200 - animationTest[0].getWidth(), 200, animationTest[0].getWidth(), animationTest[0].getHeight());
 
-        text = new GameText(getTextDir() + "Start.txt");
+        //rectangle to handle click event for end button
+        end = new Rectangle((getWidth() / 2) - (endButton.getWidth() / 2) ,
+                (getHeight() / 2) + 200, endButton.getWidth(), endButton.getHeight());
 
-        text1 = new Text(  getWidth() / 2 - (getWidth() /6), getHeight() / 4,  "");
-        getRoot().getChildren().add(text1);
+        bg = new Image("file:" + getPicDir() + "bedroom_bg.png", getWidth(), getHeight(), true, true);
+
 
     }
 
@@ -76,46 +82,40 @@ public class pageTemp extends Page{
     public void update(){
         getStage().getScene().setOnMouseMoved(new MouseEnter());
 
-        text1.setText(text.getText("three"));
-        text1.setWrappingWidth(getWidth() / 3);
-        text1.setTextAlignment(TextAlignment.CENTER);
-        text1.setFont(Font.font( "Times New Roman", getHeight() / 40 ));
+        getGC().drawImage(bg, 0, 0);
 
-
-        		//currently the test animation is moving a circle across the screen
-		//update circle position
-		circPosition += 4;
-		if (circPosition > getWidth()){
-			circPosition = -100;
-		}
-
-        getGC().setFill( Color.BLACK );
-		//draw circle
-		getGC().fillOval(circPosition,getHeight() /2 ,100 , 100);
-
-		//rectangle to handle click event for end button
-		end = new Rectangle((getWidth() / 2) - (endButton.getWidth() / 2) ,
-				(getHeight() / 2) + 200, endButton.getWidth(), endButton.getHeight());
+        if (!choiceMade){
+            addDescription(desc1);
+        } else {
+            clearDescription();
+        }
 
 		getGC().drawImage(endButton, (getWidth() / 2) - (endButton.getWidth() / 2) ,
 				(getHeight() / 2) + 200);
 
         getGC().drawImage(timeTest.getFrame(), 200, 200);
 
-
         getGC().drawImage(delayTest.getFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
 
-
+        handleInteractions();
+        if (choice != 0) {
+            choiceMade = true;
+        }
+        cleanup();
     }
 
     /**
      * cleans up and ends the page
      */
     public void end(){
+        opOne.destructor();
+        opTwo.destructor();
+        opOne = null;
+        opTwo = null;
         endButton = null;
         end = null;
-        getRoot().getChildren().remove(text1);
         initialized = false;
+
     }
 
     /**
@@ -125,6 +125,10 @@ public class pageTemp extends Page{
         @Override
         public void handle(MouseEvent e)
         {
+            if (isInteraction) {
+                getInteractionChoice(e);
+            }
+
             if ( end.contains( e.getX(), e.getY() ) ){
                 getLoop().stop();
                 Platform.exit();
@@ -140,6 +144,10 @@ public class pageTemp extends Page{
         @Override
         public void handle(MouseEvent e)
         {
+            if(isInteraction){
+                getInteractionHover(e);
+            }
+
             if (delayRec.contains(e.getX(), e.getY())){
                 delayTest.setActive(true);
             } else {

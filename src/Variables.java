@@ -12,6 +12,7 @@ public class Variables {
     private Page currentPage;
     public Page returnPage;
 
+    public PageAlarm ALARM;
     public PageStart START;
     public PageEnd END;
     public pageTemp TEMP;
@@ -52,6 +53,7 @@ public class Variables {
         textDir = assetDir + "text" + File.separator;
 
         //initialize pages
+        ALARM = new PageAlarm(speak);
         START = new PageStart(speak);
         TEMP = new pageTemp(speak);
         END = new PageEnd(speak);

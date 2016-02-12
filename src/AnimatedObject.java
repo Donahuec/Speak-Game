@@ -66,6 +66,8 @@ public class AnimatedObject {
 
     public double getDuration() { return duration; }
 
+    public boolean isActive() { return active; }
+
 
 
     //functions to pull information from speak and its variables for easier reading
