@@ -51,7 +51,7 @@ public class TextOption {
         option.setText(opString);
     }
 
-    public void MakeInvisible() {
+    public void makeInvisible() {
         option.setText("");
     }
 

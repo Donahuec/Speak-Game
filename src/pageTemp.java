@@ -16,19 +16,15 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 
-public class pageTemp extends Page{
+public class pageTemp extends PageStory{
     public Image endButton;
     public Rectangle end;
     public Image[] animationTest = new Image[4];
     public AnimatedObject timeTest;
     public AnimatedObject delayTest;
     public Rectangle delayRec;
-    public GameText text;
-    public String desc1;
     public Image bg;
     public boolean choiceMade;
-    public TextOption opOne;
-    public TextOption opTwo;
 
 
 
@@ -44,10 +40,6 @@ public class pageTemp extends Page{
         speak.getVars().setReturnPage(speak.getVars().TEMP);
         getAssets();
         //event handler for clicking end button
-        getStage().getScene().setOnMouseClicked(new PressEnd());
-
-        //event handler for Esc function
-        getStage().getScene().setOnKeyPressed(new PressEsc());
         initialized = true;
     }
 
@@ -80,15 +72,14 @@ public class pageTemp extends Page{
      * checks for changes in the page
      */
     public void update(){
+        getStage().getScene().setOnMouseClicked(new PressEnd());
+
+        //event handler for Esc function
+        getStage().getScene().setOnKeyPressed(new PressEsc());
         getStage().getScene().setOnMouseMoved(new MouseEnter());
 
         getGC().drawImage(bg, 0, 0);
 
-        if (!choiceMade){
-            addDescription(desc1);
-        } else {
-            clearDescription();
-        }
 
 		getGC().drawImage(endButton, (getWidth() / 2) - (endButton.getWidth() / 2) ,
 				(getHeight() / 2) + 200);
@@ -97,10 +88,6 @@ public class pageTemp extends Page{
 
         getGC().drawImage(delayTest.getFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
 
-        handleInteractions();
-        if (choice != 0) {
-            choiceMade = true;
-        }
         cleanup();
     }
 
@@ -108,10 +95,6 @@ public class pageTemp extends Page{
      * cleans up and ends the page
      */
     public void end(){
-        opOne.destructor();
-        opTwo.destructor();
-        opOne = null;
-        opTwo = null;
         endButton = null;
         end = null;
         initialized = false;
@@ -129,7 +112,7 @@ public class pageTemp extends Page{
                 getInteractionChoice(e);
             }
 
-            if ( end.contains( e.getX(), e.getY() ) ){
+            else if ( end.contains( e.getX(), e.getY() ) ){
                 getLoop().stop();
                 Platform.exit();
             }
@@ -148,7 +131,7 @@ public class pageTemp extends Page{
                 getInteractionHover(e);
             }
 
-            if (delayRec.contains(e.getX(), e.getY())){
+            else if (delayRec.contains(e.getX(), e.getY())){
                 delayTest.setActive(true);
             } else {
                 delayTest.setActive(false);
@@ -158,18 +141,15 @@ public class pageTemp extends Page{
     }
 
 
-
-
     /**
      * Handler for pressing Esc button
      */
     class PressEsc implements EventHandler<KeyEvent>{
         @Override
         public void handle(KeyEvent event) {
-            if (event.getCode() == KeyCode.ESCAPE){
-
+            if (event.getCode() == KeyCode.ESCAPE ){
+                clearDescription();
                 speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
-                end();
             }
         }
     }

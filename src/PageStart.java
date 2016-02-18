@@ -1,3 +1,4 @@
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -9,12 +10,18 @@ import javafx.scene.text.TextAlignment;
 /**
  * Created by Caitlin on 1/25/2016.
  */
-public class PageStart extends Page {
+public class PageStart extends PageStory {
     public Image startButton;
-    public Rectangle rec;
+    public Image endButton;
+    public Rectangle start;
+    public Rectangle end;
     public GameText text;
     public Text text1;
     public Text text2;
+    public Image bg;
+    public Image[] titleAnim = new Image[3];
+    public AnimatedObject title;
+    public int buttonHover;
 
 
 
@@ -31,6 +38,8 @@ public class PageStart extends Page {
         getAssets();
         //set up event handler for clicking start button
         getBaseScene().setOnMouseClicked(new PressStart());
+        getStage().getScene().setOnMouseMoved(new MouseEnter());
+        buttonHover = 0;
         initialized = true;
 
     }
@@ -40,11 +49,20 @@ public class PageStart extends Page {
      */
     public void getAssets(){
         startButton = new Image("file:" + getPicDir() + "startButton.png");
+        endButton = new Image("file:" + getPicDir() + "quit.png");
         text = new GameText(getTextDir() + "Start.txt");
         text1 = new Text(  getWidth() / 2 - (getWidth() /6), getHeight() / 4, "" );
         text2 = new Text( getWidth() / 2 - (getWidth() / 6), getHeight() / 3, "" );
         getRoot().getChildren().add(text1);
         getRoot().getChildren().add(text2);
+        bg = new Image("file:" + getPicDir() + "cover.png", getWidth(), getHeight(), true, true);
+
+        titleAnim[0] = new Image("file:" + getPicDir() + "title1.png");
+        titleAnim[1] = new Image("file:" + getPicDir() + "title2.png");
+        titleAnim[2] = new Image("file:" + getPicDir() + "title3.png");
+
+        title = new AnimatedObject(speak,titleAnim, 0.15, true);
+
     }
 
 
@@ -52,29 +70,33 @@ public class PageStart extends Page {
      * checks for changes in the page
      */
     public void update(){
+        getGC().drawImage(bg, 0, 0);
 
-
-
-        text1.setText(text.getText("one"));
-        text1.setWrappingWidth(getWidth() / 3);
-        text1.setTextAlignment(TextAlignment.CENTER);
-        text1.setFont(Font.font( "Times New Roman", getHeight() / 10 ));
-
-
-        text2.setText(text.getText("two"));
-        text2.setWrappingWidth(getWidth() / 3);
-        text2.setTextAlignment(TextAlignment.CENTER);
-        text2.setFont(new Font(getHeight() / 50));
-
-
-        //Rectangle to be able to click start button
-        rec = new Rectangle((getWidth() / 2) - (startButton.getWidth() / 2) ,
-                (getHeight() / 2), startButton.getWidth(),
-                startButton.getHeight());
+        getGC().drawImage(title.getFrame(), 0, 0, getWidth() / 2, getHeight() / 3);
 
         //Draw the start button
-        getGC().drawImage(startButton, (getWidth() / 2) - (startButton.getWidth() / 2)
-                ,(getHeight() / 2));
+        double startWidth = getWidth() / 4;
+        double startHeight = getHeight() / 6;
+        double endWidth = getWidth() / 4;
+        double endHeight = getHeight() / 6;
+
+        if (buttonHover == 1) {
+            startWidth = getWidth() / 3.8;
+            startHeight = getHeight() / 5.8;
+        }
+        if (buttonHover == 2) {
+            endWidth = getWidth() / 3.8;
+            endHeight = getHeight() / 5.8;
+        }
+
+
+        getGC().drawImage(startButton, getWidth() / 8, getHeight() / 4 ,startWidth, startHeight );
+        getGC().drawImage(endButton, getWidth() / 8, (getHeight() / 4) + (getHeight() / 8) ,endWidth, endHeight );
+        //Rectangle to be able to click start button
+        start = new Rectangle(getWidth() / 8, getHeight() / 4 ,startWidth, startHeight - (getHeight() / 24));
+        end = new Rectangle(getWidth() / 8, (getHeight() / 4) + (getHeight() / 6) ,endWidth, endHeight );
+
+
 
 
     }
@@ -86,7 +108,7 @@ public class PageStart extends Page {
         //clear all of the assets to save memory.
         //they will be initialized next time we change to this page
         startButton = null;
-        rec = null;
+        start = null;
         text = null;
 
 
@@ -112,10 +134,33 @@ public class PageStart extends Page {
         public void handle(MouseEvent e)
         {
             //enter game loop if start button pressed
-            if ( rec.contains( e.getX(), e.getY() ) ){
+            if ( start.contains( e.getX(), e.getY() ) ){
                 end();
-
             }
+            if ( end.contains( e.getX(), e.getY() ) ){
+                getLoop().stop();
+                Platform.exit();
+            }
+        }
+    }
+
+    /**
+     * Handler for the mouse hovering on items
+     *
+     */
+    class MouseEnter implements EventHandler<MouseEvent>{
+        @Override
+        public void handle(MouseEvent e)
+        {
+            if ( start.contains( e.getX(), e.getY() ) ){
+                buttonHover = 1;
+            }
+            else if ( end.contains( e.getX(), e.getY() ) ){
+                buttonHover = 2;
+            } else {
+                buttonHover = 0;
+            }
+
         }
     }
 

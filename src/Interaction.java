@@ -8,16 +8,14 @@ public class Interaction {
     private TextOption[] options;
     private String description;
     private int timer;
-    private Page page;
+    private PageStory page;
     private double width;
     private double height;
     private double x;
     private double y;
 
 
-
-
-    public Interaction(Page page, String description, TextOption[] options, int timer) {
+    public Interaction(PageStory page, String description, TextOption[] options, int timer) {
         this.page = page;
         this.description = description;
         this.options = options;
@@ -106,7 +104,7 @@ public class Interaction {
      */
     public void clear() {
         for (int i = 0; i < options.length; i ++) {
-            options[i].MakeInvisible();
+            options[i].makeInvisible();
         }
     }
 

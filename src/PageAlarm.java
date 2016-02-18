@@ -10,7 +10,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import java.util.Iterator;
 
-public class PageAlarm extends Page {
+public class PageAlarm extends PageStory {
     public GameText text;
     public String alarmDescription;
     public Image bg;
@@ -27,7 +27,7 @@ public class PageAlarm extends Page {
      * initializes the scene
      */
     public void begin() {
-        speak.getVars().setReturnPage(speak.getVars().TEMP);
+        speak.getVars().setReturnPage(speak.getVars().ALARM);
         getAssets();
         initialized = true;
     }
@@ -110,6 +110,8 @@ public class PageAlarm extends Page {
 
         options.clear();
         interactions.clear();
+        clearDescription();
+        initialized = false;
 
     }
 
@@ -136,7 +138,7 @@ public class PageAlarm extends Page {
             if (isInteraction) {
                 getInteractionChoice(e);
             }
-            if (alarmClick.contains(e.getX(), e.getY())){
+            else if (alarmClick.contains(e.getX(), e.getY())){
                 curInteraction = interactions.get("snooze");
                 isInteraction = true;
             }
@@ -151,7 +153,8 @@ public class PageAlarm extends Page {
     class PressEsc implements EventHandler<KeyEvent>{
         @Override
         public void handle(KeyEvent event) {
-            if (event.getCode() == KeyCode.ESCAPE){
+            if (event.getCode() == KeyCode.ESCAPE && !isInteraction){
+                clearDescription();
                 speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
                 end();
             }

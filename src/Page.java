@@ -1,12 +1,6 @@
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -17,195 +11,19 @@ import java.util.HashMap;
 public abstract class Page {
     public Speak speak;
     public boolean initialized;
-    public boolean isInteraction;
-    public Interaction curInteraction;
-    public int hover;
-    public int choice;
-    private double width;
-    private double height;
-    private double x;
-    private double y;
-    private Rectangle choice1;
-    private Rectangle choice2;
-    private Rectangle choice3;
-    private Rectangle choice4;
-    private Rectangle choice5;
-    private boolean descriptionInUse;
-    private Text description;
-    private boolean descrec;
     public HashMap<String, Interaction> interactions;
     public HashMap<String, TextOption> options;
+
 
 
     public Page(Speak speak) {
         this.speak = speak;
         initialized = false;
-        isInteraction = false;
-        hover = 0;
-        choice = 0;
-
-        //dimensions for options rectangle
-        width = (speak.getGameStage().getWidth() / 2);
-        height = (speak.getGameStage().getHeight()/ 2);
-        x = speak.getGameStage().getWidth() / 4;
-        y = speak.getGameStage().getHeight() / 5;
-
-        //choice sections
-        choice1 = new Rectangle(x, y, width, height / 7);
-        choice2 = new Rectangle(x, y + (0.5 * y), width, height / 7);
-        choice3 = new Rectangle(x, y + y, width, height / 7);
-        choice4 = new Rectangle(x, y + (1.5 * y), width, height / 7);
-        choice5 = new Rectangle(x, y + (2 * y), width, height / 7);
-
-        descriptionInUse = false;
-
-        //text object for the Description
-        description = new Text(  30, getHeight() - (getHeight()/ 6) + 30,  "");
-        description.setWrappingWidth(getWidth() - 60);
-        description.setTextAlignment(TextAlignment.CENTER);
-        description.setFont(Font.font( "Times New Roman", getHeight() / 60 ));
-        getRoot().getChildren().add(description);
-
-        //rectangle to see if description rectangle has been drawn this frame
-        descrec = false;
-
         options = new HashMap();
         interactions = new HashMap();
-    }
-
-    /**
-    * Cleanup function to clear variables at end of frame
-     */
-    public void cleanup() {
-        choice = 0;
-        descrec = false;
-    }
-
-    /**
-     * sets the description text to an empty string
-     * so that it is no longer visible
-     * @return
-     */
-    public boolean clearDescription() {
-        if (descriptionInUse){
-            description.setText("");
-            descriptionInUse = false;
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * processes interactions for this frame
-     */
-    public void handleInteractions() {
-        if (isInteraction && curInteraction != null) {
-            curInteraction.process(getLoop().curTime);
-        }
-    }
-
-    /**
-     * Draws the rectangle to hold the description text
-     */
-    public void drawDescriptionSquare() {
-        //check if the rectangle has already been drawn this scene
-        if (!descrec){
-            getGC().setFill(Color.AQUAMARINE);
-            getGC().setStroke(Color.BLACK);
-            getGC().setLineWidth(1);
-            //opacity
-            getGC().setGlobalAlpha(0.5);
-            getGC().fillRoundRect(10, getHeight() - (getHeight()/ 6), getWidth() - 20, getHeight() / 7, 15, 15);
-            getGC().strokeRoundRect(10, getHeight() - (getHeight()/ 6), getWidth() - 20, getHeight() / 7, 15, 15);
-            getGC().setGlobalAlpha(1);
-            descrec = true;
-        }
 
     }
 
-    /**
-     * changes the description to str
-     * @param str
-     */
-    public void addDescription(String str) {
-        drawDescriptionSquare();
-        description.setText(str);
-        descriptionInUse = true;
-    }
-
-
-    /**
-     * method to add to eventhandler that gets what choice (if any) has been clicked
-     * @param e
-     */
-    public void getInteractionChoice(MouseEvent e) {
-        if ( choice1.contains( e.getX(), e.getY() )  ){
-            choice = 1;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice2.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 1 ){
-            choice = 2;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice3.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 2 ){
-            choice = 3;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice4.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 3 ){
-            choice = 4;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice5.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 5 ){
-            choice = 5;
-            isInteraction = false;
-            curInteraction.clear();
-        }
-    }
-
-    /**
-     * method to be called by eventhandler to get what choice is being hovered over
-     * @param e
-     */
-    public void getInteractionHover(MouseEvent e) {
-        if ( choice1.contains( e.getX(), e.getY() ) ){
-            hover = 1;
-        } else if ( choice2.contains( e.getX(), e.getY() ) ){
-            hover = 2;
-        } else if ( choice3.contains( e.getX(), e.getY() ) ){
-            hover = 3;
-        } else if ( choice4.contains( e.getX(), e.getY() ) ){
-            hover = 4;
-        } else if ( choice5.contains( e.getX(), e.getY() ) ){
-            hover = 5;
-        } else {
-            hover = 0;
-        }
-    }
-
-
-    public boolean isInteraction() {
-        return isInteraction;
-    }
-
-    public int getChoice() {
-        return choice;
-    }
-
-    public int getHover() {
-        return hover;
-    }
-
-    public Interaction getCurInteraction() {
-        return curInteraction;
-    }
-
-    public void setChoice(int choice) {
-        this.choice = choice;
-    }
-
-    public void setHover(int hover) {
-        this.hover = hover;
-    }
 
     //functions to pull information from speak and its variables for easier reading
     //as well as easier modification
