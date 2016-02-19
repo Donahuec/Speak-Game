@@ -32,6 +32,9 @@ abstract class PageStory extends Page {
     //have we drawn the description rectangle this frame?
     private boolean descrec;
     public Image bg;
+    //variables to have the HUD increment Slowly
+    private static int curAnxiety = 50;
+    private static int curStress = 10;
 
 
     public PageStory(Speak speak) {
@@ -92,9 +95,19 @@ abstract class PageStory extends Page {
         //draw fill
         getGC().setGlobalAlpha(1.0);
         getGC().setFill(Color.CADETBLUE);
-        getGC().fillRoundRect(10, 5, (9 *( getWidth() / 10)) * (getAnxiety() / 200.0), getHeight() / 80, 15, 15);
+        getGC().fillRoundRect(10, 5, (9 *( getWidth() / 10)) * (curAnxiety / 200.0), getHeight() / 80, 15, 15);
         getGC().setFill(Color.WHITE);
-        getGC().fillRoundRect(15, 8, ((9 *( getWidth() / 10)) * (getAnxiety() / 200.0)) - 10, 2, 15, 15);
+        getGC().fillRoundRect(15, 8, ((9 *( getWidth() / 10)) * (curAnxiety / 200.0)) - 10, 2, 15, 15);
+        
+        if (curAnxiety < getAnxiety()) {
+            curAnxiety += 1;
+        } else if (curAnxiety > getAnxiety()) {
+            curAnxiety -= 1;
+        } 
+        if (curAnxiety == getAnxiety() -1 || curAnxiety == getAnxiety() + 1) {
+            curAnxiety = getAnxiety();
+        }
+        
 
         //draw outline
         getGC().setLineWidth(1.0);
@@ -112,9 +125,19 @@ abstract class PageStory extends Page {
         //draw fill
         getGC().setGlobalAlpha(1.0);
         getGC().setFill(Color.CADETBLUE);
-        getGC().fillRoundRect(10, 10 + (getHeight() / 80),  getWidth() / 2 * (getStress() / 50.0), getHeight() / 80, 15, 15);
+        getGC().fillRoundRect(10, 10 + (getHeight() / 80),  getWidth() / 2 * (curStress / 50.0), getHeight() / 80, 15, 15);
         getGC().setFill(Color.WHITE);
-        getGC().fillRoundRect(15, 13 + (getHeight() / 80), getWidth() / 2 * (getStress() / 50.0) - 10, 2, 15, 15);
+        getGC().fillRoundRect(15, 13 + (getHeight() / 80), getWidth() / 2 * (curStress / 50.0) - 10, 2, 15, 15);
+
+        if (curStress < getStress()) {
+            curStress += 1;
+        } else if (curStress > getStress()) {
+            curStress -= 1;
+        }
+        if (curStress == getStress() -1 || curStress == getStress() + 1) {
+            curStress = getStress();
+        }
+        
         //draw outline
         getGC().setLineWidth(1.0);
         getGC().setStroke(Color.BLACK);

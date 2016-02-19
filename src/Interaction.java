@@ -43,6 +43,7 @@ public class Interaction {
         double elapsed = time - startTime;
         if (timer != 0 && elapsed >= timer) {
             page.setChoice(6);
+            page.updateAnxiety(20);
             page.isInteraction = false;
             page.curInteraction.clear();
         } else {

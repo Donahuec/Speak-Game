@@ -84,9 +84,11 @@ public class PageAlarm extends PageStory {
             updateTime(0, 15);
             isInteraction = false;
             curInteraction.clear();
+            updateAnxiety(15);
         } else if (choice == 2 || choice == 6) {
             //wake up and change scenes
             updateTime(0, 30);
+            if (choice == 2) updateAnxiety(-20);
             changePage(P.BEDROOM);
             end();
         }
