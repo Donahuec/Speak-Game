@@ -31,7 +31,6 @@ public class GameStats {
         } else {
             timeArray[2] = 0;
         }
-
         return timeArray;
     }
 
@@ -64,4 +63,30 @@ public class GameStats {
 
         return timeString;
     }
+
+    /**
+     * returns 0 if times are equal
+     * returns -1 if current time is earlier than given time
+     * returns 1 if current time is later than given time
+     * @param cHour
+     * @param cMinutes
+     * @return
+     */
+    public int timeCompare(int cHour, int cMinutes){
+        if (hour == cHour && minutes == cMinutes) {
+            return 0;
+        }
+        if (hour < cHour){
+            return -1;
+        } else if (hour > cHour) {
+            return 1;
+        } else {
+            if (minutes < cMinutes) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+    }
+
 }

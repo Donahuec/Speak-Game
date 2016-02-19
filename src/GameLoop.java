@@ -3,6 +3,7 @@
 */
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
@@ -25,6 +26,7 @@ public class GameLoop extends AnimationTimer {
 
     @Override
     public void handle(long now) {
+		isGameOver();
 		//current game time
 		curTime= (now - startTime) / 1000000000.0;
 		//make sure canvas is clear
@@ -52,6 +54,13 @@ public class GameLoop extends AnimationTimer {
 	 */
 	private void checkSceneChange() {
 		if (!speak.getVars().getCurrentPage().initialized) speak.getVars().getCurrentPage().begin();
+	}
+
+	private void isGameOver() {
+		if (speak.getStats().getAnxiety() >= 200) {
+			stop();
+			Platform.exit();
+		}
 	}
 
 }

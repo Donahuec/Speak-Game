@@ -21,13 +21,14 @@ public abstract class Page {
         initialized = false;
         options = new HashMap();
         interactions = new HashMap();
-
     }
 
 
     //functions to pull information from speak and its variables for easier reading
     //as well as easier modification
     public String getPicDir(){ return speak.getVars().getPicDir(); }
+
+    public String getFontDir(){ return speak.getVars().getFontDir(); }
 
     public String getTextDir(){ return speak.getVars().getTextDir(); }
 
@@ -70,7 +71,7 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().START);
                 break;
             case END:
-                speak.getVars().setCurrentPage(speak.getVars().END);
+                //speak.getVars().setCurrentPage(speak.getVars().END);
                 break;
             case TEMP:
                 speak.getVars().setCurrentPage(speak.getVars().TEMP);
@@ -91,43 +92,43 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().M_TUTORIAL);
                 break;
             case BEDROOM:
-                speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
+                //speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
                 break;
             case KITCHEN:
-                speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
+                //speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
                 break;
             case LIVINGROOM:
-                speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);
+                //speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);
                 break;
             case STREET:
-                speak.getVars().setCurrentPage(speak.getVars().STREET);
+               // speak.getVars().setCurrentPage(speak.getVars().STREET);
                 break;
             case BUS_ENTRANCE:
-                speak.getVars().setCurrentPage(speak.getVars().BUS_ENTRANCE);
+               // speak.getVars().setCurrentPage(speak.getVars().BUS_ENTRANCE);
                 break;
             case BUS_SEAT:
-                speak.getVars().setCurrentPage(speak.getVars().BUS_SEAT);
+                //speak.getVars().setCurrentPage(speak.getVars().BUS_SEAT);
                 break;
             case OFFICE_DESK:
-                speak.getVars().setCurrentPage(speak.getVars().OFFICE_DESK);
+                //speak.getVars().setCurrentPage(speak.getVars().OFFICE_DESK);
                 break;
             case OFFICE_BREAKROOM:
-                speak.getVars().setCurrentPage(speak.getVars().OFFICE_BREAKROOM);
+                //speak.getVars().setCurrentPage(speak.getVars().OFFICE_BREAKROOM);
                 break;
             case OFFICE_HALLWAY:
-                speak.getVars().setCurrentPage(speak.getVars().OFFICE_HALLWAY);
+               // speak.getVars().setCurrentPage(speak.getVars().OFFICE_HALLWAY);
                 break;
             case OFFICE_MEETING:
-                speak.getVars().setCurrentPage(speak.getVars().OFFICE_MEETING);
+                //speak.getVars().setCurrentPage(speak.getVars().OFFICE_MEETING);
                 break;
             case LUNCH:
-                speak.getVars().setCurrentPage(speak.getVars().LUNCH);
+               // speak.getVars().setCurrentPage(speak.getVars().LUNCH);
                 break;
             case DINNER:
-                speak.getVars().setCurrentPage(speak.getVars().DINNER);
+               // speak.getVars().setCurrentPage(speak.getVars().DINNER);
                 break;
             case CAR:
-                speak.getVars().setCurrentPage(speak.getVars().CAR);
+               // speak.getVars().setCurrentPage(speak.getVars().CAR);
                 break;
 
 

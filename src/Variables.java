@@ -8,13 +8,14 @@ public class Variables {
     private String workingDir;
     private String assetDir;
     private String picDir;
+    private String fontDir;
     private  String textDir;
     private Page currentPage;
     public Page returnPage;
 
     public PageAlarm ALARM;
     public PageStart START;
-    public PageEnd END;
+//    public PageEnd END;
     public pageTemp TEMP;
 
     public MenuHome MENU_HOME;
@@ -23,22 +24,22 @@ public class Variables {
     public MenuToDo M_TODO;
     public MenuTutorial M_TUTORIAL;
 
-    public PageBedroom BEDROOM;
-    public PageKitchen KITCHEN;
-    public PageLivingRoom LIVINGROOM;
-
-    public PageStreet STREET;
-    public PageBusEntrance BUS_ENTRANCE;
-    public PageBusSeat BUS_SEAT;
-
-    public PageOfficeDesk OFFICE_DESK;
-    public PageOfficeBreakRoom OFFICE_BREAKROOM;
-    public PageOfficeHallway OFFICE_HALLWAY;
-    public PageOfficeMeeting OFFICE_MEETING;
-
-    public PageLunch LUNCH;
-    public PageDinner DINNER;
-    public PageCar CAR;
+//    public PageBedroom BEDROOM;
+//    public PageKitchen KITCHEN;
+//    public PageLivingRoom LIVINGROOM;
+//
+//    public PageStreet STREET;
+//    public PageBusEntrance BUS_ENTRANCE;
+//    public PageBusSeat BUS_SEAT;
+//
+//    public PageOfficeDesk OFFICE_DESK;
+//    public PageOfficeBreakRoom OFFICE_BREAKROOM;
+//    public PageOfficeHallway OFFICE_HALLWAY;
+//    public PageOfficeMeeting OFFICE_MEETING;
+//
+//    public PageLunch LUNCH;
+//    public PageDinner DINNER;
+//    public PageCar CAR;
 
     public Variables(Speak speak){
         this.speak = speak;
@@ -51,30 +52,31 @@ public class Variables {
         assetDir = workingDir + File.separator + "assets" + File.separator;
         picDir = assetDir + "images" + File.separator;
         textDir = assetDir + "text" + File.separator;
+        fontDir = assetDir + "fonts" + File.separator;
 
         //initialize pages
         ALARM = new PageAlarm(speak);
         START = new PageStart(speak);
         TEMP = new pageTemp(speak);
-        END = new PageEnd(speak);
+       // END = new PageEnd(speak);
         MENU_HOME = new MenuHome(speak);
         M_STATUS = new MenuStatus(speak);
         M_AGENDA = new MenuAgenda(speak);
         M_TODO = new MenuToDo(speak);
         M_TUTORIAL = new MenuTutorial(speak);
-        BEDROOM = new PageBedroom(speak);
-        KITCHEN = new PageKitchen(speak);
-        LIVINGROOM = new PageLivingRoom(speak);
-        STREET = new PageStreet(speak);
-        BUS_ENTRANCE = new PageBusEntrance(speak);
-        BUS_SEAT = new PageBusSeat(speak);
-        OFFICE_DESK = new PageOfficeDesk(speak);
-        OFFICE_BREAKROOM = new PageOfficeBreakRoom(speak);
-        OFFICE_HALLWAY = new PageOfficeHallway(speak);
-        OFFICE_MEETING = new PageOfficeMeeting(speak);
-        LUNCH = new PageLunch(speak);
-        DINNER = new PageDinner(speak);
-        CAR = new PageCar(speak);
+       // BEDROOM = new PageBedroom(speak);
+       // KITCHEN = new PageKitchen(speak);
+       // LIVINGROOM = new PageLivingRoom(speak);
+        //STREET = new PageStreet(speak);
+        //BUS_ENTRANCE = new PageBusEntrance(speak);
+        //BUS_SEAT = new PageBusSeat(speak);
+        //OFFICE_DESK = new PageOfficeDesk(speak);
+        //OFFICE_BREAKROOM = new PageOfficeBreakRoom(speak);
+        //OFFICE_HALLWAY = new PageOfficeHallway(speak);
+        //OFFICE_MEETING = new PageOfficeMeeting(speak);
+       // LUNCH = new PageLunch(speak);
+       // DINNER = new PageDinner(speak);
+       // CAR = new PageCar(speak);
 
         currentPage = START;
         returnPage = START;
@@ -88,6 +90,8 @@ public class Variables {
     }
 
     public String getTextDir() { return  textDir; }
+
+    public String getFontDir() { return fontDir; }
 
     public Page getCurrentPage() {
         return currentPage;

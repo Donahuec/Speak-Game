@@ -1,5 +1,6 @@
 
 import javafx.event.EventHandler;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -51,6 +52,10 @@ public class PageAlarm extends PageStory {
         bg = new Image("file:" + getPicDir() + "alarm_bg.png", getWidth(), getHeight(), true, true);
 
         alarmClick = new Rectangle(getWidth() / 5, getHeight() / 5, (getWidth() / 5) * 3., (getHeight() / 5) * 3  );
+
+
+
+
     }
 
     /**
@@ -70,9 +75,12 @@ public class PageAlarm extends PageStory {
 
         //draw time on alarm
         getGC().setFill( Color.RED );
-        Font alarmFont = Font.font( "IMPACT", FontWeight.BOLD, getHeight() / 2 );
+        Font alarmFont = Font.loadFont("file:" + getFontDir() + "LCDMN___.TTF", getHeight() / 2);
         getGC().setFont(alarmFont);
+        getGC().setEffect(new GaussianBlur());
         getGC().fillText(getTimeString(), getWidth() / 5, getHeight() / 1.5, (getWidth()/5) * 3);
+        getGC().fillText(getTimeString(), getWidth() / 5, getHeight() / 1.5, (getWidth()/5) * 3);
+        getGC().setEffect(null);
 
         handleInteractions();
 
@@ -87,6 +95,8 @@ public class PageAlarm extends PageStory {
             changePage(P.TEMP);
             end();
         }
+
+        drawHUD();
 
         cleanup();
 
@@ -138,7 +148,7 @@ public class PageAlarm extends PageStory {
             if (isInteraction) {
                 getInteractionChoice(e);
             }
-            else if (alarmClick.contains(e.getX(), e.getY())){
+            else if (alarmClick.contains(e.getX(), e.getY()) && !isInteraction){
                 curInteraction = interactions.get("snooze");
                 isInteraction = true;
             }

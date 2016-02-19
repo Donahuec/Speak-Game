@@ -88,6 +88,9 @@ public class pageTemp extends PageStory{
 
         getGC().drawImage(delayTest.getFrame(),getWidth() - 200 - animationTest[0].getWidth(), 200);
 
+        drawHUD();
+
+
         cleanup();
     }
 
@@ -115,6 +118,8 @@ public class pageTemp extends PageStory{
             else if ( end.contains( e.getX(), e.getY() ) ){
                 getLoop().stop();
                 Platform.exit();
+            } else {
+                updateAnxiety(10);
             }
         }
     }

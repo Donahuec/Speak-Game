@@ -1,3 +1,4 @@
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,11 +22,8 @@ abstract class PageStory extends Page {
     private double x;
     private double y;
     //rectangles that hold choices
-    private Rectangle choice1;
-    private Rectangle choice2;
-    private Rectangle choice3;
-    private Rectangle choice4;
-    private Rectangle choice5;
+    private Rectangle[] choices;
+
     //the current description
     private Text description;
     //have we drawn the description rectangle this frame?
@@ -44,12 +42,14 @@ abstract class PageStory extends Page {
         x = speak.getGameStage().getWidth() / 4;
         y = speak.getGameStage().getHeight() / 5;
 
+        choices = new Rectangle[5];
+
         //choice sections
-        choice1 = new Rectangle(x, y, width, height / 7);
-        choice2 = new Rectangle(x, y + (0.5 * y), width, height / 7);
-        choice3 = new Rectangle(x, y + y, width, height / 7);
-        choice4 = new Rectangle(x, y + (1.5 * y), width, height / 7);
-        choice5 = new Rectangle(x, y + (2 * y), width, height / 7);
+        choices[0] = new Rectangle(x, y, width, height / 7);
+        choices[1] = new Rectangle(x, y + (0.5 * y), width, height / 7);
+        choices[2] = new Rectangle(x, y + y, width, height / 7);
+        choices[3] = new Rectangle(x, y + (1.5 * y), width, height / 7);
+        choices[4] = new Rectangle(x, y + (2 * y), width, height / 7);
 
         //text object for the Description
         description = new Text(  30, getHeight() - (getHeight()/ 6) + 30,  "");
@@ -60,6 +60,8 @@ abstract class PageStory extends Page {
 
         //rectangle to see if description rectangle has been drawn this frame
         descrec = false;
+
+
     }
 
     /**
@@ -68,6 +70,67 @@ abstract class PageStory extends Page {
     public void cleanup() {
         choice = 0;
         descrec = false;
+    }
+
+    public void drawAnxietyBar() {
+        //draw background
+        getGC().setFill(Color.DARKGRAY);
+        getGC().setGlobalAlpha(0.8);
+        getGC().fillRoundRect(10, 5, 9 *( getWidth() / 10), getHeight() / 80, 15, 15);
+
+        //draw fill
+        getGC().setGlobalAlpha(1.0);
+        getGC().setFill(Color.CADETBLUE);
+        getGC().fillRoundRect(10, 5, (9 *( getWidth() / 10)) * (getAnxiety() / 200.0), getHeight() / 80, 15, 15);
+        getGC().setFill(Color.WHITE);
+        getGC().fillRoundRect(15, 8, ((9 *( getWidth() / 10)) * (getAnxiety() / 200.0)) - 10, 2, 15, 15);
+
+        //draw outline
+        getGC().setLineWidth(1.0);
+        getGC().setStroke(Color.BLACK);
+        getGC().strokeRoundRect(10.5, 5.5, 9 *(getWidth() / 10), getHeight() / 80, 15, 15);
+
+
+    }
+
+    public void drawStressBar() {
+        //draw background
+        getGC().setFill(Color.DARKGRAY);
+        getGC().setGlobalAlpha(0.8);
+        getGC().fillRoundRect(10, 10 + (getHeight() / 80), getWidth() / 2, getHeight() / 80, 15, 15);
+        //draw fill
+        getGC().setGlobalAlpha(1.0);
+        getGC().setFill(Color.CADETBLUE);
+        getGC().fillRoundRect(10, 10 + (getHeight() / 80),  getWidth() / 2 * (getStress() / 50.0), getHeight() / 80, 15, 15);
+        getGC().setFill(Color.WHITE);
+        getGC().fillRoundRect(15, 13 + (getHeight() / 80), getWidth() / 2 * (getStress() / 50.0) - 10, 2, 15, 15);
+        //draw outline
+        getGC().setLineWidth(1.0);
+        getGC().setStroke(Color.BLACK);
+        getGC().strokeRoundRect(10.5, 10.5 + (getHeight() / 80), getWidth() / 2, getHeight() / 80, 15, 15);
+    }
+
+    public void drawTime() {
+        //draw background
+        getGC().setFill(Color.LIGHTGRAY);
+        getGC().setGlobalAlpha(.5);
+        getGC().fillRect(0, 0, getWidth(), (getHeight() / 40) + 15 );
+
+        //reset global alpha
+        getGC().setGlobalAlpha(1.0);
+
+        //draw time
+        getGC().setFill( Color.BLACK );
+        getGC().setLineWidth(2);
+        Font timeFont = Font.font(getHeight() / 40);
+        getGC().setFont(timeFont);
+        getGC().fillText( getTimeString(), (getWidth() / 14) * 13, getHeight() / 40 );
+    }
+
+    public void drawHUD() {
+        drawTime();
+        drawAnxietyBar();
+        drawStressBar();
     }
 
     /**
@@ -101,7 +164,7 @@ abstract class PageStory extends Page {
             getGC().setGlobalAlpha(0.5);
             getGC().fillRoundRect(10, getHeight() - (getHeight()/ 6), getWidth() - 20, getHeight() / 7, 15, 15);
             getGC().strokeRoundRect(10, getHeight() - (getHeight()/ 6), getWidth() - 20, getHeight() / 7, 15, 15);
-            getGC().setGlobalAlpha(1);
+            getGC().setGlobalAlpha(1.0);
             descrec = true;
         }
 
@@ -122,26 +185,12 @@ abstract class PageStory extends Page {
      * @param e
      */
     public void getInteractionChoice(MouseEvent e) {
-        if ( choice1.contains( e.getX(), e.getY() )  ){
-            choice = 1;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice2.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 1 ){
-            choice = 2;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice3.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 2 ){
-            choice = 3;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice4.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 3 ){
-            choice = 4;
-            isInteraction = false;
-            curInteraction.clear();
-        } else if ( choice5.contains( e.getX(), e.getY() ) && curInteraction.getLength() > 5 ){
-            choice = 5;
-            isInteraction = false;
-            curInteraction.clear();
+        for (int i = 0; i < curInteraction.getLength(); i++){
+            if ( choices[i].contains( e.getX(), e.getY() )  ){
+                choice = i + 1;
+                isInteraction = false;
+                curInteraction.clear();
+            }
         }
     }
 
@@ -150,19 +199,16 @@ abstract class PageStory extends Page {
      * @param e
      */
     public void getInteractionHover(MouseEvent e) {
-        if ( choice1.contains( e.getX(), e.getY() ) ){
-            hover = 1;
-        } else if ( choice2.contains( e.getX(), e.getY() ) ){
-            hover = 2;
-        } else if ( choice3.contains( e.getX(), e.getY() ) ){
-            hover = 3;
-        } else if ( choice4.contains( e.getX(), e.getY() ) ){
-            hover = 4;
-        } else if ( choice5.contains( e.getX(), e.getY() ) ){
-            hover = 5;
-        } else {
-            hover = 0;
+        int tempHover = 0;
+
+        for (int i = 0; i < choices.length; i ++) {
+            if ( choices[i].contains( e.getX(), e.getY() ) ){
+                tempHover = i + 1;
+            }
         }
+
+        hover = tempHover;
+
     }
 
     public boolean isInteraction() {

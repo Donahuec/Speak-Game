@@ -33,9 +33,6 @@ public class AnimatedObject {
     }
 
 
-
-
-
     /**
      * Gets the next frame in the animation sequence
      */

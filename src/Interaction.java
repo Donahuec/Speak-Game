@@ -37,56 +37,17 @@ public class Interaction {
         page.addDescription(description);
 
         page.getGC().setFill(Color.AQUA);
-        //if the mouse is hovering over an option, increase opacity
-        //also show description for that option
-        //option 1
-        if (page.getHover() == 1) {
-            page.getGC().setGlobalAlpha(1);
-            page.addDescription(options[0].getDescription());
-            page.getGC().setGlobalAlpha(0.5);
-        } else {
-            page.getGC().setGlobalAlpha(0.25);
-        }
-        page.getGC().fillRoundRect(x, y, width, height / 7, 15, 15);
         page.getGC().setGlobalAlpha(0.25);
-        //option 2
-        if (options.length > 1) {
-            if (page.getHover() == 2) {
+
+        for (int i = 0; i < options.length; i++) {
+            //are we hovering over this option?
+            if (page.getHover() == i + 1) {
                 page.getGC().setGlobalAlpha(1);
-                page.addDescription(options[1].getDescription());
+                page.addDescription(options[i].getDescription());
                 page.getGC().setGlobalAlpha(0.5);
             }
-            page.getGC().fillRoundRect(x, 1.5 * y, width, height / 7, 15, 15);
+            page.getGC().fillRoundRect(x, ((i + 2) * 0.5) * y, width, height / 7, 15, 15);
             page.getGC().setGlobalAlpha(0.25);
-        }
-        //option 3
-        if (options.length > 2) {
-            if (page.getHover() == 3) {
-                page.getGC().setGlobalAlpha(1);
-                page.addDescription(options[2].getDescription());
-                page.getGC().setGlobalAlpha(0.5);
-            }
-            page.getGC().fillRoundRect(x, 2 * y, width, height / 7, 15, 15);
-            page.getGC().setGlobalAlpha(0.25);
-        }
-        //option 4
-        if (options.length > 3) {
-            if (page.getHover() == 4) {
-                page.getGC().setGlobalAlpha(1);
-                page.addDescription(options[3].getDescription());
-                page.getGC().setGlobalAlpha(0.5);
-            }
-            page.getGC().fillRoundRect(x, 2.5 * y, width, height / 7, 15, 15);
-            page.getGC().setGlobalAlpha(0.25);
-        }
-        //option 5
-        if (options.length > 4) {
-            if (page.getHover() == 5) {
-                page.getGC().setGlobalAlpha(1);
-                page.addDescription(options[4].getDescription());
-                page.getGC().setGlobalAlpha(0.5);
-            }
-            page.getGC().fillRoundRect(x, 3 * y, width, height / 7, 15, 15);
         }
 
         //reset opacity

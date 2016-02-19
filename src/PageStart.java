@@ -77,24 +77,27 @@ public class PageStart extends PageStory {
         //Draw the start button
         double startWidth = getWidth() / 4;
         double startHeight = getHeight() / 6;
+
         double endWidth = getWidth() / 4;
-        double endHeight = getHeight() / 6;
+        double endHeight = getHeight() / 8;
+
 
         if (buttonHover == 1) {
             startWidth = getWidth() / 3.8;
             startHeight = getHeight() / 5.8;
+
         }
         if (buttonHover == 2) {
             endWidth = getWidth() / 3.8;
-            endHeight = getHeight() / 5.8;
+            endHeight = getHeight() / 7.8;
         }
 
 
         getGC().drawImage(startButton, getWidth() / 8, getHeight() / 4 ,startWidth, startHeight );
         getGC().drawImage(endButton, getWidth() / 8, (getHeight() / 4) + (getHeight() / 8) ,endWidth, endHeight );
         //Rectangle to be able to click start button
-        start = new Rectangle(getWidth() / 8, getHeight() / 4 ,startWidth, startHeight - (getHeight() / 24));
-        end = new Rectangle(getWidth() / 8, (getHeight() / 4) + (getHeight() / 6) ,endWidth, endHeight );
+        start = new Rectangle(getWidth() / 8, getHeight() / 4 ,startWidth - (getWidth() / 20), startHeight - (getHeight() / 24));
+        end = new Rectangle(getWidth() / 8, (getHeight() / 4) + (getHeight() / 8) ,endWidth  - (getWidth() / 15), endHeight );
 
 
 
