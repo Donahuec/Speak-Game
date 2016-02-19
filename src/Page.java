@@ -127,8 +127,6 @@ public abstract class Page {
             case CAR:
                // speak.getVars().setCurrentPage(speak.getVars().CAR);
                 break;
-
-
         }
     }
 

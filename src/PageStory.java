@@ -72,10 +72,17 @@ abstract class PageStory extends Page {
     }
 
     /**
-     * draw the background
+     * checks for changes in the page
      */
-    public void drawbg(){
-        getGC().drawImage(bg, 0, 0);
+    public void update() {
+        setEventHandlers();
+        drawbg();
+        updateDescription();
+        drawImages();
+        handleInteractions();
+        handleLogic();
+        drawHUD();
+        cleanup();
     }
 
     /**
@@ -86,6 +93,16 @@ abstract class PageStory extends Page {
         descrec = false;
     }
 
+    /**
+     * draw the background
+     */
+    public void drawbg(){
+        getGC().drawImage(bg, 0, 0);
+    }
+
+    /**
+     * Draw the anxiety bar for the HUD
+     */
     public void drawAnxietyBar() {
         //draw background
         getGC().setFill(Color.DARKGRAY);
@@ -98,7 +115,8 @@ abstract class PageStory extends Page {
         getGC().fillRoundRect(10, 5, (9 *( getWidth() / 10)) * (curAnxiety / 200.0), getHeight() / 80, 15, 15);
         getGC().setFill(Color.WHITE);
         getGC().fillRoundRect(15, 8, ((9 *( getWidth() / 10)) * (curAnxiety / 200.0)) - 10, 2, 15, 15);
-        
+
+        //for smooth transition
         if (curAnxiety < getAnxiety()) {
             curAnxiety += 1;
         } else if (curAnxiety > getAnxiety()) {
@@ -107,16 +125,16 @@ abstract class PageStory extends Page {
         if (curAnxiety == getAnxiety() -1 || curAnxiety == getAnxiety() + 1) {
             curAnxiety = getAnxiety();
         }
-        
 
         //draw outline
         getGC().setLineWidth(1.0);
         getGC().setStroke(Color.BLACK);
         getGC().strokeRoundRect(10.5, 5.5, 9 *(getWidth() / 10), getHeight() / 80, 15, 15);
-
-
     }
 
+    /**
+     * Draw the stress bar for the HUD
+     */
     public void drawStressBar() {
         //draw background
         getGC().setFill(Color.DARKGRAY);
@@ -129,6 +147,7 @@ abstract class PageStory extends Page {
         getGC().setFill(Color.WHITE);
         getGC().fillRoundRect(15, 13 + (getHeight() / 80), getWidth() / 2 * (curStress / 50.0) - 10, 2, 15, 15);
 
+        //smooth transition
         if (curStress < getStress()) {
             curStress += 1;
         } else if (curStress > getStress()) {
@@ -144,6 +163,9 @@ abstract class PageStory extends Page {
         getGC().strokeRoundRect(10.5, 10.5 + (getHeight() / 80), getWidth() / 2, getHeight() / 80, 15, 15);
     }
 
+    /**
+     * Draw the time and backdrop for the HUD
+     */
     public void drawTime() {
         //draw background
         getGC().setFill(Color.LIGHTGRAY);
@@ -161,28 +183,13 @@ abstract class PageStory extends Page {
         getGC().fillText( getTimeString(), (getWidth() / 14) * 13, getHeight() / 40 );
     }
 
+    /**
+     * Draw the HUD to the screen
+     */
     public void drawHUD() {
         drawTime();
         drawAnxietyBar();
         drawStressBar();
-    }
-
-    /**
-     * sets the description text to an empty string
-     * so that it is no longer visible
-     * @return
-     */
-    public void clearDescription() {
-        description.setText("");
-    }
-
-    /**
-     * processes interactions for this frame
-     */
-    public void handleInteractions() {
-        if (isInteraction && curInteraction != null) {
-            curInteraction.process(getLoop().curTime);
-        }
     }
 
     /**
@@ -201,7 +208,6 @@ abstract class PageStory extends Page {
             getGC().setGlobalAlpha(1.0);
             descrec = true;
         }
-
     }
 
     /**
@@ -211,6 +217,26 @@ abstract class PageStory extends Page {
     public void addDescription(String str) {
         drawDescriptionSquare();
         description.setText(str);
+    }
+
+
+    /**
+     * sets the description text to an empty string
+     * so that it is no longer visible
+     * @return
+     */
+    public void clearDescription() {
+        description.setText("");
+    }
+
+
+    /**
+     * processes interactions for this frame
+     */
+    public void handleInteractions() {
+        if (isInteraction && curInteraction != null) {
+            curInteraction.process(getLoop().curTime);
+        }
     }
 
 
@@ -267,21 +293,6 @@ abstract class PageStory extends Page {
 
     public void setHover(int hover) {
         this.hover = hover;
-    }
-
-    /**
-     * checks for changes in the page
-     */
-    public void update() {
-        setEventHandlers();
-        drawbg();
-        updateDescription();
-        drawImages();
-        handleInteractions();
-        handleLogic();
-        drawHUD();
-        cleanup();
-
     }
 
 

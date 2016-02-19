@@ -36,28 +36,30 @@ public class Interaction {
      */
     public void process(double time) {
 
+        //set the start time in the first frame
         if (startTime == -1) {
             startTime = time;
         }
 
         double elapsed = time - startTime;
         if (timer != 0 && elapsed >= timer) {
+            //choose the panic option
             page.setChoice(6);
             page.updateAnxiety(20);
             page.isInteraction = false;
             page.curInteraction.clear();
         } else {
-
+            //draw timer
             if (timer != 0) {
                 page.getGC().fillRoundRect(x, y - 15, width - (width * (elapsed / timer)), 10, 15, 15);
             }
-
 
             page.addDescription(description);
 
             page.getGC().setFill(Color.AQUA);
             page.getGC().setGlobalAlpha(0.25);
 
+            //draw the rectangles
             for (int i = 0; i < options.length; i++) {
                 //are we hovering over this option?
                 if (page.getHover() == i + 1) {

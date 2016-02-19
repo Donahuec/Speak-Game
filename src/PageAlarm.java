@@ -2,13 +2,10 @@
 import javafx.event.EventHandler;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-
 import java.io.File;
 import java.util.Iterator;
 
@@ -64,8 +61,9 @@ public class PageAlarm extends PageStory {
         bg = null;
         choiceMade = false;
         alarmClick = null;
-        Iterator<String> keySetIterator = options.keySet().iterator();
 
+        //clears the options
+        Iterator<String> keySetIterator = options.keySet().iterator();
         while (keySetIterator.hasNext()) {
             String key = keySetIterator.next();
             options.get(key).destructor();
@@ -143,9 +141,7 @@ public class PageAlarm extends PageStory {
         {
             if (isInteraction) {
                 getInteractionChoice(e);
-            }
-
-            else if (alarmClick.contains(e.getX(), e.getY()) && !isInteraction){
+            } else if (alarmClick.contains(e.getX(), e.getY()) && !isInteraction){
                 curInteraction = interactions.get("snooze");
                 isInteraction = true;
             }

@@ -71,12 +71,8 @@ public class PageStart extends PageStory {
      */
     public void end(){
         //clear all of the assets to save memory.
-        //they will be initialized next time we change to this page
         startButton = null;
         start = null;
-
-        //make sure the begin method is called again next time page
-        //is loaded
         initialized = false;
         //change the page
         changePage(P.ALARM);
@@ -92,18 +88,16 @@ public class PageStart extends PageStory {
     void drawImages() {
         getGC().drawImage(title.getFrame(), 0, 0, getWidth() / 2, getHeight() / 3);
 
-        //Draw the start button
         double startWidth = getWidth() / 4;
         double startHeight = getHeight() / 6;
 
         double endWidth = getWidth() / 4;
         double endHeight = getHeight() / 8;
 
-
+        //if we are hovering over a button, make it bigger
         if (buttonHover == 1) {
             startWidth = getWidth() / 3.8;
             startHeight = getHeight() / 5.8;
-
         }
         if (buttonHover == 2) {
             endWidth = getWidth() / 3.8;
@@ -158,8 +152,7 @@ public class PageStart extends PageStory {
         {
             if ( start.contains( e.getX(), e.getY() ) ){
                 buttonHover = 1;
-            }
-            else if ( end.contains( e.getX(), e.getY() ) ){
+            } else if ( end.contains( e.getX(), e.getY() ) ){
                 buttonHover = 2;
             } else {
                 buttonHover = 0;
