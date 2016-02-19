@@ -16,7 +16,6 @@ public class Variables {
     public PageAlarm ALARM;
     public PageStart START;
 //    public PageEnd END;
-    public pageTemp TEMP;
 
     public MenuHome MENU_HOME;
     public MenuStatus M_STATUS;
@@ -24,7 +23,7 @@ public class Variables {
     public MenuToDo M_TODO;
     public MenuTutorial M_TUTORIAL;
 
-//    public PageBedroom BEDROOM;
+    public PageBedroom BEDROOM;
 //    public PageKitchen KITCHEN;
 //    public PageLivingRoom LIVINGROOM;
 //
@@ -57,14 +56,13 @@ public class Variables {
         //initialize pages
         ALARM = new PageAlarm(speak);
         START = new PageStart(speak);
-        TEMP = new pageTemp(speak);
        // END = new PageEnd(speak);
         MENU_HOME = new MenuHome(speak);
         M_STATUS = new MenuStatus(speak);
         M_AGENDA = new MenuAgenda(speak);
         M_TODO = new MenuToDo(speak);
         M_TUTORIAL = new MenuTutorial(speak);
-       // BEDROOM = new PageBedroom(speak);
+        BEDROOM = new PageBedroom(speak);
        // KITCHEN = new PageKitchen(speak);
        // LIVINGROOM = new PageLivingRoom(speak);
         //STREET = new PageStreet(speak);

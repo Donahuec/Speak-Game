@@ -1,4 +1,7 @@
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -28,6 +31,7 @@ abstract class PageStory extends Page {
     private Text description;
     //have we drawn the description rectangle this frame?
     private boolean descrec;
+    public Image bg;
 
 
     public PageStory(Speak speak) {
@@ -62,6 +66,13 @@ abstract class PageStory extends Page {
         descrec = false;
 
 
+    }
+
+    /**
+     * draw the background
+     */
+    public void drawbg(){
+        getGC().drawImage(bg, 0, 0);
     }
 
     /**
@@ -235,6 +246,21 @@ abstract class PageStory extends Page {
         this.hover = hover;
     }
 
+    /**
+     * checks for changes in the page
+     */
+    public void update() {
+        setEventHandlers();
+        drawbg();
+        updateDescription();
+        drawImages();
+        handleInteractions();
+        handleLogic();
+        drawHUD();
+        cleanup();
+
+    }
+
 
     /**
      * initializes the scene
@@ -245,15 +271,45 @@ abstract class PageStory extends Page {
      * initializes assets for the scene
      */
     abstract void getAssets();
-    /**
-     * checks for changes in the page
-     */
-    abstract void update();
+
 
     /**
      * cleans up and ends the page
      */
     abstract void end();
 
+    /**
+     * Handle the logic for the update
+     */
+    abstract void handleLogic();
+
+    /**
+     * draw the images for the page
+     */
+    abstract void drawImages();
+
+    /**
+     * set event handlers for the page
+     */
+    abstract void setEventHandlers();
+
+    /**
+     * update the description for the page
+     */
+    abstract void updateDescription();
+
+    /**
+     * Handler for pressing Esc button
+     */
+    class PressEsc implements EventHandler<KeyEvent> {
+        @Override
+        public void handle(KeyEvent event) {
+            if (event.getCode() == KeyCode.ESCAPE && !isInteraction){
+                clearDescription();
+                speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
+                end();
+            }
+        }
+    }
 
 }

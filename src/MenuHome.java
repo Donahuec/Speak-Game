@@ -6,6 +6,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
 import javafx.scene.text.Font;
 
+import java.io.File;
+
 /**
  * Created by Caitlin on 1/25/2016.
  */
@@ -38,7 +40,7 @@ public class MenuHome extends MenuBase {
      */
     public void getAssets(){
         super.getAssets();
-        phoneButton = new Image("file:" + getPicDir() + "phone_button.png", phoneBackground.getRequestedWidth() / 7, phoneBackground.getRequestedWidth() / 7, false, true);
+        phoneButton = new Image("file:" + getPicDir() + "menu" + File.separator + "phone_button.png", phoneBackground.getRequestedWidth() / 7, phoneBackground.getRequestedWidth() / 7, false, true);
     }
 
     /**

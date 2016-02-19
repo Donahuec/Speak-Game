@@ -3,6 +3,8 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.File;
+
 /**
  * Created by Caitlin on 1/29/2016.
  */
@@ -20,7 +22,7 @@ abstract class MenuBase extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
-        phoneBackground = new Image("file:" + getPicDir() + "phone_bg.png", getWidth() / 3, getHeight(), true, true);
+        phoneBackground = new Image("file:" + getPicDir() + "menu" + File.separator + "phone_bg.png", getWidth() / 3, getHeight(), true, true);
     }
     /**
      * checks for changes in the page

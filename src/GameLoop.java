@@ -3,10 +3,13 @@
 */
 
 import javafx.animation.AnimationTimer;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
+import javafx.util.Duration;
 
 
 public class GameLoop extends AnimationTimer {
@@ -53,7 +56,10 @@ public class GameLoop extends AnimationTimer {
 	 * Checks if the scene has changed since the update, and sets up the new scene
 	 */
 	private void checkSceneChange() {
-		if (!speak.getVars().getCurrentPage().initialized) speak.getVars().getCurrentPage().begin();
+		if (!speak.getVars().getCurrentPage().initialized){
+			speak.getVars().getCurrentPage().begin();
+		}
+
 	}
 
 	private void isGameOver() {

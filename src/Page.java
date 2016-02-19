@@ -73,9 +73,6 @@ public abstract class Page {
             case END:
                 //speak.getVars().setCurrentPage(speak.getVars().END);
                 break;
-            case TEMP:
-                speak.getVars().setCurrentPage(speak.getVars().TEMP);
-                break;
             case MENU_HOME:
                 speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
                 break;
@@ -92,7 +89,7 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().M_TUTORIAL);
                 break;
             case BEDROOM:
-                //speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
+                speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
                 break;
             case KITCHEN:
                 //speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
