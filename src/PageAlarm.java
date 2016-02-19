@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import java.util.Iterator;
 
 public class PageAlarm extends PageStory {
@@ -17,6 +16,7 @@ public class PageAlarm extends PageStory {
     public Image bg;
     public boolean choiceMade;
     public Rectangle alarmClick;
+    public Font alarmFont;
 
 
     public PageAlarm(Speak speak){
@@ -47,7 +47,7 @@ public class PageAlarm extends PageStory {
         TextOption[] arr = {options.get("opOne"), options.get("opTwo")};
 
         //add interactions to hashmap
-        interactions.put("snooze", new Interaction(this, alarmDescription , arr , 0));
+        interactions.put("snooze", new Interaction(this, alarmDescription , arr , 10));
 
         bg = new Image("file:" + getPicDir() + "alarm_bg.png", getWidth(), getHeight(), true, true);
 
@@ -89,7 +89,7 @@ public class PageAlarm extends PageStory {
             updateTime(0, 15);
             isInteraction = false;
             curInteraction.clear();
-        } else if (choice == 2) {
+        } else if (choice == 2 || choice == 6) {
             //wake up and change scenes
             updateTime(0, 30);
             changePage(P.TEMP);
