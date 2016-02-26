@@ -62,6 +62,8 @@ public abstract class Page {
 
     public void updateTime(int hours, int mins) { speak.getStats().updateTime(hours, mins); }
 
+    public int timeCompare(int hours, int mins) { return speak.getStats().timeCompare(hours, mins);}
+
     public void changePage(P page){
         switch (page) {
             case ALARM:
@@ -95,7 +97,7 @@ public abstract class Page {
                 //speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
                 break;
             case LIVINGROOM:
-                //speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);
+                speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);
                 break;
             case STREET:
                // speak.getVars().setCurrentPage(speak.getVars().STREET);

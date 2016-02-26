@@ -10,10 +10,11 @@ import java.io.File;
 import java.util.Iterator;
 
 public class PageAlarm extends PageStory {
-    public GameText text;
+
     public String alarmDescription;
     public boolean choiceMade;
     public Rectangle alarmClick;
+    private boolean timesUp;
 
 
     public PageAlarm(Speak speak){
@@ -28,6 +29,7 @@ public class PageAlarm extends PageStory {
         speak.getVars().setReturnPage(speak.getVars().ALARM);
         getAssets();
         initialized = true;
+        timesUp = false;
         isInteraction = false;
     }
 
@@ -37,17 +39,17 @@ public class PageAlarm extends PageStory {
     public void getAssets() {
         text = new GameText(getTextDir() + "alarm.xml");
 
-        alarmDescription = text.getText("alarmDescOne");
+        alarmDescription = text.getText("alarmDesc");
 
         //add options to hashmap
-        options.put("opOne", new TextOption( text.getText("alarmOpOne"),text.getText("alarmDescTwo"), 0,  this));
-        options.put("opTwo", new TextOption( text.getText("alarmOpTwo"),text.getText("alarmDescThree"), 1,  this));
-        TextOption[] arr = {options.get("opOne"), options.get("opTwo")};
+        options.put("up", new TextOption( text.getText("up"),text.getText("upDesc"), 0,  this));
+        options.put("snooze", new TextOption( text.getText("snooze"),text.getText("snoozeDesc"), 1,  this));
+        TextOption[] arr = { options.get("up"),options.get("snooze")};
 
         //add interactions to hashmap
-        interactions.put("snooze", new Interaction(this, alarmDescription , arr , 10));
+        interactions.put("snooze", new Interaction(this, alarmDescription , arr , 0));
 
-        bg = new Image("file:" + getPicDir() + "alarm" + File.separator + "alarm_bg.png", getWidth(), getHeight(), true, true);
+        bg = new Image("file:" + getPicDir() + "alarm" + File.separator + "alarm_bg.png", getWidth(), getHeight(), false, true);
 
         alarmClick = new Rectangle(getWidth() / 5, getHeight() / 5, (getWidth() / 5) * 3., (getHeight() / 5) * 3  );
     }
@@ -61,39 +63,33 @@ public class PageAlarm extends PageStory {
         bg = null;
         choiceMade = false;
         alarmClick = null;
-
-        //clears the options
-        Iterator<String> keySetIterator = options.keySet().iterator();
-        while (keySetIterator.hasNext()) {
-            String key = keySetIterator.next();
-            options.get(key).destructor();
-        }
-
-        options.clear();
-        interactions.clear();
-        clearDescription();
-        initialized = false;
+        endPage();
     }
 
     @Override
-    void handleLogic() {
-        if (choice == 1) {
+    public void handleLogic() {
+        if (choice == 2) {
             //snooze alarm
             updateTime(0, 15);
             isInteraction = false;
             curInteraction.clear();
-            updateAnxiety(15);
-        } else if (choice == 2 || choice == 6) {
+            updateAnxiety(5);
+        } else if (choice == 1) {
             //wake up and change scenes
-            updateTime(0, 30);
-            if (choice == 2) updateAnxiety(-20);
+            updateTime(0, 20);
             changePage(P.BEDROOM);
             end();
+        }
+        if (timeCompare(8, 10) == 1 && !timesUp) {
+            curInteraction.removeLast();
+            options.get("up").setDescription(text.getText("timeout"));
+            alarmDescription = text.getText("timeout");
+            timesUp = true;
         }
     }
 
     @Override
-    void drawImages() {
+    public void drawImages() {
         //draw time on alarm
         getGC().setFill( Color.RED );
         Font alarmFont = Font.loadFont("file:" + getFontDir() + "LCDMN___.TTF", getHeight() / 2);
@@ -105,7 +101,7 @@ public class PageAlarm extends PageStory {
     }
 
     @Override
-    void setEventHandlers() {
+    public void setEventHandlers() {
         //add event handlers
         getBaseScene().setOnMouseClicked(new MouseClick());
         getBaseScene().setOnKeyPressed(new PressEsc());
@@ -113,7 +109,7 @@ public class PageAlarm extends PageStory {
     }
 
     @Override
-    void updateDescription() {
+    public void updateDescription() {
         if(!isInteraction) {
             addDescription(alarmDescription);
         }

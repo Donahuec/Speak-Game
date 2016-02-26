@@ -94,6 +94,14 @@ public class Interaction {
         }
     }
 
+    public void removeLast() {
+        TextOption[] temp = new TextOption[options.length - 1] ;
+        for (int i = 0; i < options.length - 1; i++){
+            temp[i] = options[i];
+        }
+        options = temp;
+    }
+
     public int getLength() { return options.length; }
 
 }

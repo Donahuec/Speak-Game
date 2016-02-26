@@ -9,10 +9,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Iterator;
+
 /**
  * Created by Caitlin on 1/29/2016.
  */
 abstract class PageStory extends Page {
+    public GameText text;
     public boolean isInteraction;
     public Interaction curInteraction;
     //whether we are hovering over an option
@@ -93,6 +96,24 @@ abstract class PageStory extends Page {
         descrec = false;
     }
 
+    public void endPage() {
+        //clears the options
+        Iterator<String> keySetIterator = options.keySet().iterator();
+        while (keySetIterator.hasNext()) {
+            String key = keySetIterator.next();
+            options.get(key).destructor();
+        }
+
+        options.clear();
+        interactions.clear();
+        clearDescription();
+        initialized = false;
+
+        getBaseScene().setOnMouseClicked(null);
+        getBaseScene().setOnKeyPressed(null);
+        getBaseScene().setOnMouseMoved(null);
+    }
+
     /**
      * draw the background
      */
@@ -122,9 +143,7 @@ abstract class PageStory extends Page {
         } else if (curAnxiety > getAnxiety()) {
             curAnxiety -= 1;
         } 
-        if (curAnxiety == getAnxiety() -1 || curAnxiety == getAnxiety() + 1) {
-            curAnxiety = getAnxiety();
-        }
+
 
         //draw outline
         getGC().setLineWidth(1.0);
@@ -153,9 +172,7 @@ abstract class PageStory extends Page {
         } else if (curStress > getStress()) {
             curStress -= 1;
         }
-        if (curStress == getStress() -1 || curStress == getStress() + 1) {
-            curStress = getStress();
-        }
+
         
         //draw outline
         getGC().setLineWidth(1.0);
@@ -271,6 +288,27 @@ abstract class PageStory extends Page {
 
     }
 
+    /**
+     * Handle the logic for the update
+     */
+    public void handleLogic() {}
+
+    /**
+     * draw the images for the page
+     */
+    public void drawImages() {}
+
+    /**
+     * set event handlers for the page
+     */
+    public void setEventHandlers() {}
+
+    /**
+     * update the description for the page
+     */
+    public void updateDescription() {}
+
+
     public boolean isInteraction() {
         return isInteraction;
     }
@@ -312,25 +350,6 @@ abstract class PageStory extends Page {
      */
     abstract void end();
 
-    /**
-     * Handle the logic for the update
-     */
-    abstract void handleLogic();
-
-    /**
-     * draw the images for the page
-     */
-    abstract void drawImages();
-
-    /**
-     * set event handlers for the page
-     */
-    abstract void setEventHandlers();
-
-    /**
-     * update the description for the page
-     */
-    abstract void updateDescription();
 
     /**
      * Handler for pressing Esc button
@@ -341,7 +360,7 @@ abstract class PageStory extends Page {
             if (event.getCode() == KeyCode.ESCAPE && !isInteraction){
                 clearDescription();
                 speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
-                end();
+                getBaseScene().setOnMouseMoved(null);
             }
         }
     }

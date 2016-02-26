@@ -1,5 +1,6 @@
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.event.EventHandler;
@@ -20,8 +21,6 @@ public class PageStart extends PageStory {
     public Image[] titleAnim = new Image[3];
     public AnimatedObject title;
     public int buttonHover;
-
-
 
 
     public PageStart(Speak speak){
@@ -47,13 +46,13 @@ public class PageStart extends PageStory {
     public void getAssets(){
         startButton = new Image("file:" + getPicDir() + "start" + File.separator + "start.png");
         endButton = new Image("file:" + getPicDir() + "start" + File.separator + "quit.png");
-        bg = new Image("file:" + getPicDir() + "start" + File.separator + "cover.png", getWidth(), getHeight(), true, true);
+        bg = new Image("file:" + getPicDir() + "start" + File.separator + "cover.png", getWidth(), getHeight(), false, true);
 
         titleAnim[0] = new Image("file:" + getPicDir() + "start" + File.separator + "title1.png");
         titleAnim[1] = new Image("file:" + getPicDir() + "start" + File.separator + "title2.png");
         titleAnim[2] = new Image("file:" + getPicDir() + "start" + File.separator + "title3.png");
 
-        title = new AnimatedObject(speak,titleAnim, 0.15, true);
+        title = new AnimatedObject(speak,titleAnim, 0.15, true, -1, false);
 
     }
 
@@ -76,23 +75,20 @@ public class PageStart extends PageStory {
         initialized = false;
         //change the page
         changePage(P.ALARM);
+        endPage();
 
     }
 
-    @Override
-    void handleLogic() {
-        return;
-    }
 
     @Override
-    void drawImages() {
+    public void drawImages() {
         getGC().drawImage(title.getFrame(), 0, 0, getWidth() / 2, getHeight() / 3);
 
         double startWidth = getWidth() / 4;
         double startHeight = getHeight() / 6;
 
         double endWidth = getWidth() / 4;
-        double endHeight = getHeight() / 8;
+        double endHeight = getHeight() / 6;
 
         //if we are hovering over a button, make it bigger
         if (buttonHover == 1) {
@@ -101,7 +97,7 @@ public class PageStart extends PageStory {
         }
         if (buttonHover == 2) {
             endWidth = getWidth() / 3.8;
-            endHeight = getHeight() / 7.8;
+            endHeight = getHeight() / 5.8;
         }
 
 
@@ -113,16 +109,12 @@ public class PageStart extends PageStory {
     }
 
     @Override
-    void setEventHandlers() {
+    public void setEventHandlers() {
         //set up event handler for clicking start button
         getBaseScene().setOnMouseClicked(new PressStart());
         getStage().getScene().setOnMouseMoved(new MouseEnter());
     }
 
-    @Override
-    void updateDescription() {
-        return;
-    }
 
     /**
      * Handler for pressing the start button
