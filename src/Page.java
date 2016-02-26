@@ -94,7 +94,7 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
                 break;
             case KITCHEN:
-                //speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
+                speak.getVars().setCurrentPage(speak.getVars().KITCHEN);
                 break;
             case LIVINGROOM:
                 speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);

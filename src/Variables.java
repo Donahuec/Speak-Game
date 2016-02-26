@@ -24,7 +24,7 @@ public class Variables {
     public MenuTutorial M_TUTORIAL;
 
     public PageBedroom BEDROOM;
-//    public PageKitchen KITCHEN;
+    public PageKitchen KITCHEN;
     public PageLivingRoom LIVINGROOM;
 //
 //    public PageStreet STREET;
@@ -63,7 +63,7 @@ public class Variables {
         M_TODO = new MenuToDo(speak);
         M_TUTORIAL = new MenuTutorial(speak);
         BEDROOM = new PageBedroom(speak);
-       // KITCHEN = new PageKitchen(speak);
+        KITCHEN = new PageKitchen(speak);
         LIVINGROOM = new PageLivingRoom(speak);
         //STREET = new PageStreet(speak);
         //BUS_ENTRANCE = new PageBusEntrance(speak);

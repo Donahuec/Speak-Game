@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <textObject>
-    <item id="roomDescAM">
+    <item id="roomDesc">
         <text>Your living room. </text>
     </item>
     <item id="bedroom">
