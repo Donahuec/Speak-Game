@@ -1,18 +1,23 @@
 
 
 public class GameStats {
+
+    private boolean gameOver;
     private int anxiety;
     private int stress;
     private int hour;
     private int minutes;
     private boolean twelveHourClock;
+    private boolean smallBreakfast;
 
     public GameStats() {
         anxiety = 50;
         stress = 10;
         hour = 7;
-        minutes = 0;
+        minutes = 20;
         twelveHourClock = true;
+        smallBreakfast = true;
+        gameOver = false;
     }
 
     public int getAnxiety() {return anxiety;}
@@ -36,6 +41,12 @@ public class GameStats {
 
     public void updateAnxiety(int change){
         anxiety += change;
+        if (anxiety < 0) {
+            anxiety = 0;
+        }
+        if (anxiety >= 200) {
+            gameOver = true;
+        }
     }
 
     public void  updateStress(int change) {
@@ -89,4 +100,15 @@ public class GameStats {
         }
     }
 
+    public boolean isSmallBreakfast() {
+        return smallBreakfast;
+    }
+
+    public void setSmallBreakfast(boolean smallBreakfast) {
+        this.smallBreakfast = smallBreakfast;
+    }
+
+    public boolean isGameOver() {return gameOver;}
+
+    public void setGameOver(boolean gameOver) {this.gameOver = gameOver;}
 }

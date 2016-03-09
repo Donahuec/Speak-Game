@@ -42,6 +42,8 @@ public abstract class Page {
 
     public Scene getBaseScene() { return speak.getBaseScene(); }
 
+    public GameStats getStats() { return speak.getStats(); }
+
     public double getWidth() { return speak.getGameStage().getWidth(); }
 
     public double getHeight() {return speak.getGameStage().getHeight(); }
@@ -100,10 +102,10 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().LIVINGROOM);
                 break;
             case STREET:
-               // speak.getVars().setCurrentPage(speak.getVars().STREET);
+                speak.getVars().setCurrentPage(speak.getVars().STREET);
                 break;
             case BUS_ENTRANCE:
-               // speak.getVars().setCurrentPage(speak.getVars().BUS_ENTRANCE);
+                speak.getVars().setCurrentPage(speak.getVars().BUS_ENTRANCE);
                 break;
             case BUS_SEAT:
                 //speak.getVars().setCurrentPage(speak.getVars().BUS_SEAT);

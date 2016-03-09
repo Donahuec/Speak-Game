@@ -86,7 +86,7 @@ public class PageLivingRoom extends PageStory {
         brec = null;
 
         kdoor = null;
-       krec = null;
+        krec = null;
 
         roomDesc = null;
         bdoorDesc = null;
@@ -103,18 +103,15 @@ public class PageLivingRoom extends PageStory {
         }
         if (choice == 1) {
             //go to kitchen
-            System.out.println("kitchen");
             changePage(P.KITCHEN);
             end();
         } else if (choice == 2) {
             //take bus
-            System.out.println("bus");
-            changePage(P.START);
+            changePage(P.BUS_ENTRANCE);
             end();
         } else if (choice == 3) {
             //walk to work
-            System.out.println("walk");
-            changePage(P.START);
+            changePage(P.STREET);
             end();
         }
     }

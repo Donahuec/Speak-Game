@@ -8,9 +8,10 @@ import java.io.File;
 /**
  * Created by Caitlin on 1/27/2016.
  */
-public class PageEnd extends PageStory {
+public class PageStreet extends PageStory {
+    private Image askDir;
 
-    public PageEnd(Speak speak) {
+    public PageStreet(Speak speak) {
         super(speak);
     }
 
@@ -18,7 +19,7 @@ public class PageEnd extends PageStory {
      * initializes the scene
      */
     public void begin() {
-        speak.getVars().setReturnPage(speak.getVars().LIVINGROOM);
+        speak.getVars().setReturnPage(speak.getVars().STREET);
         getAssets();
         initialized = true;
     }
@@ -27,6 +28,9 @@ public class PageEnd extends PageStory {
      * initializes assets for the scene
      */
     public void getAssets() {
+        bg = new Image("file:" + getPicDir() + "street" + File.separator + "street_bg.png", getWidth(), getHeight(), false, true);
+        askDir = new Image("file:" + getPicDir() + "street" + File.separator + "directions.png", getWidth() / 4, getHeight(), false, true);
+
     }
 
 
@@ -42,10 +46,14 @@ public class PageEnd extends PageStory {
 
     @Override
     public void drawImages() {
+        getGC().drawImage(askDir, getWidth() * .75, 0);
     }
 
     @Override
     public void setEventHandlers() {
+        getBaseScene().setOnMouseClicked(new MouseClick());
+        getBaseScene().setOnKeyPressed(new PressEsc());
+        getBaseScene().setOnMouseMoved(new MouseEnter());
     }
 
     @Override

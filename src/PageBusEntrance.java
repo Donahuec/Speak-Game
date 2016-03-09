@@ -8,9 +8,10 @@ import java.io.File;
 /**
  * Created by Caitlin on 1/27/2016.
  */
-public class PageEnd extends PageStory {
+public class PageBusEntrance extends PageStory {
+    private AnimatedObject door;
 
-    public PageEnd(Speak speak) {
+    public PageBusEntrance(Speak speak) {
         super(speak);
     }
 
@@ -18,7 +19,7 @@ public class PageEnd extends PageStory {
      * initializes the scene
      */
     public void begin() {
-        speak.getVars().setReturnPage(speak.getVars().LIVINGROOM);
+        speak.getVars().setReturnPage(speak.getVars().BUS_ENTRANCE);
         getAssets();
         initialized = true;
     }
@@ -27,6 +28,14 @@ public class PageEnd extends PageStory {
      * initializes assets for the scene
      */
     public void getAssets() {
+        bg = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busentrance_bg.png", getWidth(), getHeight(), false, true);
+        Image[] doorArr = new Image[7];
+        doorArr[0] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_1.png");
+        doorArr[1] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_2.png");
+        doorArr[2] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_3.png");
+        doorArr[3] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_4.png");
+        doorArr[4] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_5.png");
+        door = new AnimatedObject(speak, doorArr, 0.07, true, 4, false);
     }
 
 
@@ -42,10 +51,15 @@ public class PageEnd extends PageStory {
 
     @Override
     public void drawImages() {
+        getGC().drawImage(door.getFrame(), 0, 0, getWidth(), getHeight());
     }
+
 
     @Override
     public void setEventHandlers() {
+        getBaseScene().setOnMouseClicked(new MouseClick());
+        getBaseScene().setOnKeyPressed(new PressEsc());
+        getBaseScene().setOnMouseMoved(new MouseEnter());
     }
 
     @Override

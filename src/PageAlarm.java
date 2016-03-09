@@ -70,7 +70,7 @@ public class PageAlarm extends PageStory {
     public void handleLogic() {
         if (choice == 2) {
             //snooze alarm
-            updateTime(0, 15);
+            updateTime(0, 10);
             isInteraction = false;
             curInteraction.clear();
             updateAnxiety(5);
