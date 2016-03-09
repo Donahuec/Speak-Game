@@ -80,8 +80,8 @@ abstract class PageStory extends Page {
     public void update() {
         setEventHandlers();
         drawbg();
-        updateDescription();
         drawImages();
+        updateDescription();
         handleInteractions();
         handleLogic();
         drawHUD();

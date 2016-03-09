@@ -29,7 +29,7 @@ public class Variables {
 
     public PageStreet STREET;
     public PageBusEntrance BUS_ENTRANCE;
-//    public PageBusSeat BUS_SEAT;
+    public PageBusSeat BUS_SEAT;
 //
 //    public PageOfficeDesk OFFICE_DESK;
 //    public PageOfficeBreakRoom OFFICE_BREAKROOM;
@@ -67,7 +67,7 @@ public class Variables {
         LIVINGROOM = new PageLivingRoom(speak);
         STREET = new PageStreet(speak);
         BUS_ENTRANCE = new PageBusEntrance(speak);
-        //BUS_SEAT = new PageBusSeat(speak);
+        BUS_SEAT = new PageBusSeat(speak);
         //OFFICE_DESK = new PageOfficeDesk(speak);
         //OFFICE_BREAKROOM = new PageOfficeBreakRoom(speak);
         //OFFICE_HALLWAY = new PageOfficeHallway(speak);

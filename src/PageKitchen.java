@@ -123,16 +123,16 @@ public class PageKitchen extends PageStory {
             }
         } else {
             if (choice == 1) {
-                updateAnxiety(10);
-                updateStress(5);
+                updateAnxiety(20, 15, 25);
+                updateStress(10, 7, 13);
                 hasEaten = true;
             } else if (choice == 2) {
                 getStats().setSmallBreakfast(false);
                 updateTime(0,10);
                 hasEaten = true;
             } else if (choice == 3) {
-                updateAnxiety(-15);
-                updateStress(-5);
+                updateAnxiety(-20, -25, -15);
+                updateStress(-10, -13, -7);
                 getStats().setSmallBreakfast(false);
                 updateTime(0, 30);
                 hasEaten = true;

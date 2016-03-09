@@ -1,4 +1,4 @@
-
+import java.util.Random;
 
 public class GameStats {
 
@@ -9,6 +9,7 @@ public class GameStats {
     private int minutes;
     private boolean twelveHourClock;
     private boolean smallBreakfast;
+    private Random rand;
 
     public GameStats() {
         anxiety = 50;
@@ -18,6 +19,7 @@ public class GameStats {
         twelveHourClock = true;
         smallBreakfast = true;
         gameOver = false;
+        rand = new Random();
     }
 
     public int getAnxiety() {return anxiety;}
@@ -39,8 +41,22 @@ public class GameStats {
         return timeArray;
     }
 
-    public void updateAnxiety(int change){
-        anxiety += change;
+    public void updateAnxiety(int change, int min, int max){
+        float update = change;
+        update = update * getRandom();
+        if(change < 0) {
+            update = (int)(update  * (2 - (stress / 25.0)));
+            update = (int)(update * (2 - (anxiety / 100.0)));
+        } else {
+            update = (int)(update  * (stress / 25.0));
+            update = (int)(update * (anxiety / 100.0));
+        }
+        if (update > max){
+            update = max;
+        } else if (update < min) {
+            update = min;
+        }
+        anxiety += (int)update;
         if (anxiety < 0) {
             anxiety = 0;
         }
@@ -49,8 +65,19 @@ public class GameStats {
         }
     }
 
-    public void  updateStress(int change) {
-        stress += change;
+    public void  updateStress(int change, int min, int max) {
+        int update = (int)(change * getRandom());
+        if (update > max){
+            update = max;
+        } else if (update < min) {
+            update = min;
+        }
+        stress += update;
+        if (stress > 50) {
+            stress = 50;
+        } else if (stress < 0) {
+            stress = 0;
+        }
     }
 
     public void updateTime(int hours, int mins) {
@@ -98,6 +125,17 @@ public class GameStats {
                 return 1;
             }
         }
+    }
+
+    /**
+     * Returns random float between 0 and 2
+     * @return
+     */
+    public float getRandom(){
+        int ranInt = rand.nextInt(50) + 50;
+        float num  = (float) (ranInt / 100.0);
+        return num;
+
     }
 
     public boolean isSmallBreakfast() {

@@ -44,6 +44,8 @@ public abstract class Page {
 
     public GameStats getStats() { return speak.getStats(); }
 
+    public float getRandom() { return getStats().getRandom(); }
+
     public double getWidth() { return speak.getGameStage().getWidth(); }
 
     public double getHeight() {return speak.getGameStage().getHeight(); }
@@ -56,11 +58,11 @@ public abstract class Page {
 
     public String getTimeString() { return speak.getStats().getTimeString(); }
 
-    public void updateAnxiety(int change){
-        speak.getStats().updateAnxiety(change);
+    public void updateAnxiety(int change, int min, int max){
+        speak.getStats().updateAnxiety(change, min, max);
     }
 
-    public void  updateStress(int change) { speak.getStats().updateStress(change); }
+    public void  updateStress(int change, int min, int max) { speak.getStats().updateStress(change, min, max); }
 
     public void updateTime(int hours, int mins) { speak.getStats().updateTime(hours, mins); }
 
@@ -108,7 +110,7 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().BUS_ENTRANCE);
                 break;
             case BUS_SEAT:
-                //speak.getVars().setCurrentPage(speak.getVars().BUS_SEAT);
+                speak.getVars().setCurrentPage(speak.getVars().BUS_SEAT);
                 break;
             case OFFICE_DESK:
                 //speak.getVars().setCurrentPage(speak.getVars().OFFICE_DESK);

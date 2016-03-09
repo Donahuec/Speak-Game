@@ -78,6 +78,8 @@ public class AnimatedObject {
 
     public boolean isActive() { return active; }
 
+    public  boolean isPaused() { return paused; }
+
 
 
     //functions to pull information from speak and its variables for easier reading
