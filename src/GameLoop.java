@@ -63,7 +63,7 @@ public class GameLoop extends AnimationTimer {
 	}
 
 	private void isGameOver() {
-		if (speak.getStats().getAnxiety() >= 200) {
+		if (speak.getStats().getAnxiety() >= speak.getStats().MAX_ANXIETY) {
 			stop();
 			Platform.exit();
 		}

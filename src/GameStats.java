@@ -2,6 +2,10 @@ import java.util.Random;
 
 public class GameStats {
 
+    public final int MAX_ANXIETY = 200;
+    public final int STARTING_ANXIETY = 50;
+    public final int MAX_STRESS = 50;
+    public final int STARTING_STRESS = 10;
     private boolean gameOver;
     private int anxiety;
     private int stress;
@@ -12,8 +16,8 @@ public class GameStats {
     private Random rand;
 
     public GameStats() {
-        anxiety = 50;
-        stress = 10;
+        anxiety = STARTING_ANXIETY;
+        stress = STARTING_STRESS;
         hour = 7;
         minutes = 20;
         twelveHourClock = true;
@@ -45,11 +49,11 @@ public class GameStats {
         float update = change;
         update = update * getRandom();
         if(change < 0) {
-            update = (int)(update  * (2 - (stress / 25.0)));
-            update = (int)(update * (2 - (anxiety / 100.0)));
+            update = (int)(update  * (2 - (stress / (MAX_STRESS / 2.0))));
+            update = (int)(update * (2 - (anxiety / (MAX_ANXIETY / 2.0))));
         } else {
-            update = (int)(update  * (stress / 25.0));
-            update = (int)(update * (anxiety / 100.0));
+            update = (int)(update  * (stress / (MAX_STRESS / 2.0)));
+            update = (int)(update * (anxiety / (MAX_ANXIETY / 2.0)));
         }
         if (update > max){
             update = max;
@@ -60,7 +64,7 @@ public class GameStats {
         if (anxiety < 0) {
             anxiety = 0;
         }
-        if (anxiety >= 200) {
+        if (anxiety >= MAX_ANXIETY) {
             gameOver = true;
         }
     }
@@ -73,8 +77,8 @@ public class GameStats {
             update = min;
         }
         stress += update;
-        if (stress > 50) {
-            stress = 50;
+        if (stress > MAX_STRESS) {
+            stress = MAX_STRESS;
         } else if (stress < 0) {
             stress = 0;
         }
@@ -98,7 +102,6 @@ public class GameStats {
         } else {
             timeString += "PM";
         }
-
         return timeString;
     }
 
@@ -132,10 +135,8 @@ public class GameStats {
      * @return
      */
     public float getRandom(){
-        int ranInt = rand.nextInt(50) + 50;
-        float num  = (float) (ranInt / 100.0);
+        float num  = rand.nextFloat() * 2;
         return num;
-
     }
 
     public boolean isSmallBreakfast() {

@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 /**
@@ -36,8 +37,8 @@ abstract class PageStory extends Page {
     private boolean descrec;
     public Image bg;
     //variables to have the HUD increment Slowly
-    private static int curAnxiety = 50;
-    private static int curStress = 10;
+    private int curAnxiety = speak.getStats().STARTING_ANXIETY;
+    private int curStress = speak.getStats().STARTING_STRESS;
 
 
     public PageStory(Speak speak) {
@@ -133,9 +134,9 @@ abstract class PageStory extends Page {
         //draw fill
         getGC().setGlobalAlpha(1.0);
         getGC().setFill(Color.CADETBLUE);
-        getGC().fillRoundRect(10, 5, (9 *( getWidth() / 10)) * (curAnxiety / 200.0), getHeight() / 80, 15, 15);
+        getGC().fillRoundRect(10, 5, (9 *( getWidth() / 10)) * (curAnxiety / (float) getStats().MAX_ANXIETY), getHeight() / 80, 15, 15);
         getGC().setFill(Color.WHITE);
-        getGC().fillRoundRect(15, 8, ((9 *( getWidth() / 10)) * (curAnxiety / 200.0)) - 10, 2, 15, 15);
+        getGC().fillRoundRect(15, 8, ((9 *( getWidth() / 10)) * (curAnxiety / (float) getStats().MAX_ANXIETY * 1.0)) - 10, 2, 15, 15);
 
         //for smooth transition
         if (curAnxiety < getAnxiety()) {
@@ -162,9 +163,9 @@ abstract class PageStory extends Page {
         //draw fill
         getGC().setGlobalAlpha(1.0);
         getGC().setFill(Color.CADETBLUE);
-        getGC().fillRoundRect(10, 10 + (getHeight() / 80),  getWidth() / 2 * (curStress / 50.0), getHeight() / 80, 15, 15);
+        getGC().fillRoundRect(10, 10 + (getHeight() / 80),  getWidth() / 2 * (curStress / (float) getStats().MAX_STRESS), getHeight() / 80, 15, 15);
         getGC().setFill(Color.WHITE);
-        getGC().fillRoundRect(15, 13 + (getHeight() / 80), getWidth() / 2 * (curStress / 50.0) - 10, 2, 15, 15);
+        getGC().fillRoundRect(15, 13 + (getHeight() / 80), getWidth() / 2 * (curStress / (float) getStats().MAX_STRESS) - 10, 2, 15, 15);
 
         //smooth transition
         if (curStress < getStress()) {
