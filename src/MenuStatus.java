@@ -2,6 +2,7 @@
  * Created by Caitlin on 1/27/2016.
  */
 public class MenuStatus extends MenuBase {
+
     public MenuStatus(Speak speak) {
         super(speak);
     }

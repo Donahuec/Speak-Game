@@ -2,6 +2,10 @@
  * Created by Caitlin on 1/27/2016.
  */
 public class MenuTutorial extends MenuBase {
+    private P newPage;
+    private int newAnxiety;
+    private int newStress;
+
     public MenuTutorial(Speak speak) {
         super(speak);
     }

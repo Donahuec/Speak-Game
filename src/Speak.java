@@ -39,8 +39,6 @@ public class Speak extends Application
         gameStage = stage;
 
         // set up window
-        //currently is windowed full screen
-        //test on Mac?
         gameStage.setTitle( "Speak" );
         //gameStage.setMaximized(true);
         //gameStage.initStyle(StageStyle.UNDECORATED);

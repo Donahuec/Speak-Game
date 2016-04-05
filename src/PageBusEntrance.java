@@ -90,9 +90,12 @@ public class PageBusEntrance extends PageStory {
     public void handleLogic() {
         if (curInteraction == interactions.get("panic") && choice != 0){
             changePage(P.BUS_SEAT);
+            updateAnxiety(30, 20, 40);
+            updateStress(10, 5, 15);
             end();
         } else if (curInteraction == interactions.get("didWait") && choice != 0) {
             changePage(P.START);
+
             end();
         } else {
             if(choice != 0) {
@@ -102,13 +105,15 @@ public class PageBusEntrance extends PageStory {
                     isInteraction = true;
                 } else if (curInteraction == interactions.get("toll")) {
                     if (choice == 1) {
+                        updateAnxiety(-10, -10, 5);
                         changePage(P.BUS_SEAT);
                         end();
                     } else if(choice == 2) {
                         curInteraction = interactions.get("didWait");
-
+                        updateAnxiety(-10, -15, -5);
                         isInteraction = true;
                     } else if (choice == 3) {
+                        updateAnxiety(-15, -20, -10);
                         changePage(P.START);
                         end();
                     } else if (choice == 6) {
