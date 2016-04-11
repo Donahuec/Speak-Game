@@ -9,7 +9,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
 /**
@@ -118,6 +117,7 @@ abstract class PageStory extends Page {
     /**
      * draw the background
      */
+    // TODO: 4/11/2016 Add assertion to make sure bg is available and not null. Do this in getAssets? 
     public void drawbg(){
         getGC().drawImage(bg, 0, 0);
     }
@@ -233,6 +233,7 @@ abstract class PageStory extends Page {
      * @param str
      */
     public void addDescription(String str) {
+        // TODO: 4/11/2016 Add assertion to make sure str is not null 
         drawDescriptionSquare();
         description.setText(str);
     }

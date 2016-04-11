@@ -46,6 +46,7 @@ public class GameStats {
     }
 
     public void updateAnxiety(int change, int min, int max){
+        // TODO: 4/11/2016 Assert min and max are valid 
         float update = change;
         update = update * getRandom();
         if(change < 0) {
@@ -70,6 +71,7 @@ public class GameStats {
     }
 
     public void  updateStress(int change, int min, int max) {
+        // TODO: 4/11/2016 make sure min and max are valid 
         int update = (int)(change * getRandom());
         if (update > max){
             update = max;
@@ -85,6 +87,7 @@ public class GameStats {
     }
 
     public void updateTime(int hours, int mins) {
+        // TODO: 4/11/2016  make sure time is valid 
         hour += hours;
         minutes += mins;
 
@@ -114,6 +117,7 @@ public class GameStats {
      * @return
      */
     public int timeCompare(int cHour, int cMinutes){
+        // TODO: 4/11/2016 make sure times are valid 
         if (hour == cHour && minutes == cMinutes) {
             return 0;
         }

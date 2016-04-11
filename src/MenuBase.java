@@ -22,6 +22,7 @@ abstract class MenuBase extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
+        // TODO: 4/11/2016 Assert that bg is valid file 
         phoneBackground = new Image("file:" + getPicDir() + "menu" + File.separator + "phone_bg.png", getWidth() / 3, getHeight(), true, true);
     }
     /**

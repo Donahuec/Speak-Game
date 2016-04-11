@@ -58,16 +58,21 @@ public abstract class Page {
 
     public String getTimeString() { return speak.getStats().getTimeString(); }
 
+    //// TODO: 4/11/2016 Add Assertions to check min and max 
     public void updateAnxiety(int change, int min, int max){
         speak.getStats().updateAnxiety(change, min, max);
     }
 
+    // TODO: 4/11/2016 Add Assertions to check min and max
     public void  updateStress(int change, int min, int max) { speak.getStats().updateStress(change, min, max); }
 
+    // TODO: 4/11/2016 Add assertions to make sure hours and minutes are viable 
     public void updateTime(int hours, int mins) { speak.getStats().updateTime(hours, mins); }
 
+    // TODO: 4/11/2016 Add assertions to make sure hours and minutes are viable
     public int timeCompare(int hours, int mins) { return speak.getStats().timeCompare(hours, mins);}
 
+    // TODO: 4/11/2016 Add default case to switch statement 
     public void changePage(P page){
         switch (page) {
             case ALARM:

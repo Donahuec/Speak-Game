@@ -3,15 +3,15 @@
  * http://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
  */
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.HashMap;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
 
 public class GameText {
 
@@ -58,6 +58,7 @@ public class GameText {
     }
 
     public String getText(String id){
+        // TODO: 4/11/2016 Assert that id is valid. What does hash.get do if it gets an invalid id? 
         return hash.get(id);
     }
 }

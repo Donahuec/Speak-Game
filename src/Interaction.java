@@ -17,6 +17,7 @@ public class Interaction {
 
 
     public Interaction(PageStory page, String description, TextOption[] options, int timer) {
+
         this.page = page;
         this.description = description;
         this.options = options;
