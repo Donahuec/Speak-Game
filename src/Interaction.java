@@ -16,8 +16,12 @@ public class Interaction {
     private double y;
 
 
-    // TODO 4/11/2016: Check if parameters are valid
     public Interaction(PageStory page, String description, TextOption[] options, int timer) {
+        assert description != null : "description is null";
+        assert page != null : "Page is null";
+        assert options != null : "Options array is null";
+        assert  timer == -1 || timer > 0 : "timer has invalid time";
+
 
         this.page = page;
         this.description = description;
@@ -35,8 +39,9 @@ public class Interaction {
      * processes how the options should be displayed and drawn
      * @param time
      */
-    // TODO 4/11/2016: Check if Time is valid
+
     public void process(double time) {
+        assert time > 0 : "invalid time";
 
         //set the start time in the first frame
         if (startTime == -1) {

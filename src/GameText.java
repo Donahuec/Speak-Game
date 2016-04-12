@@ -18,9 +18,9 @@ public class GameText {
     private HashMap<String, String> hash;
     private File inputFile;
 
-    // TODO 4/11/2016: Make sure the file is valid
     public GameText(String file) {
         inputFile = new File(file);
+        assert inputFile.exists() : "input file does not exist";
         hash = new HashMap();
         parse();
     }
@@ -59,8 +59,9 @@ public class GameText {
     }
 
     public String getText(String id){
-        // TODO: 4/11/2016 Assert that id is valid. What does hash.get do if it gets an invalid id? 
-        return hash.get(id);
+        String text = hash.get(id);
+        assert text != null : "invalid id passed to hashMap";
+        return text;
     }
 }
 

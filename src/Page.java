@@ -58,21 +58,32 @@ public abstract class Page {
 
     public String getTimeString() { return speak.getStats().getTimeString(); }
 
-    //// TODO: 4/11/2016 Add Assertions to check min and max 
     public void updateAnxiety(int change, int min, int max){
         speak.getStats().updateAnxiety(change, min, max);
     }
 
-    // TODO: 4/11/2016 Add Assertions to check min and max
-    public void  updateStress(int change, int min, int max) { speak.getStats().updateStress(change, min, max); }
+    public void  updateStress(int change, int min, int max) {
+        if (change < 0) {
+            assert max < change && min > change;
+        } else if (change > 0) {
+            assert max > change && min < change;
+        }
+        speak.getStats().updateStress(change, min, max);
+    }
 
-    // TODO: 4/11/2016 Add assertions to make sure hours and minutes are viable 
-    public void updateTime(int hours, int mins) { speak.getStats().updateTime(hours, mins); }
 
-    // TODO: 4/11/2016 Add assertions to make sure hours and minutes are viable
-    public int timeCompare(int hours, int mins) { return speak.getStats().timeCompare(hours, mins);}
+    public void updateTime(int hours, int mins) {
+        assert hours > 0 && hours < 24: "Invalid change in hours";
+        assert mins > 0 && mins < 60: "Invalid change in minutes";
+        speak.getStats().updateTime(hours, mins);
+    }
 
-    // TODO: 4/11/2016 Add default case to switch statement 
+    public int timeCompare(int hours, int mins) {
+        assert hours > 0 && hours < 24: "Invalid change in hours";
+        assert mins > 0 && mins < 60: "Invalid change in minutes";
+        return speak.getStats().timeCompare(hours, mins);
+    }
+
     public void changePage(P page){
         switch (page) {
             case ALARM:
@@ -138,6 +149,8 @@ public abstract class Page {
             case CAR:
                // speak.getVars().setCurrentPage(speak.getVars().CAR);
                 break;
+            default:
+                assert false: "Not a valid page to change to";
         }
     }
 

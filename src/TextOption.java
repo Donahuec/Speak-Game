@@ -11,8 +11,12 @@ public class TextOption {
     private String description;
     private Page page;
 
-    // TODO 4/11/2016: make sure params are valid
+
     public TextOption(String option, String description, int pos, Page page) {
+        assert option !=  null: "option is null";
+        assert description != null: "description is null";
+        assert pos >= 0 && pos < 5: "Invalid position";
+
         this.page = page;
         this.opString = option;
         this.option = new Text("");

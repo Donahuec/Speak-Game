@@ -2,6 +2,8 @@
 
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Variables {
     private Speak speak;
@@ -12,6 +14,7 @@ public class Variables {
     private  String textDir;
     private Page currentPage;
     public Page returnPage;
+    public List<Page> pageList;
 
     public PageAlarm ALARM;
     public PageStart START;
@@ -53,28 +56,51 @@ public class Variables {
         textDir = assetDir + "text" + File.separator;
         fontDir = assetDir + "fonts" + File.separator;
 
+        pageList = new ArrayList<Page>();
+
         //initialize pages
         ALARM = new PageAlarm(speak);
+        pageList.add(ALARM);
         START = new PageStart(speak);
+        pageList.add(START);
        // END = new PageEnd(speak);
+        //pageList.add(END);
         MENU_HOME = new MenuHome(speak);
+        pageList.add(MENU_HOME);
         M_STATUS = new MenuStatus(speak);
+        pageList.add(M_STATUS);
         M_AGENDA = new MenuAgenda(speak);
+        pageList.add(M_AGENDA);
         M_TODO = new MenuToDo(speak);
+        pageList.add(M_TODO);
         M_TUTORIAL = new MenuTutorial(speak);
+        pageList.add(M_TUTORIAL);
         BEDROOM = new PageBedroom(speak);
+        pageList.add(BEDROOM);
         KITCHEN = new PageKitchen(speak);
+        pageList.add(KITCHEN);
         LIVINGROOM = new PageLivingRoom(speak);
+        pageList.add(LIVINGROOM);
         STREET = new PageStreet(speak);
+        pageList.add(STREET);
         BUS_ENTRANCE = new PageBusEntrance(speak);
+        pageList.add(BUS_ENTRANCE);
         BUS_SEAT = new PageBusSeat(speak);
+        pageList.add(BUS_SEAT);
         //OFFICE_DESK = new PageOfficeDesk(speak);
+        //pageList.add(OFFICE_DESK);
         //OFFICE_BREAKROOM = new PageOfficeBreakRoom(speak);
+        //pageList.add(OFFICE_BREAKROOM);
         //OFFICE_HALLWAY = new PageOfficeHallway(speak);
+        //pageList.add(OFFICE_HALLWAY);
         //OFFICE_MEETING = new PageOfficeMeeting(speak);
+        //pageList.add(OFFICE_MEETING);
        // LUNCH = new PageLunch(speak);
+        //pageList.add(LUNCH);
        // DINNER = new PageDinner(speak);
+        //pageList.add(DINNER);
        // CAR = new PageCar(speak);
+        //pageList.add(CAR);
 
         currentPage = START;
         returnPage = START;
@@ -97,13 +123,15 @@ public class Variables {
 
     public Page getReturnPage() { return returnPage; }
 
-    // TODO 4/11/2016: make sure this is a valid page
     public void setCurrentPage(Page newPage){
+        assert pageList.contains(newPage) : "Not a valid Page";
         currentPage = newPage;
     }
 
-    // TODO 4/11/2016: Make sure this is a valid page
-    public void setReturnPage(Page page){ returnPage = page; }
+    public void setReturnPage(Page page){
+        assert pageList.contains(page) : "Not a valid Page";
+        returnPage = page;
+    }
 
     public String getPicDir() { return picDir; }
 }
