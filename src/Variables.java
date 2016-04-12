@@ -97,10 +97,12 @@ public class Variables {
 
     public Page getReturnPage() { return returnPage; }
 
+    // TODO 4/11/2016: make sure this is a valid page
     public void setCurrentPage(Page newPage){
         currentPage = newPage;
     }
 
+    // TODO 4/11/2016: Make sure this is a valid page
     public void setReturnPage(Page page){ returnPage = page; }
 
     public String getPicDir() { return picDir; }

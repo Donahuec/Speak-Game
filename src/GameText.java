@@ -18,6 +18,7 @@ public class GameText {
     private HashMap<String, String> hash;
     private File inputFile;
 
+    // TODO 4/11/2016: Make sure the file is valid
     public GameText(String file) {
         inputFile = new File(file);
         hash = new HashMap();

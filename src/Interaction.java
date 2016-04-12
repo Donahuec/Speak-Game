@@ -16,6 +16,7 @@ public class Interaction {
     private double y;
 
 
+    // TODO 4/11/2016: Check if parameters are valid
     public Interaction(PageStory page, String description, TextOption[] options, int timer) {
 
         this.page = page;
@@ -32,9 +33,9 @@ public class Interaction {
 
     /**
      * processes how the options should be displayed and drawn
-     * todo add timer functionality
      * @param time
      */
+    // TODO 4/11/2016: Check if Time is valid
     public void process(double time) {
 
         //set the start time in the first frame

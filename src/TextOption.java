@@ -11,6 +11,7 @@ public class TextOption {
     private String description;
     private Page page;
 
+    // TODO 4/11/2016: make sure params are valid
     public TextOption(String option, String description, int pos, Page page) {
         this.page = page;
         this.opString = option;
