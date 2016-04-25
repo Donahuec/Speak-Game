@@ -45,6 +45,7 @@ public class GameStats {
         return timeArray;
     }
 
+    // TODO 4/25/2016: Comment this shit yo
     public void updateAnxiety(int change, int min, int max){
         if (change < 0) {
             assert max < change && min > change;
