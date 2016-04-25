@@ -99,16 +99,16 @@ public abstract class Page {
                 speak.getVars().setCurrentPage(speak.getVars().MENU_HOME);
                 break;
             case M_STATUS:
-                speak.getVars().setCurrentPage(speak.getVars().M_STATUS);
+                //speak.getVars().setCurrentPage(speak.getVars().M_STATUS);
                 break;
             case M_AGENDA:
-                speak.getVars().setCurrentPage(speak.getVars().M_AGENDA);
+                //speak.getVars().setCurrentPage(speak.getVars().M_AGENDA);
                 break;
             case M_TODO:
-                speak.getVars().setCurrentPage(speak.getVars().M_TODO);
+                //speak.getVars().setCurrentPage(speak.getVars().M_TODO);
                 break;
             case M_TUTORIAL:
-                speak.getVars().setCurrentPage(speak.getVars().M_TUTORIAL);
+                //speak.getVars().setCurrentPage(speak.getVars().M_TUTORIAL);
                 break;
             case BEDROOM:
                 speak.getVars().setCurrentPage(speak.getVars().BEDROOM);
