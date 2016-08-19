@@ -1,6 +1,9 @@
+package GameProcessing;
 
 
-
+import Pages.*;
+import GameObject.*;
+import GameProcessing.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +24,10 @@ public class GameVariables {
 //    public PageEnd END;
 
     public MenuHome MENU_HOME;
-    public MenuStatus M_STATUS;
-    public MenuAgenda M_AGENDA;
-    public MenuToDo M_TODO;
-    public MenuTutorial M_TUTORIAL;
+//    public MenuStatus M_STATUS;
+//    public MenuAgenda M_AGENDA;
+//    public MenuToDo M_TODO;
+//    public MenuTutorial M_TUTORIAL;
 
     public PageBedroom BEDROOM;
     public PageKitchen KITCHEN;
@@ -73,8 +76,8 @@ public class GameVariables {
         //pageList.add(M_AGENDA);
         //M_TODO = new MenuToDo(speak);
         //pageList.add(M_TODO);
-        M_TUTORIAL = new MenuTutorial(speak);
-        pageList.add(M_TUTORIAL);
+//        M_TUTORIAL = new MenuTutorial(speak);
+//        pageList.add(M_TUTORIAL);
         BEDROOM = new PageBedroom(speak);
         pageList.add(BEDROOM);
         KITCHEN = new PageKitchen(speak);
