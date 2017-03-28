@@ -148,8 +148,7 @@ public abstract class PageStory extends Page {
             curAnxiety += 1;
         } else if (curAnxiety > getAnxiety()) {
             curAnxiety -= 1;
-        } 
-
+        }
 
         //draw outline
         getGC().setLineWidth(1.0);

@@ -20,8 +20,6 @@ public class PageStart extends PageStory {
     public Image endButton;
     public Rectangle start;
     public Rectangle end;
-    public Image[] titleAnim = new Image[3];
-    public AnimatedObject title;
     public int buttonHover;
 
 
@@ -38,8 +36,6 @@ public class PageStart extends PageStory {
         setEventHandlers();
         buttonHover = 0;
         initialized = true;
-
-
     }
 
     /**
@@ -49,12 +45,6 @@ public class PageStart extends PageStory {
         startButton = new Image("file:" + getPicDir() + "start" + File.separator + "start.png");
         endButton = new Image("file:" + getPicDir() + "start" + File.separator + "quit.png");
         bg = new Image("file:" + getPicDir() + "start" + File.separator + "cover.png", getWidth(), getHeight(), false, true);
-
-        titleAnim[0] = new Image("file:" + getPicDir() + "start" + File.separator + "title1.png");
-        titleAnim[1] = new Image("file:" + getPicDir() + "start" + File.separator + "title2.png");
-        titleAnim[2] = new Image("file:" + getPicDir() + "start" + File.separator + "title3.png");
-
-        title = new AnimatedObject(speak,titleAnim, 0.15, true, -1, false);
 
     }
 
@@ -78,36 +68,34 @@ public class PageStart extends PageStory {
         //change the page
         changePage(P.ALARM);
         endPage();
-
     }
 
 
     @Override
     public void drawImages() {
-        getGC().drawImage(title.getFrame(), 0, 0, getWidth() / 2, getHeight() / 3);
 
-        double startWidth = getWidth() / 4;
-        double startHeight = getHeight() / 6;
+        double startWidth = getWidth() / 5.49;
+        double startHeight = getHeight() / 10.8;
 
-        double endWidth = getWidth() / 4;
-        double endHeight = getHeight() / 6;
+        double endWidth = getWidth() / 5.49;
+        double endHeight = getHeight() / 10.8;
 
         //if we are hovering over a button, make it bigger
         if (buttonHover == 1) {
-            startWidth = getWidth() / 3.8;
-            startHeight = getHeight() / 5.8;
+            startWidth = getWidth() / 5.3;
+            startHeight = getHeight() / 10.6;
         }
         if (buttonHover == 2) {
-            endWidth = getWidth() / 3.8;
-            endHeight = getHeight() / 5.8;
+            endWidth = getWidth() / 5.3;
+            endHeight = getHeight() / 10.6;
         }
 
 
-        getGC().drawImage(startButton, getWidth() / 8, getHeight() / 4 ,startWidth, startHeight );
-        getGC().drawImage(endButton, getWidth() / 8, (getHeight() / 4) + (getHeight() / 8) ,endWidth, endHeight );
+        getGC().drawImage(startButton, getWidth() / 8, getHeight() / 15 ,startWidth, startHeight );
+        getGC().drawImage(endButton, getWidth() / 1.3, getHeight() / 15 ,endWidth, endHeight );
         //Rectangle to be able to click start button
-        start = new Rectangle(getWidth() / 8, getHeight() / 4 ,startWidth - (getWidth() / 20), startHeight - (getHeight() / 24));
-        end = new Rectangle(getWidth() / 8, (getHeight() / 4) + (getHeight() / 8) ,endWidth  - (getWidth() / 15), endHeight );
+        start = new Rectangle(getWidth() / 8, getHeight() / 15 ,startWidth - (getWidth() / 20), startHeight - (getHeight() / 24));
+        end = new Rectangle(getWidth() / 1.3, getHeight() / 15 ,endWidth  - (getWidth() / 15), endHeight );
     }
 
     @Override
@@ -154,6 +142,4 @@ public class PageStart extends PageStory {
 
         }
     }
-
-
 }

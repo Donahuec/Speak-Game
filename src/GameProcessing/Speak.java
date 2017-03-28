@@ -39,7 +39,6 @@ public class Speak extends Application
     @Override
     public void start(Stage stage)
     {
-
         gameStage = stage;
 
         // set up window
