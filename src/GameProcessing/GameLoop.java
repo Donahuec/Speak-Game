@@ -2,18 +2,27 @@ package GameProcessing; /**
 * Handles the GameLoop
 */
 
+import Pages.Page;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import Pages.*;
-import GameObject.*;
 
 
 public class GameLoop extends AnimationTimer {
-	//make these variables of Speak so they dont have
-	//to be passed as parameters.
 	protected Speak speak;
+	//get these from main class (speak) so the don't
+	//have to be passed as parameters
+	private GraphicsContext graphicsContext;
+	private Stage gameStage;
+	private long startTime; // in nanoseconds
+	double curTime; // in seconds
+
+	public GameLoop(Speak speak){
+		this.speak = speak;
+		this.graphicsContext = speak.getGraphicsContext();
+		this.gameStage = speak.getGameStage();
+	}
 
 	public Stage getGameStage() {
 		return gameStage;
@@ -23,58 +32,52 @@ public class GameLoop extends AnimationTimer {
 		return curTime;
 	}
 
-	public GraphicsContext getGc() {
-		return gc;
+	public GraphicsContext getGraphicsContext() {
+		return graphicsContext;
 	}
 
-	private GraphicsContext gc;
-	private Stage gameStage;
-	private long startTime;
-	double curTime;
-    
-	public GameLoop(Speak speak){
-        this.speak = speak;
-        this.gc = speak.getGc();
-        this.gameStage = speak.getGameStage();
-    }
+	public Page getCurrentPage() {return speak.getVars().getCurrentPage(); }
 
 
+	@Override
+	public void start(){
+		startTime = speak.getStartNanoTime();
+		curTime = startTime;
+		super.start();
+	}
+
+	@Override
+	public void stop(){
+		super.stop();
+	}
 
     @Override
+	// JavaFX function that runs every frame
     public void handle(long now) {
 		isGameOver();
 		//current game time
 		curTime= (now - startTime) / 1000000000.0;
 		//make sure canvas is clear
-    	gc.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
+    	graphicsContext.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
 		checkSceneChange();
-		speak.getVars().getCurrentPage().update();
+		getCurrentPage().update();
+		//update the screen
 		gameStage.show();
-
 	}
-
-    @Override
-    public void start(){
-        startTime = speak.getStartNanoTime();
-		curTime = startTime;
-		super.start();
-    }
-    @Override
-    public void stop(){
-        super.stop();
-    }
-
 
 	/**
 	 * Checks if the scene has changed since the update, and sets up the new scene
-	 */
+	 **/
 	private void checkSceneChange() {
-		if (!speak.getVars().getCurrentPage().initialized){
-			speak.getVars().getCurrentPage().begin();
+		if (!getCurrentPage().initialized){
+			getCurrentPage().begin();
 		}
-
 	}
 
+	/**
+	 * Checks if the anxiety bar is full, and ends the game if it is
+	 * TODO build an end page instead of just exiting the game immediately
+	 */
 	private void isGameOver() {
 		if (speak.getStats().getAnxiety() >= speak.getStats().MAX_ANXIETY) {
 			stop();

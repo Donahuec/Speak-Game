@@ -1,21 +1,16 @@
-package GameProcessing;/*
+package GameProcessing;
+/*
 *Main File for Game run. Initializes window and starts game loop
  */
 
 import GameObject.GameStats;
-import GameProcessing.GameLoop;
 import javafx.application.Application;
-
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
-
 
 
 // must extend Application for JavaFx
@@ -24,7 +19,7 @@ public class Speak extends Application
     //holds variables for game will change to own file
 	private GameVariables vars;
     private GameStats stats = new GameStats();
-    private GraphicsContext gc;
+    private GraphicsContext graphicsContext;
     private Stage gameStage;
     private Scene baseScene;
     private GameLoop gameLoop;
@@ -59,7 +54,7 @@ public class Speak extends Application
         //canvas to draw on, size of window
         Canvas canvas = new Canvas( gameStage.getWidth(), gameStage.getHeight());
         root.getChildren().add( canvas );
-        gc = canvas.getGraphicsContext2D();
+        graphicsContext = canvas.getGraphicsContext2D();
 
         vars = new GameVariables(this);
         //initialize GameObject Loop
@@ -79,8 +74,8 @@ public class Speak extends Application
         return root;
     }
 
-    public GraphicsContext getGc() {
-        return gc;
+    public GraphicsContext getGraphicsContext() {
+        return graphicsContext;
     }
 
     public long getStartNanoTime() {

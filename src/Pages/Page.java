@@ -9,7 +9,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
-import Pages.*;
+
 import GameObject.*;
 import GameProcessing.*;
 
@@ -44,7 +44,7 @@ public abstract class Page {
 
     public Stage getStage() { return speak.getGameStage(); }
 
-    public GraphicsContext getGC() { return speak.getGc(); }
+    public GraphicsContext getGC() { return speak.getGraphicsContext(); }
 
     public GameLoop getLoop() { return speak.getGameLoop(); }
 

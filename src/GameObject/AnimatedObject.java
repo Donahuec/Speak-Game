@@ -1,7 +1,9 @@
 package GameObject;
 
-import Pages.*;
-import GameObject.*;
+/**
+ * Stores and processes animated items
+ */
+
 import GameProcessing.*;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -9,9 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-/**
- * Created by Caitlin on 2/5/2016.
- */
+
 public class AnimatedObject {
     private Speak speak;
     private Image[] frames;
@@ -21,15 +21,22 @@ public class AnimatedObject {
     private boolean paused;
     // -1 if no pause in animation
     private int pauseFrame;
-    private double lastTime;
+    private double prevTime;
+    /*
+    This variable decides if the animation should finish its loop when it is deactivated.
+    For instance, if you have a door, and you remove the mouse from it, it should finish opening and closing
+    while ignoring and pause.
+     */
     private boolean returnToStart;
 
     /**
-     * Constructor for Animated Objects
+     * Constructor for an animated object
      * @param speak
-     * @param frames
-     * @param duration
-
+     * @param frames an array of images that make up the frames of the object
+     * @param duration how long each frame should last in seconds
+     * @param active should the animation start immediately
+     * @param pauseFrame if the animation needs to pause, what frame does it pause on
+     * @param returnToStart does the animation loop finish when deactivated
      */
     public AnimatedObject(Speak speak, Image[] frames, double duration, boolean active, int pauseFrame, boolean returnToStart) {
         this.speak = speak;
@@ -37,12 +44,11 @@ public class AnimatedObject {
         this.duration = duration;
         curFrame = 0;
         this.active = active;
-        lastTime = getLoop().getCurTime();
+        prevTime = getLoop().getCurTime();
         this.paused = false;
         this.pauseFrame = pauseFrame;
         this.returnToStart = returnToStart;
     }
-
 
     /**
      * Gets the next frame in the animation sequence
@@ -51,18 +57,18 @@ public class AnimatedObject {
     {
         if((active && !paused) || (!active && returnToStart)){
             //check if enough time has passed
-            if ((active || (!active && curFrame != 0)) && (getLoop().getCurTime() - lastTime > duration)) {
+            if ((active || (!active && curFrame != 0)) && (getLoop().getCurTime() - prevTime > duration)) {
                 curFrame++;
                 //loop back to beginning of animation if necessary
                 if (curFrame == frames.length){
                     curFrame = 0;
                 }
+
                 if (active && curFrame == pauseFrame) {
                     paused = true;
                 }
-
-                //store the time this change occured
-                lastTime = getLoop().getCurTime();
+                //store the time this change occurred
+                prevTime = getLoop().getCurTime();
             }
         }
         return frames[curFrame];
@@ -74,8 +80,6 @@ public class AnimatedObject {
 
     public void setPaused(boolean set) { paused = set; }
 
-
-
     public Image[] getFrames() { return frames; }
 
     public double getDuration() { return duration; }
@@ -83,8 +87,6 @@ public class AnimatedObject {
     public boolean isActive() { return active; }
 
     public  boolean isPaused() { return paused; }
-
-
 
     //functions to pull information from speak and its variables for easier reading
     //as well as easier modification
@@ -94,7 +96,7 @@ public class AnimatedObject {
 
     public Stage getStage() { return speak.getGameStage(); }
 
-    public GraphicsContext getGC() { return speak.getGc(); }
+    public GraphicsContext getGC() { return speak.getGraphicsContext(); }
 
     public GameLoop getLoop() { return speak.getGameLoop(); }
 

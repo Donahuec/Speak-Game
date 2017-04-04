@@ -1,9 +1,6 @@
 package GameObject;
 
 import java.util.Random;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
 public class GameStats {
 
@@ -11,14 +8,17 @@ public class GameStats {
     public final int STARTING_ANXIETY = 50;
     public final int MAX_STRESS = 50;
     public final int STARTING_STRESS = 10;
+
     private boolean gameOver;
     private int anxiety;
     private int stress;
     private int hour;
     private int minutes;
     private boolean twelveHourClock;
-    private boolean smallBreakfast;
     private Random rand;
+
+    //specific game variables
+    private boolean smallBreakfast;
 
     public GameStats() {
         anxiety = STARTING_ANXIETY;
@@ -34,6 +34,10 @@ public class GameStats {
     public int getAnxiety() {return anxiety;}
     public int getStress() {return stress;}
 
+    /**
+     * Gets the current time
+     * @return an array
+     */
     public int[] getTime() {
         int[] timeArray = new int[3];
         timeArray[1] = minutes;

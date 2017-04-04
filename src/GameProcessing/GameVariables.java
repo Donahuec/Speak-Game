@@ -1,9 +1,11 @@
 package GameProcessing;
 
+/**
+* Holds all of the information related to running the game
+*/
 
+import Pages.Page;
 import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
