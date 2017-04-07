@@ -1,21 +1,22 @@
 package Pages;
 
+/**
+ * Home page of the menu
+ */
 
+import GameProcessing.Speak;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.event.EventHandler;
 import javafx.scene.text.Font;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
+
 import java.io.File;
 
-/**
- * Created by Caitlin on 1/25/2016.
- */
+
+
 public class MenuHome extends MenuBase {
     public Image phoneButton;
     public Rectangle statusButton;
@@ -24,10 +25,6 @@ public class MenuHome extends MenuBase {
     public Rectangle tutorialButton;
     public Rectangle quitButton;
     public Rectangle resumeButton;
-
-
-
-
     public MenuHome(Speak speak){
         super(speak);
     }
@@ -79,16 +76,13 @@ public class MenuHome extends MenuBase {
         Font timeFont = Font.font(30);
         getGC().setFont(timeFont);
         getGC().fillText( getTimeString(), (getWidth() / 2) + (phoneBackground.getWidth() * 0.20), phoneButton.getHeight() * 1 );
-
-
-
     }
 
     /**
      * cleans up and ends the page
      */
     public void end(){
-        speak.getVars().setCurrentPage(speak.getVars().getReturnPage());
+        changePage(getReturnPage());
     }
 
 
@@ -107,6 +101,4 @@ public class MenuHome extends MenuBase {
             }
         }
     }
-
-
 }

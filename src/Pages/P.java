@@ -1,7 +1,7 @@
 package Pages;
 
 /**
- * Created by Caitlin on 1/27/2016.
+ * Enum to represent all of the pages
  */
 
 enum P {ALARM, START, END, MENU_HOME, M_STATUS, M_AGENDA, M_TODO, M_TUTORIAL, BEDROOM, KITCHEN, LIVINGROOM,

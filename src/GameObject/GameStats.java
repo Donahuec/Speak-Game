@@ -2,6 +2,10 @@ package GameObject;
 
 import java.util.Random;
 
+/**
+ * Holds statistics and variables related to gameplay
+ */
+
 public class GameStats {
 
     public final int MAX_ANXIETY = 200;
@@ -41,28 +45,36 @@ public class GameStats {
     public int[] getTime() {
         int[] timeArray = new int[3];
         timeArray[1] = minutes;
-        if (twelveHourClock && hour > 12) {
-            timeArray[0] = hour - 12;
-        } else {
-            timeArray[0] = hour;
-        }
-        if (hour > 11 && hour < 24) {
+        timeArray[0] = hour;
+        if (hour >= 12) {
             timeArray[2] = 1;
+        } else if (hour > 24) {
+            timeArray[2] = -1;
         } else {
             timeArray[2] = 0;
         }
         return timeArray;
     }
 
-    // TODO 4/25/2016: Comment this shit yo
+    /**
+     * Updates the anxiety to a weighted random value from change,
+     * with a minimum and maximum limit
+     * @param change the average amount the anxiety should change
+     * @param min the minimum amount the anxiety should change
+     * @param max the maximum amount the anxiety should change
+     */
     public void updateAnxiety(int change, int min, int max){
+        // make sure min and max are viable
         if (change < 0) {
             assert max < change && min > change;
         } else if (change > 0) {
             assert max > change && min < change;
         }
+        //the final amount to update the anxiety
         float update = change;
         update = update * getRandom();
+        //weight the change based on the current stress and anxiety
+        //the exact formula might change with testing
         if(change < 0) {
             update = (int)(update  * (2 - (stress / (MAX_STRESS / 2.0))));
             update = (int)(update * (2 - (anxiety / (MAX_ANXIETY / 2.0))));
@@ -70,26 +82,37 @@ public class GameStats {
             update = (int)(update  * (stress / (MAX_STRESS / 2.0)));
             update = (int)(update * (anxiety / (MAX_ANXIETY / 2.0)));
         }
+        //if outside the max or min, set to appropriate value
         if (update > max){
             update = max;
         } else if (update < min) {
             update = min;
         }
+        //anxiety can't be less than 0
         anxiety += (int)update;
         if (anxiety < 0) {
             anxiety = 0;
         }
+        //if anxiety is full end the game
         if (anxiety >= MAX_ANXIETY) {
             gameOver = true;
         }
     }
 
+    /**
+     * Updates the stress to a weighted random value from change,
+     * with a minimum and maximum limit
+     * @param change the average amount the stress should change
+     * @param min the minimum amount the stress should change
+     * @param max the maximum amount the stress should change
+     */
     public void  updateStress(int change, int min, int max) {
         if (change < 0) {
             assert max < change && min > change;
         } else if (change > 0) {
             assert max > change && min < change;
         }
+        //stress is not currently weighted (subject to change)
         int update = (int)(change * getRandom());
         if (update > max){
             update = max;
@@ -104,9 +127,15 @@ public class GameStats {
         }
     }
 
+    /**
+     * Updates the current time given a number of hours and minutes to change
+     * @param hours
+     * @param mins
+     */
     public void updateTime(int hours, int mins) {
         assert hours > 0 && hours < 24: "Invalid change in hours";
         assert mins > 0 && mins < 60: "Invalid change in minutes";
+
         hour += hours;
         minutes += mins;
 
@@ -116,13 +145,25 @@ public class GameStats {
         }
     }
 
+    /**
+     * Gets a string that represents the current time
+     * @return a string that represents the current time
+     */
     public String getTimeString() {
         int[] timeArray = getTime();
-        String timeString =  String.format("%02d:%02d ", timeArray[0], timeArray[1]);
-        if (timeArray[2] == 0) {
-            timeString += "AM";
+        String timeString = "";
+        if (twelveHourClock && timeArray[2] != 0) {
+            timeString =  String.format("%02d:%02d", timeArray[0] - 12, timeArray[1]);
         } else {
-            timeString += "PM";
+            timeString =  String.format("%02d:%02d", timeArray[0], timeArray[1]);
+        }
+
+        if (!twelveHourClock) {
+            if (timeArray[2] == 0) {
+                timeString += " AM";
+            } else {
+                timeString += " PM";
+            }
         }
         return timeString;
     }
@@ -133,20 +174,22 @@ public class GameStats {
      * returns 1 if current time is later than given time
      * @param cHour
      * @param cMinutes
-     * @return
+     * @return 0 if the given time is the current time, -1 if the given time is
+     * earlier than the current time, and 1 if the given time is later than the current time
      */
     public int timeCompare(int cHour, int cMinutes){
         assert cHour > 0 && cHour < 24: "Invalid change in hours";
         assert cMinutes > 0 && cMinutes < 60: "Invalid change in minutes";
+
         if (hour == cHour && minutes == cMinutes) {
             return 0;
         }
-        if (hour < cHour){
+        if (hour > cHour){
             return -1;
-        } else if (hour > cHour) {
+        } else if (hour < cHour) {
             return 1;
         } else {
-            if (minutes < cMinutes) {
+            if (minutes > cMinutes) {
                 return -1;
             } else {
                 return 1;

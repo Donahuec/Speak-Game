@@ -1,20 +1,19 @@
 package Pages;
 
-import GameObject.AnimatedObject;
+/**
+ * Start page of the game.
+ */
+
+import GameProcessing.Speak;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-import javafx.event.EventHandler;
 
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/25/2016.
- */
+
 public class PageStart extends PageStory {
     public Image startButton;
     public Image endButton;
@@ -45,7 +44,6 @@ public class PageStart extends PageStory {
         startButton = new Image("file:" + getPicDir() + "start" + File.separator + "start.png");
         endButton = new Image("file:" + getPicDir() + "start" + File.separator + "quit.png");
         bg = new Image("file:" + getPicDir() + "start" + File.separator + "cover.png", getWidth(), getHeight(), false, true);
-
     }
 
     public void update() {
@@ -53,7 +51,6 @@ public class PageStart extends PageStory {
         drawbg();
         drawImages();
         cleanup();
-
     }
 
 
@@ -89,7 +86,6 @@ public class PageStart extends PageStory {
             endWidth = getWidth() / 5.3;
             endHeight = getHeight() / 10.6;
         }
-
 
         getGC().drawImage(startButton, getWidth() / 8, getHeight() / 15 ,startWidth, startHeight );
         getGC().drawImage(endButton, getWidth() / 1.3, getHeight() / 15 ,endWidth, endHeight );

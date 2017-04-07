@@ -1,30 +1,39 @@
 package GameObject;
 
+/**
+ * This class holds all of the information related to an option in an interaction
+ * this includes its position, text, and description
+ */
+
+import Pages.Page;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 2/8/2016.
- */
+
+
 public class TextOption {
+    //String version of option
     private String opString;
     private Text option;
     private String description;
     private Page page;
 
-
-
-    public TextOption(String option, String description, int pos, Page page) {
+    /**
+     * Set up an option in an interaction
+     * @param option A string with the text for the option
+     * @param description A string with the description for the option
+     * @param index The index in the list of options for an interaction. defines position
+     * @param page the current page
+     */
+    public TextOption(String option, String description, int index, Page page) {
         assert option !=  null: "option is null";
         assert description != null: "description is null";
-        assert pos >= 0 && pos < 5: "Invalid position";
+        assert index >= 0 && index < 5: "Invalid position";
 
         this.page = page;
         this.opString = option;
+        //set up Javafx text settings
         this.option = new Text("");
         this.option.setWrappingWidth(page.getWidth() / 2);
         this.option.setTextAlignment(TextAlignment.CENTER);
@@ -35,7 +44,7 @@ public class TextOption {
         double height = (page.getHeight() / 28) + 10;
         //set the pos of option based off of option number
         this.option.setX(x + 20);
-        switch(pos){
+        switch(index){
             case 0:
                 this.option.setY(y + height);
                 break;

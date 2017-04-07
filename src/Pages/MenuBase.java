@@ -1,22 +1,24 @@
 package Pages;
 
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
+
 import java.io.File;
 
 /**
- * Created by Caitlin on 1/29/2016.
+ * Base class for all of the Menu Pages
  */
+
 abstract class MenuBase extends Page {
     public Image phoneBackground;
+
     public MenuBase(Speak speak) {
         super(speak);
     }
+
     /**
      * initializes the scene
      */

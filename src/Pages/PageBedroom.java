@@ -1,21 +1,21 @@
 package Pages;
 
+/**
+ * Page for the bedroom
+ */
+
 import GameObject.AnimatedObject;
 import GameObject.GameText;
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
-/**
- * Created by Caitlin on 1/27/2016.
- */
+
 public class PageBedroom extends PageStory {
-    private AnimatedObject lrdoor;
+    private AnimatedObject livingRoomDoor;
     private Rectangle doorRec;
     private String doorDesc;
     private String roomDesc;
@@ -50,7 +50,7 @@ public class PageBedroom extends PageStory {
         door[4] = door[3];
         door[5] = door[2];
         door[6] = door[1];
-        lrdoor = new AnimatedObject(speak, door, 0.1, false, 3, true);
+        livingRoomDoor = new AnimatedObject(speak, door, 0.1, false, 3, true);
         doorRec = new Rectangle((getWidth() / 10) * 9, 0, getWidth() / 10, (getHeight() / 4) * 3);
     }
 
@@ -59,7 +59,7 @@ public class PageBedroom extends PageStory {
      * cleans up and ends the page
      */
     public void end() {
-        lrdoor = null;
+        livingRoomDoor = null;
         doorRec = null;
         doorDesc = null;
         roomDesc = null;
@@ -69,7 +69,7 @@ public class PageBedroom extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(lrdoor.getFrame(), (getWidth() / 20) * 17, 0, (getWidth() / 20) * 3, (getHeight() / 4) * 3);
+        getGC().drawImage(livingRoomDoor.getFrame(), (getWidth() / 20) * 17, 0, (getWidth() / 20) * 3, (getHeight() / 4) * 3);
     }
 
     @Override
@@ -81,7 +81,8 @@ public class PageBedroom extends PageStory {
 
     @Override
     public void updateDescription() {
-        if (lrdoor.isActive()) {
+        if (livingRoomDoor.isActive()) {
+            //if hovering over living room door
             addDescription(doorDesc);
         } else {
             addDescription(roomDesc);
@@ -98,11 +99,12 @@ public class PageBedroom extends PageStory {
             if (isInteraction) {
                 getInteractionHover(e);
             } else {
+                //hovering over living room door
                 if (doorRec.contains(e.getX(), e.getY())) {
-                    lrdoor.setActive(true);
+                    livingRoomDoor.setActive(true);
                 } else {
-                    lrdoor.setActive(false);
-                    lrdoor.setPaused(false);
+                    livingRoomDoor.setActive(false);
+                    livingRoomDoor.setPaused(false);
                 }
             }
         }

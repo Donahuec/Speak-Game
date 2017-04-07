@@ -1,30 +1,31 @@
 package Pages;
 
+/**
+ * Page for the living room. Here you can leave the apartment, do bills, watch tv, or read
+ */
+
 import GameObject.AnimatedObject;
 import GameObject.GameText;
+import GameObject.Interaction;
 import GameObject.TextOption;
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/27/2016.
- */
+
 public class PageLivingRoom extends PageStory {
-    private AnimatedObject bdoor;
-    private Rectangle brec;
-    private AnimatedObject kdoor;
-    private Rectangle krec;
+    private AnimatedObject bedroomDoor;
+    private Rectangle bedroomRec;
+    private AnimatedObject kitchenDoor;
+    private Rectangle kitchenRec;
 
     private String roomDesc;
-    private String bdoorDesc;
-    private String kdoorDesc;
+    private String bedroomDoorDesc;
+    private String kitchenDoorDesc;
 
     private boolean timeout;
 
@@ -54,8 +55,8 @@ public class PageLivingRoom extends PageStory {
         bdoorArr[4] = bdoorArr[3];
         bdoorArr[5] = bdoorArr[2];
         bdoorArr[6] = bdoorArr[1];
-        bdoor = new AnimatedObject(speak, bdoorArr, 0.1, false, 3, true);
-        brec = new Rectangle(getWidth()  * 0.056, getHeight() * 0.07, getWidth() / 10, (getHeight() / 10) * 8);
+        bedroomDoor = new AnimatedObject(speak, bdoorArr, 0.1, false, 3, true);
+        bedroomRec = new Rectangle(getWidth()  * 0.056, getHeight() * 0.07, getWidth() / 10, (getHeight() / 10) * 8);
 
         Image[] kdoorArr = new Image[7];
         kdoorArr[0] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_1.png");
@@ -65,13 +66,13 @@ public class PageLivingRoom extends PageStory {
         kdoorArr[4] = kdoorArr[3];
         kdoorArr[5] = kdoorArr[2];
         kdoorArr[6] = kdoorArr[1];
-        kdoor = new AnimatedObject(speak, kdoorArr, 0.1, false, 3, true);
-        krec = new Rectangle(getWidth()  * 0.83, getHeight() * 0.075, getWidth() / 10, (getHeight() / 10) * 8);
+        kitchenDoor = new AnimatedObject(speak, kdoorArr, 0.1, false, 3, true);
+        kitchenRec = new Rectangle(getWidth()  * 0.83, getHeight() * 0.075, getWidth() / 10, (getHeight() / 10) * 8);
 
         text = new GameText(getTextDir() + "livingroom.xml");
         roomDesc = text.getText("roomDesc");
-        bdoorDesc = text.getText("bedroom");
-        kdoorDesc = text.getText("hallway");
+        bedroomDoorDesc = text.getText("bedroom");
+        kitchenDoorDesc = text.getText("hallway");
 
         //add options to hashmap
         options.put("kitchen", new TextOption( text.getText("kitchen"),text.getText("kitchenDesc"), 0,  this));
@@ -90,22 +91,22 @@ public class PageLivingRoom extends PageStory {
      * cleans up and ends the page
      */
     public void end() {
-        bdoor = null;
-        brec = null;
+        bedroomDoor = null;
+        bedroomRec = null;
 
-        kdoor = null;
-        krec = null;
+        kitchenDoor = null;
+        kitchenRec = null;
 
         roomDesc = null;
-        bdoorDesc = null;
-        kdoorDesc = null;
+        bedroomDoorDesc = null;
+        kitchenDoorDesc = null;
 
         endPage();
     }
 
     @Override
     public void handleLogic() {
-        if (timeCompare(8, 10) == 1 && timeout == false) {
+        if (timeCompare(8, 10) == -1 && timeout == false) {
             interactions.get("hallway").removeLast();
             timeout = true;
         }
@@ -126,8 +127,8 @@ public class PageLivingRoom extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(bdoor.getFrame(), getWidth()  * 0.031, getHeight() * 0.069, getWidth() * 0.13, getHeight() * 0.83);
-        getGC().drawImage(kdoor.getFrame(), getWidth()  * 0.84, getHeight() * 0.067, getWidth() * 0.13, getHeight() * 0.83);
+        getGC().drawImage(bedroomDoor.getFrame(), getWidth()  * 0.031, getHeight() * 0.069, getWidth() * 0.13, getHeight() * 0.83);
+        getGC().drawImage(kitchenDoor.getFrame(), getWidth()  * 0.84, getHeight() * 0.067, getWidth() * 0.13, getHeight() * 0.83);
     }
 
     @Override
@@ -139,10 +140,10 @@ public class PageLivingRoom extends PageStory {
 
     @Override
     public void updateDescription() {
-        if (bdoor.isActive()) {
-            addDescription(bdoorDesc);
-        } else if (kdoor.isActive()){
-            addDescription(kdoorDesc);
+        if (bedroomDoor.isActive()) {
+            addDescription(bedroomDoorDesc);
+        } else if (kitchenDoor.isActive()){
+            addDescription(kitchenDoorDesc);
         } else {
             addDescription(roomDesc);
         }
@@ -158,15 +159,15 @@ public class PageLivingRoom extends PageStory {
             if (isInteraction) {
                 getInteractionHover(e);
             } else {
-                if (brec.contains(e.getX(), e.getY())) {
-                    bdoor.setActive(true);
-                } else if (krec.contains(e.getX(), e.getY())) {
-                    kdoor.setActive(true);
+                if (bedroomRec.contains(e.getX(), e.getY())) {
+                    bedroomDoor.setActive(true);
+                } else if (kitchenRec.contains(e.getX(), e.getY())) {
+                    kitchenDoor.setActive(true);
                 } else {
-                    bdoor.setActive(false);
-                    bdoor.setPaused(false);
-                    kdoor.setActive(false);
-                    kdoor.setPaused(false);
+                    bedroomDoor.setActive(false);
+                    bedroomDoor.setPaused(false);
+                    kitchenDoor.setActive(false);
+                    kitchenDoor.setPaused(false);
                 }
             }
         }
@@ -181,11 +182,11 @@ public class PageLivingRoom extends PageStory {
         {
             if (isInteraction) {
                 getInteractionChoice(e);
-            }else if (krec.contains(e.getX(), e.getY()) && !isInteraction){
+            }else if (kitchenRec.contains(e.getX(), e.getY()) && !isInteraction){
                 curInteraction = interactions.get("hallway");
                 isInteraction = true;
             } else {
-                if (brec.contains(e.getX(), e.getY())) {
+                if (bedroomRec.contains(e.getX(), e.getY())) {
                     changePage(P.BEDROOM);
                     end();
                 }

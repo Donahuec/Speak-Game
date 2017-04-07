@@ -1,5 +1,6 @@
 package GameProcessing;
-/*
+
+/**
 *Main File for Game run. Initializes window and starts game loop
  */
 

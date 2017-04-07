@@ -1,7 +1,13 @@
 package Pages;
 
+/**
+ * Page for waking up to the alarm
+ */
+
 import GameObject.GameText;
+import GameObject.Interaction;
 import GameObject.TextOption;
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
@@ -9,10 +15,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
 public class PageAlarm extends PageStory {
 
@@ -74,7 +78,7 @@ public class PageAlarm extends PageStory {
     @Override
     public void handleLogic() {
         if (choice == 2) {
-            //snooze alarm
+            //snooze alarm, takes 10 minutes
             updateTime(0, 10);
             isInteraction = false;
             curInteraction.clear();
@@ -85,7 +89,9 @@ public class PageAlarm extends PageStory {
             changePage(P.BEDROOM);
             end();
         }
-        if (timeCompare(8, 10) == 1 && !timesUp) {
+        //if past 8:10 you need to get up
+        if (timeCompare(8, 10) == -1 && !timesUp) {
+            System.out.println("here");
             curInteraction.removeLast();
             options.get("up").setDescription(text.getText("timeout"));
             alarmDescription = text.getText("timeout");

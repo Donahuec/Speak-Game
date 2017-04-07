@@ -1,19 +1,20 @@
 package Pages;
 
+/**
+ * Page for sitting down on the bus
+ */
+
 import GameObject.GameText;
+import GameObject.Interaction;
 import GameObject.TextOption;
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/27/2016.
- */
+
 public class PageBusSeat extends PageStory {
     private Image girl;
     private boolean isGirl;
@@ -79,7 +80,6 @@ public class PageBusSeat extends PageStory {
         interactions.put("panic", new Interaction(this, text.getText("panicRes") , panicArr , 0));
         curInteraction = interactions.get("first");
         isInteraction = true;
-
     }
 
 
@@ -92,6 +92,7 @@ public class PageBusSeat extends PageStory {
     }
 
     @Override
+    //TODO Update with clearer passage names
     public void handleLogic() {
         if (curInteraction == interactions.get("first") && choice != 0) {
             updateTime(0, 10);

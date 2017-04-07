@@ -1,6 +1,9 @@
 package Pages;
 
-import Pages.*;
+/**
+ * Page for getting on the bus
+ */
+
 import GameObject.*;
 import GameProcessing.*;
 import GameObject.AnimatedObject;
@@ -10,12 +13,8 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
-
 import java.io.File;
 
-/**
- * Created by Caitlin on 1/27/2016.
- */
 public class PageBusEntrance extends PageStory {
     private AnimatedObject door;
     private AnimatedObject toll;
@@ -97,13 +96,14 @@ public class PageBusEntrance extends PageStory {
     @Override
     public void handleLogic() {
         if (curInteraction == interactions.get("panic") && choice != 0){
+            //panic and stressfully get on the bus
             changePage(P.BUS_SEAT);
             updateAnxiety(30, 20, 40);
             updateStress(10, 5, 15);
             end();
         } else if (curInteraction == interactions.get("didWait") && choice != 0) {
+            //TODO not yet implemented
             changePage(P.START);
-
             end();
         } else {
             if(choice != 0) {

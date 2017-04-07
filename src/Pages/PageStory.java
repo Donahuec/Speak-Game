@@ -1,6 +1,13 @@
 package Pages;
 
+/**
+ * Parent class of all story related pages.
+ * Holds utilities for story pages
+ */
+
 import GameObject.GameText;
+import GameObject.Interaction;
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -13,13 +20,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 import java.util.Iterator;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/29/2016.
- */
+
 public abstract class PageStory extends Page {
     public GameText text;
     public boolean isInteraction;
@@ -39,7 +41,7 @@ public abstract class PageStory extends Page {
     //the current description
     private Text description;
     //have we drawn the description rectangle this frame?
-    private boolean descrec;
+    private boolean descriptionRectangle;
     public Image bg;
     //variables to have the HUD increment Slowly
     private int curAnxiety = speak.getStats().STARTING_ANXIETY;
@@ -75,9 +77,7 @@ public abstract class PageStory extends Page {
         getRoot().getChildren().add(description);
 
         //rectangle to see if description rectangle has been drawn this frame
-        descrec = false;
-
-
+        descriptionRectangle = false;
     }
 
     /**
@@ -99,7 +99,7 @@ public abstract class PageStory extends Page {
      */
     public void cleanup() {
         choice = 0;
-        descrec = false;
+        descriptionRectangle = false;
     }
 
     public void endPage() {
@@ -178,7 +178,6 @@ public abstract class PageStory extends Page {
             curStress -= 1;
         }
 
-        
         //draw outline
         getGC().setLineWidth(1.0);
         getGC().setStroke(Color.BLACK);
@@ -219,7 +218,7 @@ public abstract class PageStory extends Page {
      */
     public void drawDescriptionSquare() {
         //check if the rectangle has already been drawn this scene
-        if (!descrec){
+        if (!descriptionRectangle){
             getGC().setFill(Color.AQUAMARINE);
             getGC().setStroke(Color.BLACK);
             getGC().setLineWidth(1);
@@ -228,7 +227,7 @@ public abstract class PageStory extends Page {
             getGC().fillRoundRect(10, getHeight() - (getHeight()/ 6), getWidth() - 20, getHeight() / 7, 15, 15);
             getGC().strokeRoundRect(10, getHeight() - (getHeight()/ 6), getWidth() - 20, getHeight() / 7, 15, 15);
             getGC().setGlobalAlpha(1.0);
-            descrec = true;
+            descriptionRectangle = true;
         }
     }
 
@@ -291,7 +290,6 @@ public abstract class PageStory extends Page {
         }
 
         hover = tempHover;
-
     }
 
     /**

@@ -1,21 +1,22 @@
 package Pages;
 
+
+/**
+ * Base class of Pages. Pages are the scenes in the game
+ */
+
 import GameObject.GameStats;
+import GameObject.Interaction;
 import GameObject.TextOption;
 import GameProcessing.GameLoop;
-import javafx.scene.Group;
+import GameProcessing.Speak;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-
+import javafx.scene.Group;
 import java.util.HashMap;
 
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/25/2016.
- */
 public abstract class Page {
     public Speak speak;
     public boolean initialized;
@@ -23,10 +24,14 @@ public abstract class Page {
     public HashMap<String, TextOption> options;
 
 
-
+    /**
+     * Base class for pages, holds default functions
+     * @param speak
+     */
     public Page(Speak speak) {
         this.speak = speak;
         initialized = false;
+        //Set up the hashmaps for text
         options = new HashMap();
         interactions = new HashMap();
     }
@@ -39,6 +44,8 @@ public abstract class Page {
     public String getFontDir(){ return speak.getVars().getFontDir(); }
 
     public String getTextDir(){ return speak.getVars().getTextDir(); }
+
+    public Pages.Page getReturnPage() { return speak.getVars().getReturnPage(); }
 
     public Group getRoot(){ return speak.getRoot(); }
 
@@ -71,27 +78,25 @@ public abstract class Page {
     }
 
     public void  updateStress(int change, int min, int max) {
-        if (change < 0) {
-            assert max < change && min > change;
-        } else if (change > 0) {
-            assert max > change && min < change;
-        }
         speak.getStats().updateStress(change, min, max);
     }
 
-
     public void updateTime(int hours, int mins) {
-        assert hours > 0 && hours < 24: "Invalid change in hours";
-        assert mins > 0 && mins < 60: "Invalid change in minutes";
         speak.getStats().updateTime(hours, mins);
     }
 
     public int timeCompare(int hours, int mins) {
-        assert hours > 0 && hours < 24: "Invalid change in hours";
-        assert mins > 0 && mins < 60: "Invalid change in minutes";
         return speak.getStats().timeCompare(hours, mins);
     }
 
+    public void changePage(Page page) {
+        speak.getVars().setCurrentPage(page);
+    }
+
+    /**
+     * Set the new Page
+     * @param page page to change to
+     */
     public void changePage(P page){
         switch (page) {
             case ALARM:

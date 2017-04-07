@@ -1,12 +1,14 @@
-package GameProcessing; /**
-* Handles the GameLoop
-*/
+package GameProcessing;
 
 import Pages.Page;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+
+/**
+ * Handles the GameLoop
+ */
 
 
 public class GameLoop extends AnimationTimer {

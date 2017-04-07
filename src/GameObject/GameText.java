@@ -1,6 +1,8 @@
-package GameObject; /**
+package GameObject;
+/**
  * Created by Caitlin on 2/4/2016.
  * http://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
+ * Parses text from xml files into a hashmap, and provides functionality to get that text
  */
 
 import org.w3c.dom.Document;
@@ -13,15 +15,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.HashMap;
 
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
-
 public class GameText {
 
     private HashMap<String, String> hash;
     private File inputFile;
 
+    /**
+     * Given an xml file, parses that file into a HashMap
+     * @param file filename of an xml file
+     */
     public GameText(String file) {
         inputFile = new File(file);
         assert inputFile.exists() : "input file does not exist";
@@ -29,7 +31,12 @@ public class GameText {
         parse();
     }
 
-    private void parse() {
+    /**
+     * XML parsing function from
+     * http://www.tutorialspoint.com/java_xml/java_dom_parse_document.htm
+     * @return 0 if successful, -1 if failure
+     */
+    private int parse() {
         try {
             //set up XML reader
             DocumentBuilderFactory dbFactory
@@ -59,9 +66,16 @@ public class GameText {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return 1;
         }
+        return 0;
     }
 
+    /**
+     * Gets a text passage given the id from the xml file
+     * @param id the name of the passage
+     * @return the text passage corresponding to the ID
+     */
     public String getText(String id){
         String text = hash.get(id);
         assert text != null : "invalid id passed to hashMap";

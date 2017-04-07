@@ -1,21 +1,22 @@
 package Pages;
 
+/**
+ * Page for the kitchen. Here you make meals, and do dishes
+ */
+
 import GameObject.AnimatedObject;
 import GameObject.GameText;
+import GameObject.Interaction;
 import GameObject.TextOption;
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/27/2016.
- */
+
 public class PageKitchen extends PageStory {
     private AnimatedObject fridgeDoor;
     private Rectangle fridgeRec;
@@ -106,12 +107,12 @@ public class PageKitchen extends PageStory {
 
     @Override
     public void handleLogic() {
-        if (timeCompare(8, 10) == 1 && walkTime == false) {
+        if (timeCompare(8, 10) == -1 && walkTime == false) {
             interactions.get("hallway").removeLast();
             interactions.get("fridge").removeLast();
             walkTime = true;
         }
-        if (timeCompare(8, 30) == 1 && mediumTime == false) {
+        if (timeCompare(8, 30) == -1 && mediumTime == false) {
             interactions.get("fridge").removeLast();
             mediumTime = true;
         }
@@ -209,7 +210,6 @@ public class PageKitchen extends PageStory {
                 } else if (doorRec.contains(e.getX(), e.getY())) {
                     curInteraction = interactions.get("hallway");
                     isInteraction = true;
-
                 }
             }
         }
