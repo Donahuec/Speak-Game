@@ -48,6 +48,7 @@ public abstract class PageStory extends Page {
     private int curStress = speak.getStats().STARTING_STRESS;
 
 
+
     public PageStory(Speak speak) {
         super(speak);
         isInteraction = false;

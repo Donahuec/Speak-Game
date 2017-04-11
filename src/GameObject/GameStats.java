@@ -12,6 +12,11 @@ public class GameStats {
     public final int STARTING_ANXIETY = 50;
     public final int MAX_STRESS = 50;
     public final int STARTING_STRESS = 10;
+    public final int HOURS = 0;
+    public final int MINUTES = 1;
+    public final int AM_PM = 2;
+    public final int START_HOUR = 7;
+    public final int START_MINUTE = 20;
 
     private boolean gameOver;
     private int anxiety;
@@ -27,8 +32,8 @@ public class GameStats {
     public GameStats() {
         anxiety = STARTING_ANXIETY;
         stress = STARTING_STRESS;
-        hour = 7;
-        minutes = 20;
+        hour = START_HOUR;
+        minutes = START_MINUTE;
         twelveHourClock = true;
         smallBreakfast = true;
         gameOver = false;
@@ -44,14 +49,14 @@ public class GameStats {
      */
     public int[] getTime() {
         int[] timeArray = new int[3];
-        timeArray[1] = minutes;
-        timeArray[0] = hour;
+        timeArray[MINUTES] = minutes;
+        timeArray[HOURS] = hour;
         if (hour >= 12) {
             timeArray[2] = 1;
         } else if (hour > 24) {
-            timeArray[2] = -1;
+            timeArray[AM_PM] = -1;
         } else {
-            timeArray[2] = 0;
+            timeArray[AM_PM] = 0;
         }
         return timeArray;
     }
@@ -152,14 +157,14 @@ public class GameStats {
     public String getTimeString() {
         int[] timeArray = getTime();
         String timeString = "";
-        if (twelveHourClock && timeArray[2] != 0) {
-            timeString =  String.format("%02d:%02d", timeArray[0] - 12, timeArray[1]);
+        if (twelveHourClock && timeArray[AM_PM] != 0) {
+            timeString =  String.format("%02d:%02d", timeArray[HOURS] - 12, timeArray[MINUTES]);
         } else {
-            timeString =  String.format("%02d:%02d", timeArray[0], timeArray[1]);
+            timeString =  String.format("%02d:%02d", timeArray[HOURS], timeArray[MINUTES]);
         }
 
         if (!twelveHourClock) {
-            if (timeArray[2] == 0) {
+            if (timeArray[AM_PM] == 0) {
                 timeString += " AM";
             } else {
                 timeString += " PM";

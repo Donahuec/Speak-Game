@@ -7,7 +7,7 @@ import Pages.PageStory;
  * An interaction is the dialogue where the player makes decisions about their actions
  */
 
-import Pages.PageStory;
+
 import javafx.scene.paint.Color;
 
 
@@ -21,6 +21,13 @@ public class Interaction {
     private double height;
     private double x;
     private double y;
+
+    private final int X_BUFFER = 10;
+    private final int Y_BUFFER = 15;
+    private final int CORNER = 15;
+    private final double HOVER_ALPHA = 0.5;
+    private final double DEFAULT_ALPHA = 0.25;
+    private final int PANIC_OPTION = 6;
 
 
     /**
@@ -41,7 +48,7 @@ public class Interaction {
         this.options = options;
         this.timer = timer;
         //width of box that contains options
-        this.width = (page.getWidth() / 2);
+        this.width = page.getWidth() / 2;
         this.height = (page.getHeight()/ 2);
         this.x = page.getWidth() / 4;
         this.y = page.getHeight() / 5;
@@ -51,7 +58,7 @@ public class Interaction {
 
     /**
      * processes how the options should be displayed and drawn
-     * @param the current time (pulled from Speak)
+     * @param time the current time (pulled from Speak)
      */
     public void process(double time) {
         assert time > 0 : "invalid time";
@@ -64,7 +71,7 @@ public class Interaction {
         double elapsed = time - startTime;
         if (timer != 0 && elapsed >= timer) {
             //choose the panic option
-            page.setChoice(6);
+            page.setChoice(PANIC_OPTION);
             //TODO should this be defined here????
             page.updateAnxiety(20,15,25);
             page.isInteraction = false;
@@ -73,24 +80,30 @@ public class Interaction {
             //draw timer
             if (timer != 0) {
                 page.getGC().setFill(Color.RED);
-                page.getGC().fillRoundRect(x, y - 15, width - (width * (elapsed / timer)), 10, 15, 15);
+
+                double curTimerWidth = width - (width * (elapsed / timer));
+                page.getGC().fillRoundRect(x, y - Y_BUFFER, curTimerWidth, X_BUFFER, Y_BUFFER, CORNER);
             }
 
             page.addDescription(description);
 
             page.getGC().setFill(Color.AQUA);
-            page.getGC().setGlobalAlpha(0.25);
+            page.getGC().setGlobalAlpha(DEFAULT_ALPHA);
 
             //draw the rectangles
             for (int i = 0; i < options.length; i++) {
                 //are we hovering over this option?
                 if (page.getHover() == i + 1) {
-                    page.getGC().setGlobalAlpha(1);
+                    page.getGC().setGlobalAlpha(1.0);
                     page.addDescription(options[i].getDescription());
-                    page.getGC().setGlobalAlpha(0.5);
+                    page.getGC().setGlobalAlpha(HOVER_ALPHA);
                 }
-                page.getGC().fillRoundRect(x, ((i + 2) * 0.5) * y, width, height / 7, 15, 15);
-                page.getGC().setGlobalAlpha(0.25);
+
+                double optionY = ((i + 2) * 0.5) * y;
+                double optionHeight = height / 7;
+
+                page.getGC().fillRoundRect(x, optionY, width, optionHeight, Y_BUFFER, CORNER);
+                page.getGC().setGlobalAlpha(DEFAULT_ALPHA);
             }
 
             //reset opacity

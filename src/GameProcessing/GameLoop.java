@@ -58,7 +58,8 @@ public class GameLoop extends AnimationTimer {
     public void handle(long now) {
 		isGameOver();
 		//current game time
-		curTime= (now - startTime) / 1000000000.0;
+		double toSeconds = 1000000000.0;
+		curTime= (now - startTime) / toSeconds;
 		//make sure canvas is clear
     	graphicsContext.clearRect(0, 0, gameStage.getWidth(),gameStage.getHeight());
 		checkSceneChange();

@@ -1,17 +1,13 @@
 package Pages;
 
+import GameProcessing.Speak;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 import java.io.File;
-import Pages.*;
-import GameObject.*;
-import GameProcessing.*;
 
-/**
- * Created by Caitlin on 1/27/2016.
- */
+
 public class PageStreet extends PageStory {
     private Image askDir;
 
