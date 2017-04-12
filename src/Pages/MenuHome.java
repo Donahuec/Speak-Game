@@ -29,6 +29,10 @@ public class MenuHome extends MenuBase {
         super(speak);
     }
 
+    private final int LINE_WIDTH = 2;
+    private final int FONT_SIZE = 30;
+
+
     /**
      * initializes the scene
      */
@@ -42,7 +46,9 @@ public class MenuHome extends MenuBase {
      */
     public void getAssets(){
         super.getAssets();
-        phoneButton = new Image("file:" + getPicDir() + "menu" + File.separator + "phone_button.png", phoneBackground.getRequestedWidth() / 7, phoneBackground.getRequestedWidth() / 7, false, true);
+        double buttonDimension = phoneBackground.getRequestedWidth() / 7;
+        String phonePath = "file:" + getPicDir() + "menu" + File.separator + "phone_button.png";
+        phoneButton = new Image(phonePath, buttonDimension, buttonDimension, false, true);
     }
 
     /**
@@ -53,29 +59,38 @@ public class MenuHome extends MenuBase {
         //set up event handler for clicking buttons
         getBaseScene().setOnMouseClicked(new PressButton());
         //Draw the buttons
-        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5);
-        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5);
-        getGC().drawImage(phoneButton, (getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 1.5);
+        double middle = getWidth() / 2;
+        double firstColumn = phoneButton.getWidth() * 2.5;
+        double secondColumn = phoneButton.getWidth() / 2;
+        double thirdColumn = phoneButton.getWidth() * 1.5;
+        double firstRow = phoneButton.getHeight() * 1.5;
+        double secondRow = phoneButton.getHeight() * 3.5;
 
-        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 3.5);
-        getGC().drawImage(phoneButton, (getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 3.5);
-        getGC().drawImage(phoneButton, (getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 3.5);
+        getGC().drawImage(phoneButton, middle - firstColumn, firstRow);
+        getGC().drawImage(phoneButton, middle  - secondColumn, firstRow);
+        getGC().drawImage(phoneButton, middle + thirdColumn, firstRow);
+
+        getGC().drawImage(phoneButton, middle - firstColumn, secondRow);
+        getGC().drawImage(phoneButton, middle - secondColumn, secondRow);
+        getGC().drawImage(phoneButton, middle + thirdColumn, secondRow);
 
         //rectangles for pressing buttons
-        statusButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
-        agendaButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
-        todoButton = new Rectangle((getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 1.5, phoneButton.getWidth(), phoneButton.getHeight());
+        statusButton = new Rectangle(middle - firstColumn, firstRow, phoneButton.getWidth(), phoneButton.getHeight());
+        agendaButton = new Rectangle(middle - secondColumn, firstRow, phoneButton.getWidth(), phoneButton.getHeight());
+        todoButton = new Rectangle(middle + thirdColumn, firstRow, phoneButton.getWidth(), phoneButton.getHeight());
 
-        tutorialButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() * 2.5), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
-        quitButton = new Rectangle((getWidth() / 2) - (phoneButton.getWidth() / 2), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
-        resumeButton = new Rectangle((getWidth() / 2) + (phoneButton.getWidth() * 1.5), phoneButton.getHeight() * 3.5, phoneButton.getWidth(), phoneButton.getHeight());
+        tutorialButton = new Rectangle(middle - firstColumn, secondRow, phoneButton.getWidth(), phoneButton.getHeight());
+        quitButton = new Rectangle(middle - secondColumn, secondRow, phoneButton.getWidth(), phoneButton.getHeight());
+        resumeButton = new Rectangle(middle + thirdColumn, secondRow, phoneButton.getWidth(), phoneButton.getHeight());
 
         //print time
         getGC().setFill( Color.WHITE );
-        getGC().setLineWidth(2);
-        Font timeFont = Font.font(30);
+        getGC().setLineWidth(LINE_WIDTH);
+        Font timeFont = Font.font(FONT_SIZE);
         getGC().setFont(timeFont);
-        getGC().fillText( getTimeString(), (getWidth() / 2) + (phoneBackground.getWidth() * 0.20), phoneButton.getHeight() * 1 );
+
+        double timeX = phoneBackground.getWidth() * 0.20;
+        getGC().fillText( getTimeString(), middle + timeX, phoneButton.getHeight());
     }
 
     /**

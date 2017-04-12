@@ -25,6 +25,11 @@ public class PageAlarm extends PageStory {
     public Rectangle alarmClick;
     private boolean timesUp;
 
+    private final int[] SNOOZE_TIME = {0, 10};
+    private final int[] SNOOZE_STRESS = {5, 3, 7};
+    private final int[] WAKE_TIME = {0,20};
+    private final int[] MAX_SNOOZE_TIME = {8, 10};
+
 
     public PageAlarm(Speak speak){
         super(speak);
@@ -53,14 +58,21 @@ public class PageAlarm extends PageStory {
         //add options to hashmap
         options.put("up", new TextOption( text.getText("up"),text.getText("upDesc"), 0,  this));
         options.put("snooze", new TextOption( text.getText("snooze"),text.getText("snoozeDesc"), 1,  this));
-        TextOption[] arr = { options.get("up"),options.get("snooze")};
+
+        TextOption[] options = { this.options.get("up"), this.options.get("snooze")};
 
         //add interactions to hashmap
-        interactions.put("snooze", new Interaction(this, alarmDescription , arr , 0));
+        interactions.put("snooze", new Interaction(this, alarmDescription , options , 0));
 
-        bg = new Image("file:" + getPicDir() + "alarm" + File.separator + "alarm_bg.png", getWidth(), getHeight(), false, true);
+        String alarmPath = "file:" + getPicDir() + "alarm" + File.separator + "alarm_bg.png";
+        bg = new Image(alarmPath, getWidth(), getHeight(), false, true);
 
-        alarmClick = new Rectangle(getWidth() / 5, getHeight() / 5, (getWidth() / 5) * 3., (getHeight() / 5) * 3  );
+        double alarmWidth = (getWidth() / 5) * 3.0;
+        double alarmHeight = (getHeight() / 5) * 3.0;
+        double alarmX = getWidth() / 5;
+        double alarmY = getHeight() / 5;
+
+        alarmClick = new Rectangle(alarmX, alarmY, alarmWidth, alarmHeight);
     }
 
     /**
@@ -79,18 +91,18 @@ public class PageAlarm extends PageStory {
     public void handleLogic() {
         if (choice == 2) {
             //snooze alarm, takes 10 minutes
-            updateTime(0, 10);
+            updateTime(SNOOZE_TIME[0], SNOOZE_TIME[1]);
             isInteraction = false;
             curInteraction.clear();
-            updateStress(5, 3, 7);
+            updateStress(SNOOZE_STRESS[0], SNOOZE_STRESS[1], SNOOZE_STRESS[2]);
         } else if (choice == 1) {
             //wake up and change scenes
-            updateTime(0, 20);
+            updateTime(WAKE_TIME[0], WAKE_TIME[1]);
             changePage(P.BEDROOM);
             end();
         }
         //if past 8:10 you need to get up
-        if (timeCompare(8, 10) == -1 && !timesUp) {
+        if (timeCompare(MAX_SNOOZE_TIME[0], MAX_SNOOZE_TIME[1]) == -1 && !timesUp) {
             System.out.println("here");
             curInteraction.removeLast();
             options.get("up").setDescription(text.getText("timeout"));
@@ -103,11 +115,17 @@ public class PageAlarm extends PageStory {
     public void drawImages() {
         //draw time on alarm
         getGC().setFill( Color.RED );
-        Font alarmFont = Font.loadFont("file:" + getFontDir() + "LCDMN___.TTF", getHeight() / 2);
+
+        double fontSize = getHeight() / 2;
+        double timeX = getWidth() / 5;
+        double timeY = getHeight() / 1.5;
+        double timeMaxWidth = (getWidth()/5) * 3;
+
+        Font alarmFont = Font.loadFont("file:" + getFontDir() + "LCDMN___.TTF", fontSize);
         getGC().setFont(alarmFont);
         getGC().setEffect(new GaussianBlur());
-        getGC().fillText(getTimeString(), getWidth() / 5, getHeight() / 1.5, (getWidth()/5) * 3);
-        getGC().fillText(getTimeString(), getWidth() / 5, getHeight() / 1.5, (getWidth()/5) * 3);
+        getGC().fillText(getTimeString(), timeX, timeY, timeMaxWidth);
+        getGC().fillText(getTimeString(), timeX, timeY, timeMaxWidth);
         getGC().setEffect(null);
     }
 

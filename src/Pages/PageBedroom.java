@@ -20,6 +20,10 @@ public class PageBedroom extends PageStory {
     private String doorDesc;
     private String roomDesc;
 
+    private final int DOOR_FRAMES = 7;
+    private final double FRAME_SPEED = 0.1;
+    private final int DOOR_PAUSE_FRAME = 3;
+
     public PageBedroom(Speak speak) {
         super(speak);
     }
@@ -42,7 +46,8 @@ public class PageBedroom extends PageStory {
         doorDesc = text.getText("door");
 
         bg = new Image("file:" + getPicDir() + "bedroom" + File.separator + "bedroom_bg.png", getWidth(), getHeight(), false, true);
-        Image[] door = new Image[7];
+
+        Image[] door = new Image[DOOR_FRAMES];
         door[0] = new Image("file:" + getPicDir() + "bedroom" + File.separator + "door_1.png");
         door[1] = new Image("file:" + getPicDir() + "bedroom" + File.separator + "door_2.png");
         door[2] = new Image("file:" + getPicDir() + "bedroom" + File.separator + "door_3.png");
@@ -50,8 +55,13 @@ public class PageBedroom extends PageStory {
         door[4] = door[3];
         door[5] = door[2];
         door[6] = door[1];
-        livingRoomDoor = new AnimatedObject(speak, door, 0.1, false, 3, true);
-        doorRec = new Rectangle((getWidth() / 10) * 9, 0, getWidth() / 10, (getHeight() / 4) * 3);
+        livingRoomDoor = new AnimatedObject(speak, door, FRAME_SPEED, false, DOOR_PAUSE_FRAME, true);
+
+        double doorX = (getWidth() / 10) * 9;
+        double doorY = 0;
+        double doorWidth = getWidth() / 10;
+        double doorHeight = (getHeight() / 4) * 3;
+        doorRec = new Rectangle(doorX, doorY, doorWidth, doorHeight);
     }
 
 
@@ -69,7 +79,11 @@ public class PageBedroom extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(livingRoomDoor.getFrame(), (getWidth() / 20) * 17, 0, (getWidth() / 20) * 3, (getHeight() / 4) * 3);
+        double doorX = (getWidth() / 20) * 17;
+        double doorY = 0;
+        double doorWidth = (getWidth() / 20) * 3;
+        double doorHeight = (getHeight() / 4) * 3;
+        getGC().drawImage(livingRoomDoor.getFrame(), doorX, doorY, doorWidth, doorHeight);
     }
 
     @Override

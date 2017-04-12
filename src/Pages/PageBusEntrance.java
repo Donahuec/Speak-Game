@@ -23,6 +23,26 @@ public class PageBusEntrance extends PageStory {
     private boolean waitTime;
     private boolean walkTime;
 
+    private double tollX;
+    private double tollY;
+    private double tollWidth;
+    private double tollHeight;
+
+    private int DOOR_ANIM_FRAMES = 5;
+    private int TOLL_ANIM_FRAMES = 7;
+    private double ANIM_TIME = 0.1;
+    private int TOLL_PAUSE = 3;
+    private int BOARD = 1;
+    private int WAIT = 2;
+    private int WALK = 3;
+    private double PANIC_CHANCE = 0.8;
+    private int[] PANIC_ANXIETY = {30, 20, 40};
+    private int[] PANIC_STRESS = {10, 5, 15};
+    private int[] BOARD_ANXIETY = {-10, -10, 5};
+    private int[] WAIT_ANXIETY = {-10, -15, -5};
+    private int[] WALK_ANXIETY = {-15, -20, -10};
+
+
     public PageBusEntrance(Speak speak) {
         super(speak);
     }
@@ -41,15 +61,16 @@ public class PageBusEntrance extends PageStory {
      */
     public void getAssets() {
         bg = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busentrance_bg.png", getWidth(), getHeight(), false, true);
-        Image[] doorArr = new Image[7];
+        Image[] doorArr = new Image[DOOR_ANIM_FRAMES];
         doorArr[0] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_1.png");
         doorArr[1] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_2.png");
         doorArr[2] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_3.png");
         doorArr[3] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_4.png");
         doorArr[4] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "busdoor_5.png");
         
-        door = new AnimatedObject(speak, doorArr, 0.07, true, 4, false);
-        Image[] tollArr = new Image[7];
+        door = new AnimatedObject(speak, doorArr, ANIM_TIME, true, DOOR_ANIM_FRAMES - 1, false);
+
+        Image[] tollArr = new Image[TOLL_ANIM_FRAMES];
         tollArr[0] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "toll_1.png");
         tollArr[1] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "toll_2.png");
         tollArr[2] = new Image("file:" + getPicDir() + "busentrance" + File.separator + "toll_3.png");
@@ -57,8 +78,14 @@ public class PageBusEntrance extends PageStory {
         tollArr[4] = tollArr[3];
         tollArr[5] = tollArr[2];
         tollArr[6] = tollArr[1];
-        toll = new AnimatedObject(speak, tollArr, 0.1, false, 3, true);
-        tollRec = new Rectangle(getWidth()  * 0.6, getHeight() * 0.31, getWidth() * 0.3, getHeight() * 0.7);
+        toll = new AnimatedObject(speak, tollArr, ANIM_TIME, false, TOLL_PAUSE, true);
+
+        tollX = getWidth() * 0.6;
+        tollY = getHeight() * 0.31;
+        tollWidth = getWidth() * 0.3;
+        tollHeight = getHeight() * 0.7;
+
+        tollRec = new Rectangle(tollX, tollY, tollWidth, tollHeight);
 
         text = new GameText(getTextDir() + "busEntrance.xml");
         desc = text.getText("mainDesc");
@@ -98,8 +125,8 @@ public class PageBusEntrance extends PageStory {
         if (curInteraction == interactions.get("panic") && choice != 0){
             //panic and stressfully get on the bus
             changePage(P.BUS_SEAT);
-            updateAnxiety(30, 20, 40);
-            updateStress(10, 5, 15);
+            updateAnxiety(PANIC_ANXIETY[0], PANIC_ANXIETY[1], PANIC_ANXIETY[2]);
+            updateStress(PANIC_STRESS[0], PANIC_STRESS[1], PANIC_STRESS[2]);
             end();
         } else if (curInteraction == interactions.get("didWait") && choice != 0) {
             //TODO not yet implemented
@@ -108,23 +135,23 @@ public class PageBusEntrance extends PageStory {
         } else {
             if(choice != 0) {
                 float rand = getStats().getRandom();
-                if (rand >= 0.8) {
+                if (rand >= PANIC_CHANCE) {
                     curInteraction = interactions.get("panic");
                     isInteraction = true;
                 } else if (curInteraction == interactions.get("toll")) {
-                    if (choice == 1) {
-                        updateAnxiety(-10, -10, 5);
+                    if (choice == BOARD) {
+                        updateAnxiety(BOARD_ANXIETY[0], BOARD_ANXIETY[1], BOARD_ANXIETY[2]);
                         changePage(P.BUS_SEAT);
                         end();
-                    } else if(choice == 2) {
+                    } else if(choice == WAIT) {
                         curInteraction = interactions.get("didWait");
-                        updateAnxiety(-10, -15, -5);
+                        updateAnxiety(WAIT_ANXIETY[0], WAIT_ANXIETY[1], WAIT_ANXIETY[2]);
                         isInteraction = true;
-                    } else if (choice == 3) {
-                        updateAnxiety(-15, -20, -10);
+                    } else if (choice == WALK) {
+                        updateAnxiety(WALK_ANXIETY[0], WALK_ANXIETY[1], WALK_ANXIETY[2]);
                         changePage(P.START);
                         end();
-                    } else if (choice == 6) {
+                    } else if (choice == PANIC) {
                         curInteraction = interactions.get("panic");
                         isInteraction = true;
                     }
@@ -135,7 +162,7 @@ public class PageBusEntrance extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(toll.getFrame(),getWidth()  * 0.6, getHeight() * 0.31, getWidth() * 0.3, getHeight() * 0.7 );
+        getGC().drawImage(toll.getFrame(), tollX, tollY, tollWidth, tollHeight);
         getGC().drawImage(door.getFrame(), 0, 0, getWidth(), getHeight());
     }
 

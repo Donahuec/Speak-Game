@@ -72,8 +72,6 @@ public class Interaction {
         if (timer != 0 && elapsed >= timer) {
             //choose the panic option
             page.setChoice(PANIC_OPTION);
-            //TODO should this be defined here????
-            page.updateAnxiety(20,15,25);
             page.isInteraction = false;
             page.curInteraction.clear();
         } else {

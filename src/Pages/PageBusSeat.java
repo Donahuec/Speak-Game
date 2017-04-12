@@ -21,6 +21,7 @@ public class PageBusSeat extends PageStory {
     private boolean walkTime;
 
 
+
     public PageBusSeat(Speak speak) {
         super(speak);
     }
@@ -39,7 +40,8 @@ public class PageBusSeat extends PageStory {
      */
     public void getAssets() {
         bg = new Image("file:" + getPicDir() + "bus" + File.separator + "bus.png", getWidth(), getHeight(), false, true);
-        girl = new Image("file:" + getPicDir() + "bus" + File.separator + "neighbor_sit.png", getWidth() *.6, getHeight(), false, true);
+        double girlWidth = getWidth() * 0.6;
+        girl = new Image("file:" + getPicDir() + "bus" + File.separator + "neighbor_sit.png", girlWidth, getHeight(), false, true);
         isGirl = false;
         walkTime = false;
 

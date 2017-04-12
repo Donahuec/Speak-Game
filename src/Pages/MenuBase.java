@@ -28,7 +28,8 @@ abstract class MenuBase extends Page {
      * initializes assets for the scene
      */
     public void getAssets(){
-        phoneBackground = new Image("file:" + getPicDir() + "menu" + File.separator + "phone_bg.png", getWidth() / 3, getHeight(), true, true);
+        double phoneWidth = getWidth() / 3;
+        phoneBackground = new Image("file:" + getPicDir() + "menu" + File.separator + "phone_bg.png", phoneWidth, getHeight(), true, true);
     }
     /**
      * checks for changes in the page
@@ -37,7 +38,8 @@ abstract class MenuBase extends Page {
         //event handler for Esc function
         getStage().getScene().setOnKeyPressed(new MenuPressEsc());
         //Draw the phone Background
-        getGC().drawImage(phoneBackground, (getWidth() / 2) - (phoneBackground.getWidth() / 2), 0);
+        double phoneX = (getWidth() / 2) - (phoneBackground.getWidth() / 2);
+        getGC().drawImage(phoneBackground, phoneX, 0);
     }
 
     /**

@@ -47,6 +47,8 @@ public abstract class PageStory extends Page {
     private int curAnxiety = speak.getStats().STARTING_ANXIETY;
     private int curStress = speak.getStats().STARTING_STRESS;
 
+    protected int PANIC = 6;
+
 
 
     public PageStory(Speak speak) {
