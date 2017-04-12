@@ -29,6 +29,10 @@ public class PageBusSeat extends PageStory {
     private final int[] PANIC_ANXIETY = {25, 15, 30};
     private final int[] LEAVE_ANXIETY = {-10, -10, -5};
 
+    private final int YES = 0;
+    private final int NO = 1;
+    private final int LEAVE = 2;
+
 
 
     public PageBusSeat(Speak speak) {
@@ -59,9 +63,9 @@ public class PageBusSeat extends PageStory {
 
         options.put("sit", new TextOption( cont, text.getText("sitDownDesc"), 0,  this));
         options.put("secondStop", new TextOption( cont, text.getText("secondStopDesc"), 0,  this));
-        options.put("yes", new TextOption( text.getText("yes"),text.getText("yesDesc"), 0,  this));
-        options.put("no", new TextOption( text.getText("no"),text.getText("noDesc"), 1,  this));
-        options.put("leave", new TextOption( text.getText("leave"),text.getText("leaveDesc"), 2,  this));
+        options.put("yes", new TextOption( text.getText("yes"),text.getText("yesDesc"), YES,  this));
+        options.put("no", new TextOption( text.getText("no"),text.getText("noDesc"), NO,  this));
+        options.put("leave", new TextOption( text.getText("leave"),text.getText("leaveDesc"), LEAVE,  this));
 
         options.put("yesRes", new TextOption( cont,text.getText("yesRes"), 0,  this));
         options.put("yesResPanic", new TextOption( cont,text.getText("yesResPanic"), 0,  this));
@@ -105,15 +109,15 @@ public class PageBusSeat extends PageStory {
     @Override
     //TODO Update with clearer passage names
     public void handleLogic() {
-        if (curInteraction == interactions.get("sit") && choice != 0) {
+        if (curInteraction == interactions.get("sit") && choice != -1) {
             updateTime(BUS_TIME[0], BUS_TIME[1]);
             curInteraction = interactions.get("secondStop");
             isGirl = true;
-        } else if (curInteraction == interactions.get("secondStop") && choice != 0) {
+        } else if (curInteraction == interactions.get("secondStop") && choice != -1) {
             curInteraction = interactions.get("choice");
         } else if (curInteraction == interactions.get("choice")) {
             float num = getRandom();
-            if (choice == 1) {
+            if (choice == YES) {
                 if (num < PANIC_CHANCE) {
                     curInteraction = interactions.get("yes");
                     updateAnxiety(YES_ANXIETY[0], YES_ANXIETY[1], YES_ANXIETY[2]);
@@ -121,7 +125,7 @@ public class PageBusSeat extends PageStory {
                     curInteraction = interactions.get("yesPanic");
                     updateAnxiety(YES_PANIC_ANXIETY[0], YES_PANIC_ANXIETY[1], YES_PANIC_ANXIETY[2]);
                 }
-            } else if (choice == 2) {
+            } else if (choice == NO) {
                 if (num < PANIC_CHANCE) {
                     curInteraction = interactions.get("no");
                     isGirl = false;
@@ -131,7 +135,7 @@ public class PageBusSeat extends PageStory {
                     isGirl = false;
                     updateAnxiety(NO_PANIC_ANXIETY[0], NO_PANIC_ANXIETY[1], NO_PANIC_ANXIETY[2]);
                 }
-            } else if (choice == 3) {
+            } else if (choice == LEAVE) {
                 curInteraction = interactions.get("leave");
                 updateAnxiety(LEAVE_ANXIETY[0], LEAVE_ANXIETY[1], LEAVE_ANXIETY[2]);
             } else if (choice == PANIC) {
@@ -139,7 +143,7 @@ public class PageBusSeat extends PageStory {
                 updateAnxiety(PANIC_ANXIETY[0], PANIC_ANXIETY[1], PANIC_ANXIETY[2]);
             }
         } else {
-            if (choice != 0) {
+            if (choice != -1) {
                 changePage(P.START);
                 end();
             }

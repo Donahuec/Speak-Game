@@ -13,7 +13,7 @@ import java.io.File;
  */
 
 abstract class MenuBase extends Page {
-    public Image phoneBackground;
+    protected Image phoneBackground;
 
     public MenuBase(Speak speak) {
         super(speak);

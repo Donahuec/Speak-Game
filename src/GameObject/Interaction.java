@@ -91,7 +91,7 @@ public class Interaction {
             //draw the rectangles
             for (int i = 0; i < options.length; i++) {
                 //are we hovering over this option?
-                if (page.getHover() == i + 1) {
+                if (page.getHover() == i) {
                     page.getGC().setGlobalAlpha(1.0);
                     page.addDescription(options[i].getDescription());
                     page.getGC().setGlobalAlpha(HOVER_ALPHA);

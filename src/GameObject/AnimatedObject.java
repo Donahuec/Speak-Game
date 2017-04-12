@@ -53,9 +53,8 @@ public class AnimatedObject {
     /**
      * Gets the next frame in the animation sequence
      */
-    public Image getFrame()
-    {
-        if((active && !paused) || (!active && returnToStart)){
+    public Image getFrame() {
+        if((active && !paused) || (!active && returnToStart)) {
             //check if enough time has passed
             if ((active || (!active && curFrame != 0)) && (getLoop().getCurTime() - prevTime > duration)) {
                 curFrame++;

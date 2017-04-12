@@ -31,15 +31,22 @@ public class PageKitchen extends PageStory {
 
     private final int[] WALK_TIME = {8, 10};
     private final int[] LARGE_MEAL_TIME = {8, 30};
-    private final int[] FRUIT_STRESS = {10, 7, 13};
-    private final int[] FRUIT_ANXIETY = {20, 15, 25};
+    private final int[] SMALL_MEAL_STRESS = {10, 7, 13};
+    private final int[] SMALL_MEAL_ANXIETY = {20, 15, 25};
     private final int[] L_MEAL_STRESS = {-10, -13, -7};
     private final int[] L_MEAL_ANXIETY = {-20, -25, -15};
-    private final int[] S_MEAL_TIME = {0, 10};
+    private final int[] M_MEAL_TIME = {0, 10};
     private final int[] L_MEAL_TIME = {0, 30};
     private final int DOOR_FRAMES = 7;
     private final int PAUSE_FRAME = 3;
     private final double ANIM_TIME = 0.1;
+
+    private final int SMALL_BREAKFAST = 0;
+    private final int MEDIUM_BREAKFAST = 1;
+    private final int LARGE_BREAKFAST = 2;
+    private final int LIVING_ROOM = 0;
+    private final int BUS = 1;
+    private final int WALK = 2;
 
     public PageKitchen(Speak speak) {
         super(speak);
@@ -91,9 +98,9 @@ public class PageKitchen extends PageStory {
         curDesc = roomDesc;
 
         //door option
-        options.put("livingroom", new TextOption( text.getText("livingroom"),text.getText("livingroomDesc"), 0,  this));
-        options.put("bus", new TextOption( text.getText("bus"),text.getText("busDesc"), 1,  this));
-        options.put("walk", new TextOption( text.getText("walk"),text.getText("walkDesc"), 2,  this));
+        options.put("livingroom", new TextOption( text.getText("livingroom"),text.getText("livingroomDesc"), LIVING_ROOM,  this));
+        options.put("bus", new TextOption( text.getText("bus"),text.getText("busDesc"), BUS,  this));
+        options.put("walk", new TextOption( text.getText("walk"),text.getText("walkDesc"), WALK,  this));
         TextOption[] arrExit = { options.get("livingroom"),options.get("bus"), options.get("walk")};
 
         interactions.put("hallway", new Interaction(this, text.getText("hallChoice") , arrExit , 0));
@@ -101,9 +108,9 @@ public class PageKitchen extends PageStory {
         walkTime = false;
 
         //refrigerator option
-        options.put("small", new TextOption(text.getText("small"), text.getText("smallDesc"), 0, this));
-        options.put("medium", new TextOption(text.getText("medium"), text.getText("mediumDesc"), 1, this));
-        options.put("large", new TextOption(text.getText("large"), text.getText("largeDesc"), 2, this));
+        options.put("small", new TextOption(text.getText("small"), text.getText("smallDesc"), SMALL_BREAKFAST, this));
+        options.put("medium", new TextOption(text.getText("medium"), text.getText("mediumDesc"), MEDIUM_BREAKFAST, this));
+        options.put("large", new TextOption(text.getText("large"), text.getText("largeDesc"), LARGE_BREAKFAST, this));
 
         TextOption[] arrFridge = { options.get("small"), options.get("medium"), options.get("large") };
         interactions.put("fridge", new Interaction(this, text.getText("hallChoice") , arrFridge , 0));
@@ -139,29 +146,29 @@ public class PageKitchen extends PageStory {
             mediumTime = true;
         }
         if (curInteraction == interactions.get("hallway")) {
-            if (choice == 1) {
-                //go to livingroom
+            if (choice == LIVING_ROOM) {
+                //go to living room
                 changePage(P.LIVINGROOM);
                 end();
-            } else if (choice == 2) {
+            } else if (choice == BUS) {
                 //take bus
                 changePage(P.BUS_ENTRANCE);
                 end();
-            } else if (choice == 3) {
+            } else if (choice == WALK) {
                 //walk to work
                 changePage(P.STREET);
                 end();
             }
         } else {
-            if (choice == 1) {
-                updateAnxiety(FRUIT_ANXIETY[0], FRUIT_ANXIETY[1], FRUIT_ANXIETY[2]);
-                updateStress(FRUIT_STRESS[0], FRUIT_STRESS[1], FRUIT_STRESS[2]);
+            if (choice == SMALL_BREAKFAST) {
+                updateAnxiety(SMALL_MEAL_ANXIETY[0], SMALL_MEAL_ANXIETY[1], SMALL_MEAL_ANXIETY[2]);
+                updateStress(SMALL_MEAL_STRESS[0], SMALL_MEAL_STRESS[1], SMALL_MEAL_STRESS[2]);
                 hasEaten = true;
-            } else if (choice == 2) {
+            } else if (choice == MEDIUM_BREAKFAST) {
                 getStats().setSmallBreakfast(false);
-                updateTime(S_MEAL_TIME[0], S_MEAL_TIME[1]);
+                updateTime(M_MEAL_TIME[0], M_MEAL_TIME[1]);
                 hasEaten = true;
-            } else if (choice == 3) {
+            } else if (choice == LARGE_BREAKFAST) {
                 updateAnxiety(L_MEAL_ANXIETY[0], L_MEAL_ANXIETY[1], L_MEAL_ANXIETY[2]);
                 updateStress(L_MEAL_STRESS[0], L_MEAL_STRESS[1], L_MEAL_STRESS[2]);
                 getStats().setSmallBreakfast(false);

@@ -20,15 +20,18 @@ import java.io.File;
 
 public class PageAlarm extends PageStory {
 
-    public String alarmDescription;
-    public boolean choiceMade;
-    public Rectangle alarmClick;
+    private String alarmDescription;
+    private boolean choiceMade;
+    private Rectangle alarmClick;
     private boolean timesUp;
 
     private final int[] SNOOZE_TIME = {0, 10};
     private final int[] SNOOZE_STRESS = {5, 3, 7};
     private final int[] WAKE_TIME = {0,20};
     private final int[] MAX_SNOOZE_TIME = {8, 10};
+
+    private final int WAKE = 0;
+    private final int SNOOZE = 1;
 
 
     public PageAlarm(Speak speak){
@@ -56,8 +59,8 @@ public class PageAlarm extends PageStory {
         alarmDescription = text.getText("alarmDesc");
 
         //add options to hashmap
-        options.put("up", new TextOption( text.getText("up"),text.getText("upDesc"), 0,  this));
-        options.put("snooze", new TextOption( text.getText("snooze"),text.getText("snoozeDesc"), 1,  this));
+        options.put("up", new TextOption( text.getText("up"),text.getText("upDesc"), WAKE,  this));
+        options.put("snooze", new TextOption( text.getText("snooze"),text.getText("snoozeDesc"), SNOOZE,  this));
 
         TextOption[] options = { this.options.get("up"), this.options.get("snooze")};
 
@@ -89,13 +92,13 @@ public class PageAlarm extends PageStory {
 
     @Override
     public void handleLogic() {
-        if (choice == 2) {
+        if (choice == SNOOZE) {
             //snooze alarm, takes 10 minutes
             updateTime(SNOOZE_TIME[0], SNOOZE_TIME[1]);
             isInteraction = false;
             curInteraction.clear();
             updateStress(SNOOZE_STRESS[0], SNOOZE_STRESS[1], SNOOZE_STRESS[2]);
-        } else if (choice == 1) {
+        } else if (choice == WAKE) {
             //wake up and change scenes
             updateTime(WAKE_TIME[0], WAKE_TIME[1]);
             changePage(P.BEDROOM);

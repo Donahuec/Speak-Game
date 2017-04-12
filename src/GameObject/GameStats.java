@@ -12,11 +12,11 @@ public class GameStats {
     public final int STARTING_ANXIETY = 50;
     public final int MAX_STRESS = 50;
     public final int STARTING_STRESS = 10;
-    public final int HOURS = 0;
-    public final int MINUTES = 1;
-    public final int AM_PM = 2;
-    public final int START_HOUR = 7;
-    public final int START_MINUTE = 20;
+    private final int HOURS = 0;
+    private final int MINUTES = 1;
+    private final int AM_PM = 2;
+    private final int START_HOUR = 7;
+    private final int START_MINUTE = 20;
 
     private boolean gameOver;
     private int anxiety;

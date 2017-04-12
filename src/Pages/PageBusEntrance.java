@@ -32,9 +32,9 @@ public class PageBusEntrance extends PageStory {
     private int TOLL_ANIM_FRAMES = 7;
     private double ANIM_TIME = 0.1;
     private int TOLL_PAUSE = 3;
-    private int BOARD = 1;
-    private int WAIT = 2;
-    private int WALK = 3;
+    private int BOARD = 0;
+    private int WAIT = 1;
+    private int WALK = 2;
     private double PANIC_CHANCE = 0.8;
     private int[] PANIC_ANXIETY = {30, 20, 40};
     private int[] PANIC_STRESS = {10, 5, 15};
@@ -90,9 +90,9 @@ public class PageBusEntrance extends PageStory {
         text = new GameText(getTextDir() + "busEntrance.xml");
         desc = text.getText("mainDesc");
 
-        options.put("pay", new TextOption( text.getText("pay"), desc, 0,  this));
-        options.put("wait", new TextOption( text.getText("wait"), desc, 1,  this));
-        options.put("walk", new TextOption( text.getText("walk"), desc, 2,  this));
+        options.put("pay", new TextOption( text.getText("pay"), desc, BOARD,  this));
+        options.put("wait", new TextOption( text.getText("wait"), desc, WAIT,  this));
+        options.put("walk", new TextOption( text.getText("walk"), desc, WALK,  this));
 
         TextOption[] arr = {options.get("pay"), options.get("wait"), options.get("walk")};
 
@@ -133,7 +133,7 @@ public class PageBusEntrance extends PageStory {
             changePage(P.START);
             end();
         } else {
-            if(choice != 0) {
+            if(choice != -1) {
                 float rand = getStats().getRandom();
                 if (rand >= PANIC_CHANCE) {
                     curInteraction = interactions.get("panic");

@@ -15,11 +15,11 @@ import java.io.File;
 
 
 public class PageStart extends PageStory {
-    public Image startButton;
-    public Image endButton;
-    public Rectangle start;
-    public Rectangle end;
-    public int buttonHover;
+    private Image startButton;
+    private Image endButton;
+    private Rectangle start;
+    private Rectangle end;
+    private int buttonHover;
     private final double BUTTON_SIZE_CHANGE = 1.2;
 
 

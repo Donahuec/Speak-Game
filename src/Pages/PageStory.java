@@ -54,8 +54,8 @@ public abstract class PageStory extends Page {
     public PageStory(Speak speak) {
         super(speak);
         isInteraction = false;
-        hover = 0;
-        choice = 0;
+        hover = -1;
+        choice = -1;
 
         //dimensions for options rectangle
         width = (speak.getGameStage().getWidth() / 2);
@@ -101,7 +101,7 @@ public abstract class PageStory extends Page {
      * Cleanup function to clear variables at end of frame
      */
     public void cleanup() {
-        choice = 0;
+        choice = -1;
         descriptionRectangle = false;
     }
 
@@ -272,7 +272,7 @@ public abstract class PageStory extends Page {
     public void getInteractionChoice(MouseEvent e) {
         for (int i = 0; i < curInteraction.getLength(); i++){
             if ( choices[i].contains( e.getX(), e.getY() )  ){
-                choice = i + 1;
+                choice = i;
                 isInteraction = false;
                 curInteraction.clear();
             }
@@ -281,14 +281,15 @@ public abstract class PageStory extends Page {
 
     /**
      * method to be called by eventhandler to get what choice is being hovered over
+     * -1 if not hovering over any
      * @param e
      */
     public void getInteractionHover(MouseEvent e) {
-        int tempHover = 0;
+        int tempHover = -1;
 
         for (int i = 0; i < choices.length; i ++) {
             if ( choices[i].contains( e.getX(), e.getY() ) ){
-                tempHover = i + 1;
+                tempHover = i;
             }
         }
 

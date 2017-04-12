@@ -127,15 +127,15 @@ public class PageLivingRoom extends PageStory {
             interactions.get("hallway").removeLast();
             timeout = true;
         }
-        if (choice == 1) {
+        if (choice == 0) {
             //go to kitchen
             changePage(P.KITCHEN);
             end();
-        } else if (choice == 2) {
+        } else if (choice == 1) {
             //take bus
             changePage(P.BUS_ENTRANCE);
             end();
-        } else if (choice == 3) {
+        } else if (choice == 2) {
             //walk to work
             changePage(P.STREET);
             end();

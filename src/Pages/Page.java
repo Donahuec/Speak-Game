@@ -18,10 +18,10 @@ import java.util.HashMap;
 
 
 public abstract class Page {
-    public Speak speak;
-    public boolean initialized;
-    public HashMap<String, Interaction> interactions;
-    public HashMap<String, TextOption> options;
+    protected Speak speak;
+    public   boolean initialized;
+    protected HashMap<String, Interaction> interactions;
+    protected HashMap<String, TextOption> options;
 
 
     /**

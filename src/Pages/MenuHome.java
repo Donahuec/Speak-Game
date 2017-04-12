@@ -18,13 +18,13 @@ import java.io.File;
 
 
 public class MenuHome extends MenuBase {
-    public Image phoneButton;
-    public Rectangle statusButton;
-    public Rectangle agendaButton;
-    public Rectangle todoButton;
-    public Rectangle tutorialButton;
-    public Rectangle quitButton;
-    public Rectangle resumeButton;
+    private Image phoneButton;
+    private Rectangle statusButton;
+    private Rectangle agendaButton;
+    private Rectangle todoButton;
+    private Rectangle tutorialButton;
+    private Rectangle quitButton;
+    private Rectangle resumeButton;
     public MenuHome(Speak speak){
         super(speak);
     }
