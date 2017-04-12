@@ -116,7 +116,6 @@ public class PageKitchen extends PageStory {
         interactions.put("fridge", new Interaction(this, text.getText("hallChoice") , arrFridge , 0));
 
         mediumTime = false;
-
     }
 
 
