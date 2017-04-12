@@ -20,7 +20,7 @@ public class PageStart extends PageStory {
     public Rectangle start;
     public Rectangle end;
     public int buttonHover;
-    private final double BUTTON_SIZE_CHANGE = 0.2;
+    private final double BUTTON_SIZE_CHANGE = 1.2;
 
 
     public PageStart(Speak speak){
@@ -80,12 +80,12 @@ public class PageStart extends PageStory {
 
         //if we are hovering over a button, make it bigger
         if (buttonHover == 1) {
-            startWidth = startWidth - BUTTON_SIZE_CHANGE;
-            startHeight = startHeight - BUTTON_SIZE_CHANGE;
+            startWidth *= BUTTON_SIZE_CHANGE;
+            startHeight *= BUTTON_SIZE_CHANGE;
         }
         if (buttonHover == 2) {
-            endWidth = endWidth - BUTTON_SIZE_CHANGE;
-            endHeight = endHeight - BUTTON_SIZE_CHANGE;
+            endWidth *= BUTTON_SIZE_CHANGE;
+            endHeight *= BUTTON_SIZE_CHANGE;
         }
 
         double startX = getWidth() / 8;

@@ -29,6 +29,17 @@ public class PageLivingRoom extends PageStory {
 
     private boolean timeout;
 
+    private final int DOOR_FRAMES = 7;
+    private final int DOOR_PAUSE = 3;
+    private final double ANIM_TIME = 0.1;
+    private final int[] WALK_TIME = {8, 10};
+
+    private double doorWidth;
+    private double doorHeight;
+    private double doorY;
+    private double bedroomDoorX;
+    private double kitchenDoorX;
+
     public PageLivingRoom(Speak speak) {
         super(speak);
     }
@@ -46,28 +57,34 @@ public class PageLivingRoom extends PageStory {
      * initializes assets for the scene
      */
     public void getAssets() {
-        bg = new Image("file:" + getPicDir() + "livingroom" + File.separator + "livingroom_bg.png", getWidth(), getHeight(), false, true);
-        Image[] bdoorArr = new Image[7];
-        bdoorArr[0] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_1.png");
-        bdoorArr[1] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_2.png");
-        bdoorArr[2] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_3.png");
-        bdoorArr[3] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_4.png");
-        bdoorArr[4] = bdoorArr[3];
-        bdoorArr[5] = bdoorArr[2];
-        bdoorArr[6] = bdoorArr[1];
-        bedroomDoor = new AnimatedObject(speak, bdoorArr, 0.1, false, 3, true);
-        bedroomRec = new Rectangle(getWidth()  * 0.056, getHeight() * 0.07, getWidth() / 10, (getHeight() / 10) * 8);
+        doorWidth = getWidth() * 0.13;
+        doorHeight = getHeight() * 0.83;
+        doorY = getHeight() * 0.07;
+        bedroomDoorX = getWidth()  * 0.031;
+        kitchenDoorX = getWidth()  * 0.84;
 
-        Image[] kdoorArr = new Image[7];
-        kdoorArr[0] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_1.png");
-        kdoorArr[1] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_2.png");
-        kdoorArr[2] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_3.png");
-        kdoorArr[3] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_4.png");
-        kdoorArr[4] = kdoorArr[3];
-        kdoorArr[5] = kdoorArr[2];
-        kdoorArr[6] = kdoorArr[1];
-        kitchenDoor = new AnimatedObject(speak, kdoorArr, 0.1, false, 3, true);
-        kitchenRec = new Rectangle(getWidth()  * 0.83, getHeight() * 0.075, getWidth() / 10, (getHeight() / 10) * 8);
+        bg = new Image("file:" + getPicDir() + "livingroom" + File.separator + "livingroom_bg.png", getWidth(), getHeight(), false, true);
+        Image[] bedroomDoorArr = new Image[DOOR_FRAMES];
+        bedroomDoorArr[0] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_1.png");
+        bedroomDoorArr[1] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_2.png");
+        bedroomDoorArr[2] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_3.png");
+        bedroomDoorArr[3] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "bdoor_4.png");
+        bedroomDoorArr[4] = bedroomDoorArr[3];
+        bedroomDoorArr[5] = bedroomDoorArr[2];
+        bedroomDoorArr[6] = bedroomDoorArr[1];
+        bedroomDoor = new AnimatedObject(speak, bedroomDoorArr, ANIM_TIME, false, DOOR_PAUSE, true);
+        bedroomRec = new Rectangle(bedroomDoorX, doorY, doorWidth, doorHeight);
+
+        Image[] kitchenDoorArr = new Image[DOOR_FRAMES];
+        kitchenDoorArr[0] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_1.png");
+        kitchenDoorArr[1] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_2.png");
+        kitchenDoorArr[2] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_3.png");
+        kitchenDoorArr[3] = new Image("file:" + getPicDir() + "livingroom" + File.separator + "kdoor_4.png");
+        kitchenDoorArr[4] = kitchenDoorArr[3];
+        kitchenDoorArr[5] = kitchenDoorArr[2];
+        kitchenDoorArr[6] = kitchenDoorArr[1];
+        kitchenDoor = new AnimatedObject(speak, kitchenDoorArr, ANIM_TIME, false, DOOR_PAUSE, true);
+        kitchenRec = new Rectangle(kitchenDoorX, doorY, doorWidth, doorHeight);
 
         text = new GameText(getTextDir() + "livingroom.xml");
         roomDesc = text.getText("roomDesc");
@@ -106,7 +123,7 @@ public class PageLivingRoom extends PageStory {
 
     @Override
     public void handleLogic() {
-        if (timeCompare(8, 10) == -1 && timeout == false) {
+        if (timeCompare(WALK_TIME[0], WALK_TIME[1]) == -1 && timeout == false) {
             interactions.get("hallway").removeLast();
             timeout = true;
         }
@@ -127,8 +144,8 @@ public class PageLivingRoom extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(bedroomDoor.getFrame(), getWidth()  * 0.031, getHeight() * 0.069, getWidth() * 0.13, getHeight() * 0.83);
-        getGC().drawImage(kitchenDoor.getFrame(), getWidth()  * 0.84, getHeight() * 0.067, getWidth() * 0.13, getHeight() * 0.83);
+        getGC().drawImage(bedroomDoor.getFrame(), bedroomDoorX, doorY, doorWidth, doorHeight);
+        getGC().drawImage(kitchenDoor.getFrame(), kitchenDoorX, doorY, doorWidth, doorHeight);
     }
 
     @Override
