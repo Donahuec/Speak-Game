@@ -20,6 +20,7 @@ public class PageStart extends PageStory {
     public Rectangle start;
     public Rectangle end;
     public int buttonHover;
+    private final double BUTTON_SIZE_CHANGE = 0.2;
 
 
     public PageStart(Speak speak){
@@ -79,19 +80,28 @@ public class PageStart extends PageStory {
 
         //if we are hovering over a button, make it bigger
         if (buttonHover == 1) {
-            startWidth = getWidth() / 5.3;
-            startHeight = getHeight() / 10.6;
+            startWidth = startWidth - BUTTON_SIZE_CHANGE;
+            startHeight = startHeight - BUTTON_SIZE_CHANGE;
         }
         if (buttonHover == 2) {
-            endWidth = getWidth() / 5.3;
-            endHeight = getHeight() / 10.6;
+            endWidth = endWidth - BUTTON_SIZE_CHANGE;
+            endHeight = endHeight - BUTTON_SIZE_CHANGE;
         }
 
-        getGC().drawImage(startButton, getWidth() / 8, getHeight() / 15 ,startWidth, startHeight );
-        getGC().drawImage(endButton, getWidth() / 1.3, getHeight() / 15 ,endWidth, endHeight );
+        double startX = getWidth() / 8;
+        double startY = getHeight() / 15;
+        double endX = getWidth() / 1.3;
+        double endY = getHeight() / 15;
+
+        double startWidthMod = (getWidth() / 20);
+        double startHeightMod = (getHeight() / 24);
+        double endWidthMod = (getWidth() / 15);
+
+        getGC().drawImage(startButton, startX, startY ,startWidth, startHeight );
+        getGC().drawImage(endButton, endX, endY,endWidth, endHeight );
         //Rectangle to be able to click start button
-        start = new Rectangle(getWidth() / 8, getHeight() / 15 ,startWidth - (getWidth() / 20), startHeight - (getHeight() / 24));
-        end = new Rectangle(getWidth() / 1.3, getHeight() / 15 ,endWidth  - (getWidth() / 15), endHeight );
+        start = new Rectangle(startX, startY,startWidth - startWidthMod, startHeight - startHeightMod);
+        end = new Rectangle(endX, endY,endWidth  - endWidthMod, endHeight);
     }
 
     @Override

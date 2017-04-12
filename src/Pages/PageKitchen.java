@@ -29,6 +29,18 @@ public class PageKitchen extends PageStory {
     private boolean hasEaten = false;
     private String curDesc;
 
+    private final int[] WALK_TIME = {8, 10};
+    private final int[] LARGE_MEAL_TIME = {8, 30};
+    private final int[] FRUIT_STRESS = {10, 7, 13};
+    private final int[] FRUIT_ANXIETY = {20, 15, 25};
+    private final int[] L_MEAL_STRESS = {-10, -13, -7};
+    private final int[] L_MEAL_ANXIETY = {-20, -25, -15};
+    private final int[] S_MEAL_TIME = {0, 10};
+    private final int[] L_MEAL_TIME = {0, 30};
+    private final int DOOR_FRAMES = 7;
+    private final int PAUSE_FRAME = 3;
+    private final double ANIM_TIME = 0.1;
+
     public PageKitchen(Speak speak) {
         super(speak);
     }
@@ -48,7 +60,7 @@ public class PageKitchen extends PageStory {
     public void getAssets() {
         bg = new Image("file:" + getPicDir() + "kitchen" + File.separator + "kitchen_bg.png", getWidth(), getHeight(), false, true);
 
-        Image[] doorArr = new Image[7];
+        Image[] doorArr = new Image[DOOR_FRAMES];
         doorArr[0] = new Image("file:" + getPicDir() + "kitchen" + File.separator + "fridgedoor_1.png");
         doorArr[1] = new Image("file:" + getPicDir() + "kitchen" + File.separator + "fridgedoor_2.png");
         doorArr[2] = new Image("file:" + getPicDir() + "kitchen" + File.separator + "fridgedoor_3.png");
@@ -56,10 +68,20 @@ public class PageKitchen extends PageStory {
         doorArr[4] = doorArr[3];
         doorArr[5] = doorArr[2];
         doorArr[6] = doorArr[1];
-        fridgeDoor = new AnimatedObject(speak, doorArr, 0.1, false, 3, true);
-        fridgeRec = new Rectangle(getWidth()  * 0.76, getHeight() * 0.33, getWidth() * 0.24, getHeight() * 0.44 );
+        fridgeDoor = new AnimatedObject(speak, doorArr, ANIM_TIME, false, PAUSE_FRAME, true);
 
-        doorRec = new Rectangle(getWidth() * 0.02, 0, getWidth() * 0.13, getHeight() * 0.91);
+        double fridgeX = getWidth()  * 0.76;
+        double fridgeY = getHeight() * 0.33;
+        double fridgeWidth = getWidth() * 0.24;
+        double fridgeHeight = getHeight() * 0.44;
+        fridgeRec = new Rectangle(fridgeX, fridgeY, fridgeWidth, fridgeHeight);
+
+
+        double doorX = getWidth() * 0.02;
+        double doorY = 0;
+        double doorWidth = getWidth() * 0.13;
+        double doorHeight = getHeight() * 0.91;
+        doorRec = new Rectangle(doorX, doorY, doorWidth, doorHeight);
 
         text = new GameText(getTextDir() + "kitchen.xml");
         roomDesc = text.getText("roomDesc");
@@ -107,12 +129,12 @@ public class PageKitchen extends PageStory {
 
     @Override
     public void handleLogic() {
-        if (timeCompare(8, 10) == -1 && walkTime == false) {
+        if (timeCompare(WALK_TIME[0], WALK_TIME[1]) == -1 && walkTime == false) {
             interactions.get("hallway").removeLast();
             interactions.get("fridge").removeLast();
             walkTime = true;
         }
-        if (timeCompare(8, 30) == -1 && mediumTime == false) {
+        if (timeCompare(LARGE_MEAL_TIME[0], LARGE_MEAL_TIME[1]) == -1 && mediumTime == false) {
             interactions.get("fridge").removeLast();
             mediumTime = true;
         }
@@ -132,18 +154,18 @@ public class PageKitchen extends PageStory {
             }
         } else {
             if (choice == 1) {
-                updateAnxiety(20, 15, 25);
-                updateStress(10, 7, 13);
+                updateAnxiety(FRUIT_ANXIETY[0], FRUIT_ANXIETY[1], FRUIT_ANXIETY[2]);
+                updateStress(FRUIT_STRESS[0], FRUIT_STRESS[1], FRUIT_STRESS[2]);
                 hasEaten = true;
             } else if (choice == 2) {
                 getStats().setSmallBreakfast(false);
-                updateTime(0,10);
+                updateTime(S_MEAL_TIME[0], S_MEAL_TIME[1]);
                 hasEaten = true;
             } else if (choice == 3) {
-                updateAnxiety(-20, -25, -15);
-                updateStress(-10, -13, -7);
+                updateAnxiety(L_MEAL_ANXIETY[0], L_MEAL_ANXIETY[1], L_MEAL_ANXIETY[2]);
+                updateStress(L_MEAL_STRESS[0], L_MEAL_STRESS[1], L_MEAL_STRESS[2]);
                 getStats().setSmallBreakfast(false);
-                updateTime(0, 30);
+                updateTime(L_MEAL_TIME[0], L_MEAL_TIME[1]);
                 hasEaten = true;
             }
         }
@@ -154,7 +176,11 @@ public class PageKitchen extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(fridgeDoor.getFrame(), getWidth()  * 0.75, getHeight() * 0.1, getWidth() * 0.25, getHeight() * 0.80);
+        double fridgeX = getWidth()  * 0.75;
+        double fridgeY = getHeight() * 0.1;
+        double fridgeWidth = getWidth() * 0.25;
+        double fridgeHeight = getHeight() * 0.80;
+        getGC().drawImage(fridgeDoor.getFrame(), fridgeX, fridgeY, fridgeWidth, fridgeHeight);
     }
 
     @Override
