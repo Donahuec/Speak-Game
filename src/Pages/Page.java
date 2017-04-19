@@ -10,6 +10,7 @@ import GameObject.Interaction;
 import GameObject.TextOption;
 import GameProcessing.GameLoop;
 import GameProcessing.Speak;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
@@ -44,6 +45,10 @@ public abstract class Page {
     public String getFontDir(){ return speak.getVars().getFontDir(); }
 
     public String getTextDir(){ return speak.getVars().getTextDir(); }
+
+    public String getFXMLDir(){ return speak.getVars().getFXMLDir(); }
+
+    public String getAssetsDir(){ return speak.getVars().getAssetDir(); }
 
     public Pages.Page getReturnPage() { return speak.getVars().getReturnPage(); }
 
@@ -165,6 +170,11 @@ public abstract class Page {
             default:
                 assert false: "Not a valid page to change to";
         }
+    }
+
+    public void loadFXML(String file) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(getFXMLDir() + file));
+        speak.getBaseScene().setRoot(loader.load());
     }
 
     /**

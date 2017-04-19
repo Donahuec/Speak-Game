@@ -2,7 +2,9 @@ package Pages;
 
 import GameProcessing.Speak;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import java.io.File;
@@ -10,6 +12,8 @@ import java.io.File;
 
 public class PageStreet extends PageStory {
     private Image askDir;
+    @FXML public ImageView background;
+    @FXML public ImageView man;
 
     public PageStreet(Speak speak) {
         super(speak);
@@ -46,7 +50,7 @@ public class PageStreet extends PageStory {
 
     @Override
     public void drawImages() {
-        getGC().drawImage(askDir, getWidth() * .75, 0);
+        //getGC().drawImage(askDir, getWidth() * .75, 0);
     }
 
     @Override

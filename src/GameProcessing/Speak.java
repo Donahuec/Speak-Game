@@ -71,9 +71,9 @@ public class Speak extends Application
         return stats;
     }
 
-    public Group getRoot() {
-        return root;
-    }
+    public Group getRoot() { return root; }
+
+    public void setRoot( Group newRoot) { root = newRoot; }
 
     public GraphicsContext getGraphicsContext() {
         return graphicsContext;

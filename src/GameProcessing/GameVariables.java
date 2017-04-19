@@ -17,6 +17,7 @@ public class GameVariables {
     private String picDir;
     private String fontDir;
     private  String textDir;
+    private  String fxmlDir;
     private Page currentPage;
     public Page returnPage;
     public List<Page> pageList;
@@ -60,6 +61,7 @@ public class GameVariables {
         picDir = assetDir + "images" + File.separator;
         textDir = assetDir + "text" + File.separator;
         fontDir = assetDir + "fonts" + File.separator;
+        fxmlDir = assetDir + "FXML" + File.separator;
 
         pageList = new ArrayList<Page>();
 
@@ -117,6 +119,8 @@ public class GameVariables {
     public String getAssetDir(){
         return assetDir;
     }
+
+    public String getFXMLDir() { return  fxmlDir; }
 
     public String getTextDir() { return  textDir; }
 
